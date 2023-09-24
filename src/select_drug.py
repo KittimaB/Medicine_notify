@@ -163,25 +163,8 @@ class Ui_select_drug(object):
         # Connect the "เวลาจ่ายยา" button to the open_time_picker method
         self.set_time_button.clicked.connect(self.open_time_picker)
 
-#เพิ่งใส่
-        # Create dictionaries to store selected drugs for each meal
-        self.selected_drugs_morning_before = {}
-        self.selected_drugs_morning_after = {}
-        self.selected_drugs_lunch_before = {}
-        self.selected_drugs_lunch_after = {}
-        self.selected_drugs_dinner_before = {}
-        self.selected_drugs_dinner_after = {}
-        self.selected_drugs_bedtime = {}
-        
-        # Connect buttons to check and display selected drugs for each meal
-        self.bb_pushButton.clicked.connect(self.display_selected_drugs_morning_before)
-        self.ab_pushButton.clicked.connect(self.display_selected_drugs_morning_after)
-        self.bl_pushButton.clicked.connect(self.display_selected_drugs_lunch_before)
-        self.al_pushButton.clicked.connect(self.display_selected_drugs_lunch_after)
-        self.bd_pushButton.clicked.connect(self.display_selected_drugs_dinner_before)
-        self.ad_pushButton.clicked.connect(self.display_selected_drugs_dinner_after)
-        self.bbed_pushButton.clicked.connect(self.display_selected_drugs_bedtime)
 
+#เพิ่งใส่
 
         # Create a temporary table to store selected drugs
         self.cursor.execute('''
@@ -224,23 +207,8 @@ class Ui_select_drug(object):
 
 #เพิ่งใส่
     def add_selected_drug(self):
+        # Get the selected drugs from the 'เลือกรายการยาที่ต้องการ' list
         selected_drugs = self.get_selected_drugs()
-        
-        # Determine which meal button was clicked and add selected drugs to the corresponding dictionary
-        if self.bb_pushButton.isChecked():
-            self.selected_drugs_morning_before = selected_drugs
-        elif self.ab_pushButton.isChecked():
-            self.selected_drugs_morning_after = selected_drugs
-        elif self.bl_pushButton.isChecked():
-            self.selected_drugs_lunch_before = selected_drugs
-        elif self.al_pushButton.isChecked():
-            self.selected_drugs_lunch_after = selected_drugs
-        elif self.bd_pushButton.isChecked():
-            self.selected_drugs_dinner_before = selected_drugs
-        elif self.ad_pushButton.isChecked():
-            self.selected_drugs_dinner_after = selected_drugs
-        elif self.bbed_pushButton.isChecked():
-            self.selected_drugs_bedtime = selected_drugs
 
         # Clear the 'รายการยาของมื้อนี้' list
         self.listWidget.clear()
@@ -258,83 +226,6 @@ class Ui_select_drug(object):
         for row in selected_drugs:
             drug_name = row[0]
             self.listWidget.addItem(drug_name)
-
-
-    # Methods to display selected drugs for each meal
-    def display_selected_drugs_morning_before(self):
-        self.display_selected_drugs(self.selected_drugs_morning_before, "มื้อเช้าก่อนอาหาร")
-    
-    def display_selected_drugs_morning_after(self):
-        self.display_selected_drugs(self.selected_drugs_morning_after, "มื้อเช้าหลังอาหาร")
-    
-    def display_selected_drugs_lunch_before(self):
-        self.display_selected_drugs(self.selected_drugs_lunch_before, "มื้อเที่ยงก่อนอาหาร")
-    
-    def display_selected_drugs_lunch_after(self):
-        self.display_selected_drugs(self.selected_drugs_lunch_after, "มื้อเที่ยงหลังอาหาร")
-    
-    def display_selected_drugs_dinner_before(self):
-        self.display_selected_drugs(self.selected_drugs_dinner_before, "มื้อเย็นก่อนอาหาร")
-    
-    def display_selected_drugs_dinner_after(self):
-        self.display_selected_drugs(self.selected_drugs_dinner_after, "มื้อเย็นหลังอาหาร")
-    
-    def display_selected_drugs_bedtime(self):
-        self.display_selected_drugs(self.selected_drugs_bedtime, "มื้อก่อนนอน")
-    
-    def display_selected_drugs(self, selected_drugs, meal_name):
-        # Clear the list before displaying selected drugs
-        self.listWidget.clear()
-
-        # Display selected drugs for the specified meal
-        for drug_name in selected_drugs.values():
-            self.listWidget.addItem(drug_name)
-
-
-    def setup_meal_buttons(self):
-        self.bb_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.bb_pushButton.setGeometry(QtCore.QRect(20, 180, 75, 23))
-        self.bb_pushButton.setObjectName("bb_pushButton")
-        self.bb_pushButton.setText("มื้อเช้าก่อนอาหาร")
-        
-        self.ab_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.ab_pushButton.setGeometry(QtCore.QRect(100, 180, 75, 23))
-        self.ab_pushButton.setObjectName("ab_pushButton")
-        self.ab_pushButton.setText("มื้อเช้าหลังอาหาร")
-        
-        self.bl_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.bl_pushButton.setGeometry(QtCore.QRect(180, 180, 75, 23))
-        self.bl_pushButton.setObjectName("bl_pushButton")
-        self.bl_pushButton.setText("มื้อเที่ยงก่อนอาหาร")
-        
-        self.al_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.al_pushButton.setGeometry(QtCore.QRect(260, 180, 75, 23))
-        self.al_pushButton.setObjectName("al_pushButton")
-        self.al_pushButton.setText("มื้อเที่ยงหลังอาหาร")
-        
-        self.bd_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.bd_pushButton.setGeometry(QtCore.QRect(340, 180, 75, 23))
-        self.bd_pushButton.setObjectName("bd_pushButton")
-        self.bd_pushButton.setText("มื้อเย็นก่อนอาหาร")
-        
-        self.ad_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.ad_pushButton.setGeometry(QtCore.QRect(420, 180, 75, 23))
-        self.ad_pushButton.setObjectName("ad_pushButton")
-        self.ad_pushButton.setText("มื้อเย็นหลังอาหาร")
-        
-        self.bbed_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.bbed_pushButton.setGeometry(QtCore.QRect(500, 180, 75, 23))
-        self.bbed_pushButton.setObjectName("bbed_pushButton")
-        self.bbed_pushButton.setText("มื้อก่อนนอน")
-        
-        # Connect the buttons to their respective methods
-        self.bb_pushButton.clicked.connect(self.display_selected_drugs_morning_before)
-        self.ab_pushButton.clicked.connect(self.display_selected_drugs_morning_after)
-        self.bl_pushButton.clicked.connect(self.display_selected_drugs_lunch_before)
-        self.al_pushButton.clicked.connect(self.display_selected_drugs_lunch_after)
-        self.bd_pushButton.clicked.connect(self.display_selected_drugs_dinner_before)
-        self.ad_pushButton.clicked.connect(self.display_selected_drugs_dinner_after)
-        self.bbed_pushButton.clicked.connect(self.display_selected_drugs_bedtime)
         
     def open_add_drug_page(self):
         from AddDrug_New import Ui_Add_drug  # ชื่อไฟล์ของ UI ของหน้า 'เพิ่มยา'
