@@ -4,6 +4,9 @@ from PyQt5.QtCore import QLocale
 import sqlite3
 
 class Ui_select_drug(object):
+    def __init__(self):
+        self.selected_meal_sequence = None  # Initialize the attribute
+
     def setupUi(self, select_drug):
         select_drug.setObjectName("select_drug")
         select_drug.resize(531, 401)
@@ -163,21 +166,7 @@ class Ui_select_drug(object):
         # Connect the "เวลาจ่ายยา" button to the open_time_picker method
         self.set_time_button.clicked.connect(self.open_time_picker)
 
-
-#เพิ่งใส่
-
-        # Create a temporary table to store selected drugs
-        self.cursor.execute('''
-            CREATE TEMPORARY TABLE IF NOT EXISTS SelectedDrugs (
-                drug_id INTEGER PRIMARY KEY,
-                drug_name TEXT
-            )
-        ''')
-
         
-
-
-
         
     def load_all_drugs(self):
         # Retrieve all drugs from the 'Drug' table
@@ -203,29 +192,18 @@ class Ui_select_drug(object):
             if checkbox.isChecked():
                 selected_drugs.append(checkbox_item.text())
         return selected_drugs
-    
 
-#เพิ่งใส่
     def add_selected_drug(self):
-        # Get the selected drugs from the 'เลือกรายการยาที่ต้องการ' list
-        selected_drugs = self.get_selected_drugs()
-
         # Clear the 'รายการยาของมื้อนี้' list
         self.listWidget.clear()
 
-        # Add the selected drugs to the temporary table
-        self.cursor.execute('DELETE FROM SelectedDrugs')  # Clear previous selections
-        for drug_name in selected_drugs:
-            self.cursor.execute('''
-                INSERT INTO SelectedDrugs (drug_name) VALUES (?)
-            ''', (drug_name,))
-        
-        # Retrieve selected drugs from the temporary table and display them
-        query = "SELECT drug_name FROM SelectedDrugs"
-        selected_drugs = self.cursor.execute(query).fetchall()
-        for row in selected_drugs:
-            drug_name = row[0]
-            self.listWidget.addItem(drug_name)
+        # Get the selected drugs from the 'เลือกรายการยาที่ต้องการ' list
+        selected_drugs = self.get_selected_drugs()
+
+        # Add the selected drugs to the 'รายการยาของมื้อนี้' list
+        for drug in selected_drugs:
+            self.listWidget.addItem(drug)
+
         
     def open_add_drug_page(self):
         from AddDrug_New import Ui_Add_drug  # ชื่อไฟล์ของ UI ของหน้า 'เพิ่มยา'

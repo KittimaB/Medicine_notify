@@ -190,11 +190,20 @@ class Ui_Medicine_App(object):
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Meal (
                 meal_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                drug_id INTEGER,
                 meal_name TEXT,
                 time TEXT,
-                checkbox_state INTEGER,
+                checkbox_state INTEGER
+            )
+        ''')
+
+         # Create Relation table
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Relation (
+                rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                drug_id INTEGER,
+                meal_id INTEGER,
                 FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
+                FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
             )
         ''')
         
