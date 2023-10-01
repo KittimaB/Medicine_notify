@@ -4,9 +4,6 @@ from PyQt5.QtCore import QLocale
 import sqlite3
 
 class Ui_select_drug(object):
-    def __init__(self):
-        self.selected_meal_sequence = None  # Initialize the attribute
-
     def setupUi(self, select_drug):
         select_drug.setObjectName("select_drug")
         select_drug.resize(531, 401)
@@ -158,6 +155,7 @@ class Ui_select_drug(object):
         # ปุ่มย้อนกลับ
         def close_window():
             select_drug.close()
+            
         self.select_back_pushButton.clicked.connect(close_window)
         self.select_drug_pushButton.clicked.connect(self.add_selected_drug)
         
@@ -165,8 +163,6 @@ class Ui_select_drug(object):
         
         # Connect the "เวลาจ่ายยา" button to the open_time_picker method
         self.set_time_button.clicked.connect(self.open_time_picker)
-
-        
         
     def load_all_drugs(self):
         # Retrieve all drugs from the 'Drug' table
@@ -203,7 +199,6 @@ class Ui_select_drug(object):
         # Add the selected drugs to the 'รายการยาของมื้อนี้' list
         for drug in selected_drugs:
             self.listWidget.addItem(drug)
-
         
     def open_add_drug_page(self):
         from AddDrug_New import Ui_Add_drug  # ชื่อไฟล์ของ UI ของหน้า 'เพิ่มยา'

@@ -60,36 +60,82 @@ class Ui_sortDrug(object):
         column_labels = ["Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8"]
         self.tableWidget.setHorizontalHeaderLabels(column_labels)
 
-        # Populate the table with colored circles based on meal data
+        # Set the size of each cell to be a square (4x4)
+        cell_size = 60  # You can adjust this value as needed
+        for col_idx in range(8):
+            self.tableWidget.setColumnWidth(col_idx, cell_size)
+        for row_idx in range(5):
+            self.tableWidget.setRowHeight(row_idx, cell_size)
+
+    #     meal_data = [
+    #         ["Breakfast Before"] * 5,    # 5 Breakfast Before
+    #         ["Lunch Before"] * 5,        # 5 Lunch Before
+    #         ["Dinner Before"] * 5,       # 5 Dinner Before
+    #     ]
+
+    #     # Define colors for each meal type
+    #     meal_colors = {
+    #         "Breakfast Before": QtGui.QColor(255, 0, 0),  # Red
+    #         "Lunch Before": QtGui.QColor(255, 165, 0),    # Orange
+    #         "Dinner Before": QtGui.QColor(0, 0, 255),    # Blue
+    #     }
+
+    #     for meal_row in meal_data:
+    #         row_idx = self.tableWidget.rowCount()  # Get the current row index
+    #         print(row_idx)
+    #         for meal_type in meal_row:
+    #             # Set cell background color based on meal type
+    #             print("=====")
+    #             print(meal_type)
+    #             print("=====")
+    #             if meal_type in meal_colors:
+    #                 color = meal_colors[meal_type]
+    #                 for i in range(5):
+    #                     item = QtWidgets.QTableWidgetItem()
+    #                     #item.setFlags(QtCore.Qt.ItemIsEnabled)  # Disable editing
+    #                     self.tableWidget.setItem(row_idx + i, 0, item)  # Set to the first column
+    #                     item.setBackground(color)  # Set cell background color
+    #                     print(color)
+    #                 row_idx += 5  # Increment row index by 5 for the next group
+
+        # Populate the table with meal data and set cell background color
         meal_data = [
-            # Replace this with data from your Meal table
-            ["Breakfast Before", "Breakfast After", "Lunch Before", "Lunch After", "Dinner Before", "Dinner After", "Bedtime"],
-            # Add more rows as needed
+            ["Breakfast Before", "Lunch Before", "Dinner Before"],
         ]
 
-        for row_idx, meal_row in enumerate(meal_data):
-            for col_idx, meal_type in enumerate(meal_row):
-                item = QtWidgets.QTableWidgetItem()
-                item.setFlags(QtCore.Qt.ItemIsEnabled)  # Disable editing
-                self.tableWidget.setItem(row_idx, col_idx, item)
+        # Define colors for each meal type
+        meal_colors = {
+            "Breakfast Before": QtGui.QColor(255, 0, 0),  # Red
+            "Lunch Before": QtGui.QColor(255, 165, 0),    # Orange
+            "Dinner Before": QtGui.QColor(0, 0, 255),    # Blue
+        }
 
+        row_idx = 0  # Initialize row index
+        meal_count = 5  # Number of meals before changing color
+
+        for meal_row in meal_data:
+            for meal_type in meal_row:
                 # Set cell background color based on meal type
-                if "Breakfast Before" in meal_type:
-                    item.setBackground(QtGui.QColor(255, 0, 0))  # Red
-                elif "Breakfast After" in meal_type:
-                    item.setBackground(QtGui.QColor(255, 165, 0))  # Orange
-                elif "Lunch Before" in meal_type:
-                    item.setBackground(QtGui.QColor(255, 255, 0))  # Yellow
-                elif "Lunch After" in meal_type:
-                    item.setBackground(QtGui.QColor(0, 128, 0))  # Green
-                elif "Dinner Before" in meal_type:
-                    item.setBackground(QtGui.QColor(0, 0, 255))  # Blue
-                elif "Dinner After" in meal_type:
-                    item.setBackground(QtGui.QColor(128, 0, 128))  # Purple
-                elif "Bedtime" in meal_type:
-                    item.setBackground(QtGui.QColor(0, 0, 0))  # Black
+                if meal_type in meal_colors:
+                    color = meal_colors[meal_type]
+                    for i in range(meal_count):
+                        item = QtWidgets.QTableWidgetItem()
+                        item.setFlags(QtCore.Qt.ItemIsEnabled)  # Disable editing
+                        self.tableWidget.setItem(row_idx, i, item)
+                        item.setBackground(color)
+                    row_idx += 1  # Increment row index
 
-        # ...
+                    # Check if we need to reset meal count and change color
+                    print(meal_count)
+                    meal_count -= 1
+
+                    if meal_count == 0:
+                        # Change color to the next meal type (cycling)
+                        next_meal_type = meal_colors.popitem()[0]
+                        meal_colors[next_meal_type] = meal_colors.popitem()[1]
+
+                        print("===========")
+
 
         # Create a layout for self.centralwidget and add the table to it
         layout = QtWidgets.QVBoxLayout(self.centralwidget)

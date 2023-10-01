@@ -1,71 +1,101 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, QLabel, QSpinBox
 
-class TableExample(QMainWindow):
-    def __init__(self):
-        super().__init__()
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QTableWidgetItem 
 
-        self.initUI()
 
-    def initUI(self):
-        self.setWindowTitle("ระบบจัดการตารางยา")
-        self.setGeometry(100, 100, 800, 600)
+class Ui_sortDrug(object):
+    def setupUi(self, sortDrug):
+        sortDrug.setObjectName("sortDrug")
+        sortDrug.setEnabled(True)
+        sortDrug.resize(531, 401)
+        sortDrug.setStyleSheet("background-color: rgb(217, 244, 255)")
+        self.centralwidget = QtWidgets.QWidget(sortDrug)
+        self.centralwidget.setObjectName("centralwidget")
+        self.add_back_pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 40, 71, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.add_back_pushButton.setFont(font)
+        self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
+"background-color: rgb(166, 0, 0)")
+        self.add_back_pushButton.setObjectName("add_back_pushButton")
+        self.sort_label = QtWidgets.QLabel(self.centralwidget)
+        self.sort_label.setGeometry(QtCore.QRect(130, 20, 291, 51))
+        font = QtGui.QFont()
+        font.setPointSize(22)
+        font.setBold(True)
+        font.setWeight(75)
+        self.sort_label.setFont(font)
+        self.sort_label.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.sort_label.setFrameShape(QtWidgets.QFrame.Box)
+        self.sort_label.setLineWidth(1)
+        self.sort_label.setTextFormat(QtCore.Qt.AutoText)
+        self.sort_label.setScaledContents(False)
+        self.sort_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.sort_label.setWordWrap(True)
+        self.sort_label.setObjectName("sort_label")
+        self.line = QtWidgets.QFrame(self.centralwidget)
+        self.line.setGeometry(QtCore.QRect(-10, 90, 551, 20))
+        self.line.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.line.setLineWidth(3)
+        self.line.setFrameShape(QtWidgets.QFrame.HLine)
+        self.line.setObjectName("line")
+        sortDrug.setCentralWidget(self.centralwidget)
 
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
+        self.retranslateUi(sortDrug)
+        QtCore.QMetaObject.connectSlotsByName(sortDrug)
 
-        layout = QVBoxLayout()
+        def close_window():
+            sortDrug.close()
+            
+        self.add_back_pushButton.clicked.connect(close_window)
 
-        # ส่วนเลือกขนาดของตาราง (row และ column)
-        size_label = QLabel("เลือกขนาดของตาราง")
-        layout.addWidget(size_label)
+        # สร้างและกำหนด QTableWidget
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setGeometry(QtCore.QRect(20, 120, 491, 241))
+        self.tableWidget.setObjectName("tableWidget")
 
-        self.row_spinbox = QSpinBox()
-        row_label = QLabel("Row (แนวนอน)")
-        self.row_spinbox.setMaximum(20)  # กำหนดค่าสูงสุดของ row
-        layout.addWidget(row_label)
-        layout.addWidget(self.row_spinbox)
+        # กำหนดหัวข้อคอลัมน์ในตาราง
+        self.tableWidget.setColumnCount(8)
+        self.tableWidget.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8"])
+        
+        # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
+        self.tableWidget.setRowCount(5)
 
-        self.col_spinbox = QSpinBox()
-        col_label = QLabel("Column (แนวตั้ง)")
-        self.col_spinbox.setMaximum(20)  # กำหนดค่าสูงสุดของ column
-        layout.addWidget(col_label)
-        layout.addWidget(self.col_spinbox)
+        # Set the size of each cell to be a square (4x4)
+        cell_size = 58  # You can adjust this value as needed
+        for col_idx in range(8):
+            self.tableWidget.setColumnWidth(col_idx, cell_size)
+        for row_idx in range(5):
+            self.tableWidget.setRowHeight(row_idx, cell_size)
 
-        create_table_button = QPushButton("สร้างตาราง")
-        create_table_button.clicked.connect(self.create_table)
-        layout.addWidget(create_table_button)
+        # กำหนดสีพื้นหลังของแต่ละเซลล์
+        colors = [QtGui.QColor(255, 0, 0), QtGui.QColor(255, 165, 0), QtGui.QColor(0, 0, 255)]  # สีแดง, ส้ม, ฟ้า
+        color_index = 0
 
-        self.table_widget = QTableWidget()
-        layout.addWidget(self.table_widget)
+        for row in range(5):
+            for col in range(8):
+                item = QTableWidgetItem()
+                item.setBackground(colors[color_index])
+                ui.tableWidget.setItem(row, col, item)
+                color_index = (color_index + 1) % len(colors)  # สลับสี
+    
 
-        self.central_widget.setLayout(layout)
 
-    def create_table(self):
-        rows = self.row_spinbox.value()
-        cols = self.col_spinbox.value()
 
-        self.table_widget.setRowCount(rows)
-        self.table_widget.setColumnCount(cols)
+    def retranslateUi(self, sortDrug):
+        _translate = QtCore.QCoreApplication.translate
+        sortDrug.setWindowTitle(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
+        self.add_back_pushButton.setText(_translate("sortDrug", "ย้อนกลับ"))
+        self.sort_label.setText(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
 
-        # ตั้งชื่อ column ในตาราง
-        for col in range(cols):
-            header_item = QTableWidgetItem(f"Column {col + 1}")
-            self.table_widget.setHorizontalHeaderItem(col, header_item)
 
-        # คำนวณและแสดงช่องในตาราง
-        for row in range(rows):
-            for col in range(cols):
-                item = QTableWidgetItem(f"มื้อเช้าก่อนอาหาร ช่อง {chr(65 + col)}{rows - row}")
-                self.table_widget.setItem(row, col, item)
-
-        self.table_widget.setHorizontalHeaderLabels([f"Column {col + 1}" for col in range(cols)])
-
-def main():
-    app = QApplication(sys.argv)
-    ex = TableExample()
-    ex.show()
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    sortDrug = QtWidgets.QMainWindow()
+    ui = Ui_sortDrug()
+    ui.setupUi(sortDrug)
+    sortDrug.show()
     sys.exit(app.exec_())
 
-if __name__ == '__main__':
-    main()

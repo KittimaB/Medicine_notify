@@ -3,6 +3,7 @@ from AddDrug_New import Ui_Add_drug
 from setting import Ui_setting
 from pack_med import Ui_med_pack
 from sortDrug import Ui_sortDrug
+from drugTotal import Ui_drugTotal
 
 import sqlite3
 
@@ -233,6 +234,7 @@ class Ui_Medicine_App(object):
         self.setting_pushButton.clicked.connect(self.open_setting_page)
         self.putDrug_pushButton.clicked.connect(self.open_pack_page)
         self.alignment_pushButton.clicked.connect(self.open_sortdrug_page)
+        self.drugLeft_pushButton.clicked.connect(self.open_drugTotal_page)
 
         
     ###################### เวลา #############################
@@ -291,7 +293,20 @@ class Ui_Medicine_App(object):
             self.sortdrug_window.close()
             
         self.ui_sortdrug.add_back_pushButton.clicked.connect(close_sortdrug_window)
+    
+    ##################### หน้าจำนวนมื้อยาคงเหลือ ############################# 
+    def open_drugTotal_page(self):
+        self.drugTotal_window = QtWidgets.QMainWindow()
+        self.ui_drugTotal = Ui_drugTotal()
+        self.ui_drugTotal.setupUi(self.drugTotal_window)
+        self.drugTotal_window.show()
         
+        def close_drugTotal_window():
+            self.drugTotal_window.close()
+            
+        self.ui_drugTotal.add_back_pushButton.clicked.connect(close_drugTotal_window)
+
+
     def retranslateUi(self, Medicine_App):
         _translate = QtCore.QCoreApplication.translate
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าแรก"))
