@@ -1,6 +1,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem 
+
 
 
 class Ui_sortDrug(object):
@@ -50,36 +50,96 @@ class Ui_sortDrug(object):
             
         self.add_back_pushButton.clicked.connect(close_window)
 
-        # สร้างและกำหนด QTableWidget
-        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(20, 120, 491, 241))
+
+
+       # Create a QTableWidget with 5 rows and 8 columns
+        self.tableWidget = QtWidgets.QTableWidget(5, 8)
         self.tableWidget.setObjectName("tableWidget")
 
-        # กำหนดหัวข้อคอลัมน์ในตาราง
-        self.tableWidget.setColumnCount(8)
-        self.tableWidget.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8"])
-        
-        # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
-        self.tableWidget.setRowCount(5)
+        # Set the column labels (optional)
+        column_labels = ["Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8"]
+        self.tableWidget.setHorizontalHeaderLabels(column_labels)
 
         # Set the size of each cell to be a square (4x4)
-        cell_size = 58  # You can adjust this value as needed
+        cell_size = 60  # You can adjust this value as needed
         for col_idx in range(8):
             self.tableWidget.setColumnWidth(col_idx, cell_size)
         for row_idx in range(5):
             self.tableWidget.setRowHeight(row_idx, cell_size)
 
-        # กำหนดสีพื้นหลังของแต่ละเซลล์
-        colors = [QtGui.QColor(255, 0, 0), QtGui.QColor(255, 165, 0), QtGui.QColor(0, 0, 255)]  # สีแดง, ส้ม, ฟ้า
-        color_index = 0
+    #     meal_data = [
+    #         ["Breakfast Before"] * 5,    # 5 Breakfast Before
+    #         ["Lunch Before"] * 5,        # 5 Lunch Before
+    #         ["Dinner Before"] * 5,       # 5 Dinner Before
+    #     ]
 
-        for row in range(5):
-            for col in range(8):
-                item = QTableWidgetItem()
-                item.setBackground(colors[color_index])
-                ui.tableWidget.setItem(row, col, item)
-                color_index = (color_index + 1) % len(colors)  # สลับสี
-    
+    #     # Define colors for each meal type
+    #     meal_colors = {
+    #         "Breakfast Before": QtGui.QColor(255, 0, 0),  # Red
+    #         "Lunch Before": QtGui.QColor(255, 165, 0),    # Orange
+    #         "Dinner Before": QtGui.QColor(0, 0, 255),    # Blue
+    #     }
+
+    #     for meal_row in meal_data:
+    #         row_idx = self.tableWidget.rowCount()  # Get the current row index
+    #         print(row_idx)
+    #         for meal_type in meal_row:
+    #             # Set cell background color based on meal type
+    #             print("=====")
+    #             print(meal_type)
+    #             print("=====")
+    #             if meal_type in meal_colors:
+    #                 color = meal_colors[meal_type]
+    #                 for i in range(5):
+    #                     item = QtWidgets.QTableWidgetItem()
+    #                     #item.setFlags(QtCore.Qt.ItemIsEnabled)  # Disable editing
+    #                     self.tableWidget.setItem(row_idx + i, 0, item)  # Set to the first column
+    #                     item.setBackground(color)  # Set cell background color
+    #                     print(color)
+    #                 row_idx += 5  # Increment row index by 5 for the next group
+
+        # Populate the table with meal data and set cell background color
+        meal_data = [
+            ["Breakfast Before", "Lunch Before", "Dinner Before"],
+        ]
+
+        # Define colors for each meal type
+        meal_colors = {
+            "Breakfast Before": QtGui.QColor(255, 0, 0),  # Red
+            "Lunch Before": QtGui.QColor(255, 165, 0),    # Orange
+            "Dinner Before": QtGui.QColor(0, 0, 255),    # Blue
+        }
+
+        row_idx = 0  # Initialize row index
+        meal_count = 5  # Number of meals before changing color
+
+        for meal_row in meal_data:
+            for meal_type in meal_row:
+                # Set cell background color based on meal type
+                if meal_type in meal_colors:
+                    color = meal_colors[meal_type]
+                    for i in range(meal_count):
+                        item = QtWidgets.QTableWidgetItem()
+                        item.setFlags(QtCore.Qt.ItemIsEnabled)  # Disable editing
+                        self.tableWidget.setItem(row_idx, i, item)
+                        item.setBackground(color)
+                    row_idx += 1  # Increment row index
+
+                    # Check if we need to reset meal count and change color
+                    print(meal_count)
+                    meal_count -= 1
+
+                    if meal_count == 0:
+                        # Change color to the next meal type (cycling)
+                        next_meal_type = meal_colors.popitem()[0]
+                        meal_colors[next_meal_type] = meal_colors.popitem()[1]
+
+                        print("===========")
+
+
+        # Create a layout for self.centralwidget and add the table to it
+        layout = QtWidgets.QVBoxLayout(self.centralwidget)
+        layout.addWidget(self.tableWidget)
 
 
 
@@ -98,4 +158,3 @@ if __name__ == "__main__":
     ui.setupUi(sortDrug)
     sortDrug.show()
     sys.exit(app.exec_())
-

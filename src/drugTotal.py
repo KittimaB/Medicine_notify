@@ -49,6 +49,20 @@ class Ui_drugTotal(object):
             
         self.add_back_pushButton.clicked.connect(close_window)
 
+        # สร้างและกำหนด QTableWidget
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setGeometry(QtCore.QRect(155, 120, 217, 241))
+        self.tableWidget.setObjectName("tableWidget")
+
+        # กำหนดหัวข้อคอลัมน์ในตาราง
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setHorizontalHeaderLabels(["มื้ออาหาร", "คงเหลือ"])
+        
+        # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
+        self.tableWidget.setRowCount(7)
+
+        
+
     def retranslateUi(self, drugTotal):
         _translate = QtCore.QCoreApplication.translate
         drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
