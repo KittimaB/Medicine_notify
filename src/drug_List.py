@@ -1,4 +1,3 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from AddDrug_New import Ui_Add_drug
 
@@ -56,8 +55,6 @@ class Ui_drug_List(object):
         self.drug_list_widget = QtWidgets.QListWidget(self.centralwidget)
         self.drug_list_widget.setGeometry(QtCore.QRect(20, 120, 491, 261))
         self.update_drug_list()  # เรียกใช้ฟังก์ชันเพื่อแสดงรายการยาในคลังยา
-
-        
 
 
         def close_window():
