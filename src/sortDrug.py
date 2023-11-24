@@ -12,7 +12,7 @@ class Ui_sortDrug(object):
         self.centralwidget = QtWidgets.QWidget(sortDrug)
         self.centralwidget.setObjectName("centralwidget")
         self.add_back_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 40, 71, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 31, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
@@ -20,7 +20,7 @@ class Ui_sortDrug(object):
 "background-color: rgb(166, 0, 0)")
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.sort_label = QtWidgets.QLabel(self.centralwidget)
-        self.sort_label.setGeometry(QtCore.QRect(130, 20, 291, 51))
+        self.sort_label.setGeometry(QtCore.QRect(130, 11, 291, 51))
         font = QtGui.QFont()
         font.setPointSize(22)
         font.setBold(True)
@@ -35,12 +35,15 @@ class Ui_sortDrug(object):
         self.sort_label.setWordWrap(True)
         self.sort_label.setObjectName("sort_label")
         self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(-10, 90, 551, 20))
+        self.line.setGeometry(QtCore.QRect(-10, 62, 551, 20))
         self.line.setFrameShadow(QtWidgets.QFrame.Plain)
         self.line.setLineWidth(3)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setObjectName("line")
         sortDrug.setCentralWidget(self.centralwidget)
+
+        # Call the setup_table_widget method to create the table
+        self.setup_table_widget()
 
         self.retranslateUi(sortDrug)
         QtCore.QMetaObject.connectSlotsByName(sortDrug)
@@ -50,9 +53,40 @@ class Ui_sortDrug(object):
             
         self.add_back_pushButton.clicked.connect(close_window)
 
-        # สร้างและกำหนด QTableWidget
+        # # สร้างและกำหนด QTableWidget
+        # self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        # self.tableWidget.setGeometry(QtCore.QRect(25, 76, 483, 316))                         
+        # self.tableWidget.setObjectName("tableWidget")
+
+        # # กำหนดหัวข้อคอลัมน์ในตาราง
+        # self.tableWidget.setColumnCount(8)
+        # self.tableWidget.setHorizontalHeaderLabels(["Column 1", "Column 2", "Column 3", "Column 4", "Column 5", "Column 6", "Column 7", "Column 8"])
+        
+        # # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
+        # self.tableWidget.setRowCount(5)
+
+        # # Set the size of each cell to be a square (4x4)
+        # cell_size = 58  # You can adjust this value as needed
+        # for col_idx in range(8):
+        #     self.tableWidget.setColumnWidth(col_idx, cell_size)
+        # for row_idx in range(5):
+        #     self.tableWidget.setRowHeight(row_idx, cell_size)
+
+        # # กำหนดสีพื้นหลังของแต่ละเซลล์
+        # colors = [QtGui.QColor(255, 0, 0), QtGui.QColor(255, 165, 0), QtGui.QColor(0, 0, 255)]  # สีแดง, ส้ม, ฟ้า
+        # color_index = 0
+
+        # for row in range(5):
+        #     for col in range(8):
+        #         item = QTableWidgetItem()
+        #         item.setBackground(colors[color_index])
+        #         self.tableWidget.setItem(row, col, item)
+        #         color_index = (color_index + 1) % len(colors)  # สลับสี
+
+    def setup_table_widget(self):
+        # Set up the table widget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(20, 120, 491, 241))
+        self.tableWidget.setGeometry(QtCore.QRect(25, 76, 483, 316))
         self.tableWidget.setObjectName("tableWidget")
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
@@ -63,22 +97,70 @@ class Ui_sortDrug(object):
         self.tableWidget.setRowCount(5)
 
         # Set the size of each cell to be a square (4x4)
-        cell_size = 58  # You can adjust this value as needed
+        cell_size = 58
         for col_idx in range(8):
             self.tableWidget.setColumnWidth(col_idx, cell_size)
         for row_idx in range(5):
             self.tableWidget.setRowHeight(row_idx, cell_size)
 
-        # กำหนดสีพื้นหลังของแต่ละเซลล์
-        colors = [QtGui.QColor(255, 0, 0), QtGui.QColor(255, 165, 0), QtGui.QColor(0, 0, 255)]  # สีแดง, ส้ม, ฟ้า
-        color_index = 0
+        # Define colors for days of the week
+        day_colors = {
+            'Monday': QtGui.QColor(255, 255, 0),     # Yellow
+            'Tuesday': QtGui.QColor(255, 192, 203),  # Pink
+            'Wednesday': QtGui.QColor(0, 255, 0),    # Green
+            'Thursday': QtGui.QColor(255, 165, 0),   # Orange
+            'Friday': QtGui.QColor(0, 0, 255),       # Blue
+            'Saturday': QtGui.QColor(106, 90, 205),  # Purple
+            'Sunday': QtGui.QColor(255, 0, 0)        # Red
+        }
 
+        # Define meal numbers
+        meal_numbers = {
+            'Breakfast before meal': 'เช้าก่อน',
+            'Breakfast after meal': 'เช้าหลัง',
+            'Lunch before meal': 'เที่ยงก่อน',
+            'Lunch after meal': 'เที่ยงหลัง',
+            'Dinner before meal': 'เย็นก่อน',
+            'Dinner after meal': 'เย็นหลัง',
+            'Before bedtime': 'ก่อนนอน'
+        }
+
+        # Initialize variables for days and meals
+        days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        meals = ['Breakfast before meal', 'Breakfast after meal', 'Lunch before meal', 'Lunch after meal', 'Dinner before meal', 'Dinner after meal', 'Before bedtime']
+
+        # Populate the table with colors and meal numbers
         for row in range(5):
             for col in range(8):
                 item = QTableWidgetItem()
-                item.setBackground(colors[color_index])
+                day = days[col % len(days)]
+                item.setBackground(day_colors[day])
+
+                # Check the column index to set the appropriate background color pattern
+                if col % 8 == 0 or col % 8 == 1:
+                    item.setBackground(QtGui.QColor(255, 255, 0))  # Yellow
+                    item.setText(str(meal_numbers['Breakfast before meal']))
+                elif col % 8 == 2 or col % 8 == 3 or col % 8 == 4:
+                    item.setBackground(QtGui.QColor(255, 192, 203))  # Pink
+                    if col % 8 == 2:
+                        item.setText(str(meal_numbers['Breakfast after meal']))
+                    elif col % 8 == 3:
+                        item.setText(str(meal_numbers['Lunch before meal']))
+                    elif col % 8 == 4:
+                        item.setText(str(meal_numbers['Lunch after meal']))
+                elif col % 8 == 5 or col % 8 == 6 or col % 8 == 7:
+                    item.setBackground(QtGui.QColor(0, 255, 0))  # Green
+                    if col % 8 == 5:
+                        item.setText(str(meal_numbers['Dinner before meal']))
+                    elif col % 8 == 6:
+                        item.setText(str(meal_numbers['Dinner after meal']))
+                    elif col % 8 == 7:
+                        item.setText(str(meal_numbers['Before bedtime']))
+
+                item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(row, col, item)
-                color_index = (color_index + 1) % len(colors)  # สลับสี
+
+            
     
 
 
@@ -98,4 +180,3 @@ if __name__ == "__main__":
     ui.setupUi(sortDrug)
     sortDrug.show()
     sys.exit(app.exec_())
-

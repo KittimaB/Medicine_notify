@@ -1,5 +1,4 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from drug_List import Ui_drug_List
 from setting import Ui_setting
 from pack_med import Ui_med_pack

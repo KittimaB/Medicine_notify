@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import QDialog, QTimeEdit, QPushButton, QVBoxLayout
 from PyQt5.QtCore import QLocale
 import sqlite3
 
+#ไม่ใช้แล้ว
+
 class Ui_select_drug(object):
     def setupUi(self, select_drug):
         select_drug.setObjectName("select_drug")

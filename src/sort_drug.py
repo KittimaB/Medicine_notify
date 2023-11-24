@@ -1,7 +1,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
+#version old ไม่ใช้แล้ว
 
 class Ui_sortDrug(object):
     def setupUi(self, sortDrug):

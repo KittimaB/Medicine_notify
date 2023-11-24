@@ -2,6 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem 
 import sqlite3
 
+#ไม่ใช้แล้ว
+
 
 class Ui_drugList(object):
     def setupUi(self, drugList):

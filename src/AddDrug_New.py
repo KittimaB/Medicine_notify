@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
-from PyQt5.QtCore import pyqtSignal
+
+
+from drugList import Ui_drugList
 
 import sqlite3
 
@@ -165,9 +167,7 @@ class Ui_Add_drug(object):
         #Add_drug.setTabOrder(self.saveDrug_pushButton, self.listHave_pushButton)
         #Add_drug.setTabOrder(self.listHave_pushButton, self.add_back_pushButton)
 
-        # Add this line to define a signal
-        drug_saved_signal = pyqtSignal()
-
+        
         def close_window():
             Add_drug.close()
             
@@ -231,10 +231,6 @@ class Ui_Add_drug(object):
             # Show the QDialog
             error_dialog.exec_()
             return  # Do not proceed with saving
-        
-        # Emit the signal indicating that a drug has been saved
-        self.drug_saved_signal.emit()
-
         self.update_drug_list
 
         connection = sqlite3.connect("medicine.db")

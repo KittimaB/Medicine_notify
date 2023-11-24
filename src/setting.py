@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlite3
 
+#ไม่ใช้แล้ว
+
 class Ui_setting(object):
     def setupUi(self, setting):
         self.setting = setting  # Store the setting object as an instance variable
