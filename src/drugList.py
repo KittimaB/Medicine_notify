@@ -4,7 +4,6 @@ import sqlite3
 
 #ไม่ใช้แล้ว
 
-
 class Ui_drugList(object):
     def setupUi(self, drugList):
         drugList.setObjectName("drugList")

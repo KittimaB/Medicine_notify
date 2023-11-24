@@ -222,7 +222,6 @@ class Ui_each_drug(object):
         self.label_4.setText(_translate("each_drug", "ยาทั้งหมด"))
         self.label_5.setText(_translate("each_drug", "ยาที่กิน"))
 
-
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)

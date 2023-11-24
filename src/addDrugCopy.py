@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from PyQt5.QtWidgets import QDialog, QVBoxLayout, QPushButton
 import sqlite3
-
 #ไม่ใช้แล้ว
 
 class Ui_Add_drug(object):

@@ -2,7 +2,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QDialog, QTimeEdit, QPushButton, QVBoxLayout
 from PyQt5.QtCore import QLocale
 import sqlite3
-
 #ไม่ใช้แล้ว
 
 class Ui_select_drug(object):

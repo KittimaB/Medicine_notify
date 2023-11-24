@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from AddDrug_New import Ui_Add_drug
 from each_drug import Ui_each_drug 
-
 import sqlite3
 
 class Ui_drug_List(object):
