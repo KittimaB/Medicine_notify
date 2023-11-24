@@ -107,20 +107,27 @@ class Ui_sortDrug(object):
         day_colors = {
             'Monday': QtGui.QColor(255, 255, 0),     # Yellow
             'Tuesday': QtGui.QColor(255, 192, 203),  # Pink
-            'Wednesday': QtGui.QColor(0, 255, 0)     # Green
+            'Wednesday': QtGui.QColor(0, 255, 0),    # Green
+            'Thursday': QtGui.QColor(255, 165, 0),   # Orange
+            'Friday': QtGui.QColor(0, 0, 255),       # Blue
+            'Saturday': QtGui.QColor(106, 90, 205),  # Purple
+            'Sunday': QtGui.QColor(255, 0, 0)        # Red
         }
 
         # Define meal numbers
         meal_numbers = {
             'Breakfast before meal': 'เช้าก่อน',
+            'Breakfast after meal': 'เช้าหลัง',
             'Lunch before meal': 'เที่ยงก่อน',
+            'Lunch after meal': 'เที่ยงหลัง',
+            'Dinner before meal': 'เย็นก่อน',
             'Dinner after meal': 'เย็นหลัง',
             'Before bedtime': 'ก่อนนอน'
         }
 
         # Initialize variables for days and meals
-        days = ['Monday', 'Tuesday', 'Wednesday']
-        meals = ['Breakfast before meal', 'Lunch before meal', 'Dinner after meal', 'Before bedtime']
+        days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        meals = ['Breakfast before meal', 'Breakfast after meal', 'Lunch before meal', 'Lunch after meal', 'Dinner before meal', 'Dinner after meal', 'Before bedtime']
 
         # Populate the table with colors and meal numbers
         for row in range(5):
@@ -132,14 +139,27 @@ class Ui_sortDrug(object):
                 # Check the column index to set the appropriate background color pattern
                 if col % 8 == 0 or col % 8 == 1:
                     item.setBackground(QtGui.QColor(255, 255, 0))  # Yellow
+                    item.setText(str(meal_numbers['Breakfast before meal']))
                 elif col % 8 == 2 or col % 8 == 3 or col % 8 == 4:
                     item.setBackground(QtGui.QColor(255, 192, 203))  # Pink
+                    if col % 8 == 2:
+                        item.setText(str(meal_numbers['Breakfast after meal']))
+                    elif col % 8 == 3:
+                        item.setText(str(meal_numbers['Lunch before meal']))
+                    elif col % 8 == 4:
+                        item.setText(str(meal_numbers['Lunch after meal']))
                 elif col % 8 == 5 or col % 8 == 6 or col % 8 == 7:
                     item.setBackground(QtGui.QColor(0, 255, 0))  # Green
+                    if col % 8 == 5:
+                        item.setText(str(meal_numbers['Dinner before meal']))
+                    elif col % 8 == 6:
+                        item.setText(str(meal_numbers['Dinner after meal']))
+                    elif col % 8 == 7:
+                        item.setText(str(meal_numbers['Before bedtime']))
 
-                item.setText(str(meal_numbers[meals[col % len(meals)]]))
                 item.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.tableWidget.setItem(row, col, item)
+
             
     
 

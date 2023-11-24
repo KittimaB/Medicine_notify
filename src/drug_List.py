@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from AddDrug_New import Ui_Add_drug
+from each_drug import Ui_each_drug 
 
 import sqlite3
 
@@ -56,6 +57,9 @@ class Ui_drug_List(object):
         self.drug_list_widget.setGeometry(QtCore.QRect(20, 120, 491, 261))
         self.update_drug_list()  # เรียกใช้ฟังก์ชันเพื่อแสดงรายการยาในคลังยา
 
+        # Connect the itemClicked signal to handle_drug_item_click method
+        self.drug_list_widget.itemClicked.connect(self.handle_drug_item_click) #คลิกชื่อยาแล้วเปิดหน้าeach_drug
+
 
         def close_window():
             drug_List.close()
@@ -74,6 +78,25 @@ class Ui_drug_List(object):
     #         self.add_drug_window.show()
     #         # if self.add_drug_window.close():
     #         #     self.update_drug_list()
+
+
+
+    def handle_drug_item_click(self, item):
+        # Get the text of the clicked item (drug name)
+        drug_name = item.text()
+
+        # Open the each_drug window with the selected drug
+        self.each_drug_window = QtWidgets.QMainWindow()
+        self.each_drug_ui = Ui_each_drug()
+        self.each_drug_ui.setupUi(self.each_drug_window)
+        
+        # Set drug info for the each_drug window
+        self.each_drug_ui.set_drug_info(drug_name)
+
+        # Pass the drug name to the each_drug window
+        self.each_drug_ui.label.setText(drug_name)
+
+        self.each_drug_window.show()
 
     def open_add_drug(self):
         self.add_drug_window = QtWidgets.QMainWindow()
