@@ -185,6 +185,21 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
+        def delete_drug():
+            drug_name = self.label_2.text()  # รับชื่อยาจาก Label
+            reply = QtWidgets.QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
+                                                   QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+            if reply == QtWidgets.QMessageBox.Yes:
+                connection = sqlite3.connect("medicine.db")
+                cursor = connection.cursor()
+                cursor.execute("DELETE FROM Drug WHERE drug_name = ?", (drug_name,))
+                connection.commit()
+                connection.close()
+                each_drug.close()  # ปิดหน้าต่างหลังจากลบเสร็จ
+
+        self.add_back_pushButton.clicked.connect(close_window)
+        self.delete_pushButton.clicked.connect(delete_drug)
+
     def set_drug_info(self, drug_name):
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
