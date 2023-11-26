@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from drug_List import Ui_drug_List
-from setting import Ui_setting
+from select_time import Ui_select_time
 from pack_med import Ui_med_pack
 from sortDrug import Ui_sortDrug
 from drugTotal import Ui_drugTotal
@@ -231,7 +231,7 @@ class Ui_Medicine_App(object):
         self.connection.commit()
         
         self.addDrug_pushButton.clicked.connect(self.open_drug_List_page)
-        self.setting_pushButton.clicked.connect(self.open_setting_page)
+        self.setting_pushButton.clicked.connect(self.open_select_time_page)
         self.putDrug_pushButton.clicked.connect(self.open_pack_page)
         self.alignment_pushButton.clicked.connect(self.open_sortdrug_page)
         self.drugLeft_pushButton.clicked.connect(self.open_drugTotal_page)
@@ -258,17 +258,17 @@ class Ui_Medicine_App(object):
         
         self.ui_drug_List.add_back_pushButton.clicked.connect(close_drug_List_window)
 
-    ###################### หน้าตั้งค่ามื้อยา ############################# 
-    def open_setting_page(self):
-        self.setting_window = QtWidgets.QMainWindow()
-        self.ui_setting = Ui_setting()
-        self.ui_setting.setupUi(self.setting_window)
-        self.setting_window.show()
+    ###################### หน้าตั้งเวลามื้อยา ############################# 
+    def open_select_time_page(self):
+        self.select_time_window = QtWidgets.QMainWindow()
+        self.ui_select_time = Ui_select_time()
+        self.ui_select_time.setupUi(self.select_time_window)
+        self.select_time_window.show()
         
-        def close_setting_window():
-            self.setting_window.close()
+        def close_select_time_window():
+            self.select_time_window.close()
         
-        self.ui_setting.back_pushButton.clicked.connect(close_setting_window)
+        self.ui_select_time.back_pushButton.clicked.connect(close_select_time_window)
         
     ###################### หน้าวิธีบรรจุยา ############################# 
     def open_pack_page(self):
@@ -312,7 +312,7 @@ class Ui_Medicine_App(object):
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))
         self.addDrug_pushButton.setText(_translate("Medicine_App", "  คลังยา"))
         self.home_label.setText(_translate("Medicine_App", "   หน้าหลัก"))
-        self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งค่ามื้อยา"))
+        self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
         self.putDrug_pushButton.setText(_translate("Medicine_App", "  วิธีการใส่ยาในกล่องบรรจุยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนมื้อยาคงเหลือ"))

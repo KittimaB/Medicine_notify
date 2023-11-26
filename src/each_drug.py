@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from select_day import Ui_select_day
+from select_meal import Ui_select_meal
 import sqlite3
 
 class Ui_each_drug(object):
@@ -185,6 +186,9 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
+        self.selectDay_pushButton.clicked.connect(self.open_select_day)
+        self.selectMeal_pushButton.clicked.connect(self.open_select_meal)
+
         def delete_drug():
             drug_name = self.label_2.text()  # รับชื่อยาจาก Label
             reply = QtWidgets.QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
@@ -199,6 +203,20 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
         self.delete_pushButton.clicked.connect(delete_drug)
+
+    def open_select_day(self):
+        self.select_day_window = QtWidgets.QMainWindow()
+        self.select_day_ui = Ui_select_day()
+
+        self.select_day_ui.setupUi(self.select_day_window)
+        self.select_day_window.show()
+    
+    def open_select_meal(self):
+        self.select_meal_window = QtWidgets.QMainWindow()
+        self.select_meal_ui = Ui_select_meal()
+
+        self.select_meal_ui.setupUi(self.select_meal_window)
+        self.select_meal_window.show()
 
     def set_drug_info(self, drug_name):
         connection = sqlite3.connect("medicine.db")
