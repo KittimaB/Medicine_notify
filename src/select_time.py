@@ -1,7 +1,14 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from timeEdit import Ui_time_Edit
 
 class Ui_select_time(object):
+    def open_time_edit(self, meal_label_text):
+        time_edit_window = QtWidgets.QMainWindow()
+        time_edit_ui = Ui_time_Edit()
+        time_edit_ui.meal_label_text = meal_label_text  # Set meal label text
+        time_edit_ui.setupUi(time_edit_window)
+        time_edit_window.show()
+
     def setupUi(self, select_time):
         select_time.setObjectName("select_time")
         select_time.resize(531, 401)
@@ -136,6 +143,14 @@ class Ui_select_time(object):
 
         self.retranslateUi(select_time)
         QtCore.QMetaObject.connectSlotsByName(select_time)
+
+        self.bb_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเช้า ก่อนอาหาร"))
+        self.ab_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเช้า หลังอาหาร"))
+        self.bl_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเที่ยง ก่อนอาหาร"))
+        self.al_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเที่ยง หลังอาหาร"))
+        self.bd_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเย็น ก่อนอาหาร"))
+        self.ad_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเย็น หลังอาหาร"))
+        self.bbed_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อก่อนนอน"))
 
         def close_window():
             select_time.close()

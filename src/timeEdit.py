@@ -59,6 +59,8 @@ class Ui_time_Edit(object):
         self.retranslateUi(time_Edit)
         QtCore.QMetaObject.connectSlotsByName(time_Edit)
 
+        self.label.setText(self.meal_label_text)
+
         def close_window():
             time_Edit.close()
 
