@@ -1,2 +1,1 @@
-
-        self.textEdit_2.clear()
+thai_to_arabic

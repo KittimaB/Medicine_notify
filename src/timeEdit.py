@@ -2,6 +2,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_time_Edit(object):
+    def __init__(self):
+        self.meal_label_text = ""
+        
     def setupUi(self, time_Edit):
         time_Edit.setObjectName("time_Edit")
         time_Edit.resize(531, 401)
