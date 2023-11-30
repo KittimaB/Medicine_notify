@@ -187,45 +187,54 @@ class Ui_Medicine_App(object):
             )
         ''')
 
-        # Create Drug_Meal table
+        # Create Meal table
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Meal (
                 meal_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 meal_name TEXT,
                 time TEXT,
-                checkbox_state INTEGER
+                meal_state INTEGER
             )
         ''')
 
-         # Create Relation table
+        # Create Day table
         self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Relation (
-                rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                drug_id INTEGER,
-                meal_id INTEGER,
-                FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
-                FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
+            CREATE TABLE IF NOT EXISTS Day (
+                day_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                day_name TEXT,
+                day_state INTEGER
             )
         ''')
+
+        #  # Create Relation table
+        # self.cursor.execute('''
+        #     CREATE TABLE IF NOT EXISTS Relation (
+        #         rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        #         drug_id INTEGER,
+        #         meal_id INTEGER,
+        #         FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
+        #         FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
+        #     )
+        # ''')
         
         # Check if the Meal table is empty, and if so, insert default values
         self.cursor.execute("SELECT COUNT(*) FROM Meal")
         meal_count = self.cursor.fetchone()[0]
 
         if meal_count == 0:
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อเช้า ก่อนอาหาร", "06:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเช้า เที่ยงอาหาร", "06:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+                                ("มื้อเช้า หลังอาหาร", "06:30", 0))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อเที่ยง ก่อนอาหาร", "12:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อเที่ยง หลังอาหาร", "12:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อเย็น ก่อนอาหาร", "18:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อเย็น หลังอาหาร", "18:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
+            self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
                                 ("มื้อก่อนนอน", "20:30", 0))
 
         self.connection.commit()

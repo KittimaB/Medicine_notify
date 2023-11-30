@@ -1,1 +1,2 @@
-thai_to_arabic
+time TEXT,
+                checkbox_state INTEGER
