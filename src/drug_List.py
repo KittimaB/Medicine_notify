@@ -113,9 +113,11 @@ class Ui_drug_List(object):
         cursor.execute("SELECT drug_name FROM Drug")
         drugs = cursor.fetchall()
         connection.close()
-        # ล้างรายการยาเก่าใน QListWidget
+
+        # Clear existing items in the drug list widget
         self.drug_list_widget.clear()
-        # เพิ่มรายการยาใหม่ลงใน QListWidget
+
+        # Add new items to the drug list widget
         for drug in drugs:
             self.drug_list_widget.addItem(drug[0])
             

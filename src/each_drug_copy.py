@@ -3,11 +3,12 @@ from day_start import Ui_day_start
 
 import sqlite3
 
+#เดะลบ
 
 class Ui_each_drug(object):
     def setupUi(self, each_drug):
         each_drug.setObjectName("each_drug")
-        each_drug.resize(531, 401)
+        each_drug.resize(531, 386)
         each_drug.setStyleSheet("background-color: rgb(217, 244, 255)")
         self.centralwidget = QtWidgets.QWidget(each_drug)
         self.centralwidget.setObjectName("centralwidget")
@@ -80,7 +81,7 @@ class Ui_each_drug(object):
         self.drugAll_label.setFont(font)
         self.drugAll_label.setObjectName("drugAll_label")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(410, 300, 85, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(410, 270, 91, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)

@@ -737,6 +737,28 @@ background-color: rgb(166, 0, 0)</string>
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QPushButton" name="next_pushButton">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>330</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(85, 170, 127);</string>
+    </property>
+    <property name="text">
+     <string>เสร็จสิ้น</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources>
