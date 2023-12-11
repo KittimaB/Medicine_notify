@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 from select_meal import Ui_select_meal
-
+import sqlite3
 
 class Ui_day_start(object):
     def setupUi(self, day_start):
@@ -72,21 +72,53 @@ class Ui_day_start(object):
 
         self.next_pushButton.clicked.connect(self.open_select_meal)
 
+        # Initialize variable to track if the date has been selected
+        self.date_selected = False
+
     def update_selected_date(self):
         selected_date = self.calendar_widget.selectedDate()
         self.label_date.setText(selected_date.toString("yyyy-MM-dd"))
-        # Disable further date changes
-        self.calendar_widget.setEnabled(False)
+        # Enable further date changes
+        self.calendar_widget.setEnabled(True)
+        # Update the variable to indicate that the date has been selected
+        self.date_selected = True
 
     def open_select_meal(self):
-        if not self.calendar_widget.isEnabled():
+        if self.date_selected:
+            # Save the selected date to the database
+            selected_date = self.calendar_widget.selectedDate().toString("yyyy-MM-dd")
+            self.save_date_to_database(selected_date)
+
+            # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()
             self.select_meal_ui = Ui_select_meal()
-
             self.select_meal_ui.setupUi(self.select_meal_window)
             self.select_meal_window.show()
+
+            # Disable the calendar after proceeding
+            self.calendar_widget.setEnabled(False)
         else:
-            QMessageBox.warning(self.centralwidget, "เตือน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
+            QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
+    
+    def save_date_to_database(self, selected_date):
+        # Connect to SQLite database
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
+
+        # Check if a record already exists
+        cursor.execute("SELECT * FROM Day")
+        existing_record = cursor.fetchone()
+
+        if existing_record:
+            # Update the existing record
+            cursor.execute("UPDATE Day SET day_start = ? WHERE day_id = ?", (selected_date, existing_record[0]))
+        else:
+            # Insert a new record
+            cursor.execute("INSERT INTO Day (day_start) VALUES (?)", (selected_date,))
+
+        # Commit changes and close connection
+        connection.commit()
+        connection.close()
 
 
     def retranslateUi(self, day_start):

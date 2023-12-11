@@ -201,8 +201,7 @@ class Ui_Medicine_App(object):
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Day (
                 day_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                day_name TEXT,
-                day_state INTEGER
+                day_start INTEGER
             )
         ''')
 
