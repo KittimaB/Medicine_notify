@@ -1,8 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 
 
-from drugList import Ui_drugList
-
 import sqlite3
 
 
@@ -16,6 +14,13 @@ class NumericOnlyTextEdit(QtWidgets.QTextEdit):
 
 
 class Ui_Add_drug(object):
+    def open_main_again(self):
+        from main import Ui_Medicine_App  
+        self.main_again_window = QtWidgets.QMainWindow()
+        self.main_again_ui = Ui_Medicine_App()
+        self.main_again_ui.setupUi(self.main_again_window)
+        self.main_again_window.show()
+
     def setupUi(self, Add_drug):
         Add_drug.setObjectName("Add_drug")
         Add_drug.resize(531, 401)
@@ -164,14 +169,13 @@ class Ui_Add_drug(object):
         QtCore.QMetaObject.connectSlotsByName(Add_drug)
         Add_drug.setTabOrder(self.textEdit, self.textEdit_2)
         Add_drug.setTabOrder(self.textEdit_2, self.saveDrug_pushButton)
+
+        self.add_back_pushButton.clicked.connect(self.open_main_again)
+
         #Add_drug.setTabOrder(self.saveDrug_pushButton, self.listHave_pushButton)
         #Add_drug.setTabOrder(self.listHave_pushButton, self.add_back_pushButton)
 
         
-        def close_window():
-            Add_drug.close()
-            
-        self.add_back_pushButton.clicked.connect(close_window)
 
         #def open_drug_list():
         #    drug_list_window = QtWidgets.QMainWindow()
@@ -302,7 +306,7 @@ class Ui_Add_drug(object):
         self.drugAll_label.setText(_translate("Add_drug", "จำนวนยาทั้งหมดที่มี (เม็ด)"))
         self.saveDrug_pushButton.setText(_translate("Add_drug", "บันทึกยา"))
         #self.listHave_pushButton.setText(_translate("Add_drug", "รายการยาที่มี"))
-        self.add_back_pushButton.setText(_translate("Add_drug", "ย้อนกลับ"))
+        self.add_back_pushButton.setText(_translate("Add_drug", "หน้าหลัก"))
         self.drugOne_label.setText(_translate("Add_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
 import resources_rc
 
