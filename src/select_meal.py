@@ -1,10 +1,11 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import sqlite3
 
 class Ui_select_meal(object):
     def open_drug_list_again(self):
-        from drug_List import Ui_drug_List  # Import inside the method
+        from main import Ui_Medicine_App  # version ใช้ไปก่อน จริงๆต้องimport drug_List แต่ยังไม่ได้ทำอัปเดทเลยยังไม่สามารถรู้ได้ในทันที
         self.drug_list_again_window = QtWidgets.QMainWindow()
-        self.drug_list_again_ui = Ui_drug_List()
+        self.drug_list_again_ui = Ui_Medicine_App()
         self.drug_list_again_ui.setupUi(self.drug_list_again_window)
         self.drug_list_again_window.show()
 
@@ -311,6 +312,129 @@ class Ui_select_meal(object):
         self.back_pushButton.clicked.connect(close_window)
         self.next_pushButton.clicked.connect(self.open_drug_list_again)
 
+        # ในส่วนนี้เราเพิ่มการเชื่อมต่อกับเมธอด save_checkbox_states ในปุ่มย้อนกลับ
+        self.back_pushButton.clicked.connect(self.save_checkbox_states_and_close)
+
+        # เพิ่มการเชื่อมต่อฐานข้อมูล SQLite3
+        self.conn = sqlite3.connect("medicine.db")
+        self.cursor = self.conn.cursor()
+        
+        # สร้างตาราง Meal ถ้ายังไม่มี
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Meal (
+                meal_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                meal_name TEXT,
+                time TEXT,
+                meal_state INTEGER
+            )
+        ''')
+
+        # เช็คว่ามีข้อมูลในตาราง Meal หรือยัง
+        self.cursor.execute('SELECT COUNT(*) FROM Meal')
+        count = self.cursor.fetchone()[0]
+
+        if count == 0:
+            # สร้างรายชื่อของมื้อ
+            meal_names = [
+                "มื้อเช้า ก่อนอาหาร",
+                "มื้อเช้า หลังอาหาร",
+                "มื้อเที่ยง ก่อนอาหาร",
+                "มื้อเที่ยง หลังอาหาร",
+                "มื้อเย็น ก่อนอาหาร",
+                "มื้อเย็น หลังอาหาร",
+                "มื้อก่อนนอน"
+            ]
+
+            # เพิ่มรายชื่อมื้อลงในตาราง Meal
+            for meal_name in meal_names:
+                self.cursor.execute('INSERT INTO Meal (meal_name) VALUES (?)', (meal_name,))
+
+            self.conn.commit()
+
+        # Load checkbox states from the database
+        self.load_checkbox_states()
+
+        QtCore.QMetaObject.connectSlotsByName(select_meal)
+
+    def save_checkbox_states_and_close(self):
+        self.save_checkbox_states()
+
+    def load_checkbox_states(self):
+        # โหลด checkbox_states จากฐานข้อมูล SQLite3
+        self.cursor.execute('SELECT meal_id, meal_state FROM Meal')
+        data = self.cursor.fetchall()
+
+        for meal_id, state in data:
+            if meal_id == 1:
+                self.bb_checkBox.setChecked(state)
+
+            elif meal_id == 2:
+                self.ab_checkBox.setChecked(state)
+                
+            elif meal_id == 3:
+                self.bl_checkBox.setChecked(state)
+               
+            elif meal_id == 4:
+                self.al_checkBox.setChecked(state)
+               
+            elif meal_id == 5:
+                self.bd_checkBox.setChecked(state)
+               
+            elif meal_id == 6:
+                self.ad_checkBox.setChecked(state)
+               
+            elif meal_id == 7:
+                self.bbed_checkBox.setChecked(state)
+                
+    def save_checkbox_states(self):
+        checkbox_states = {
+            "bb_checkBox": self.bb_checkBox.isChecked(),
+            "ab_checkBox": self.ab_checkBox.isChecked(),
+            "bl_checkBox": self.bl_checkBox.isChecked(),
+            "al_checkBox": self.al_checkBox.isChecked(),
+            "bd_checkBox": self.bd_checkBox.isChecked(),
+            "ad_checkBox": self.ad_checkBox.isChecked(),
+            "bbed_checkBox": self.bbed_checkBox.isChecked()
+        }
+
+        # บันทึก checkbox_states ลงในฐานข้อมูล SQLite3
+        for checkbox_name, state in checkbox_states.items():
+            meal_id = None
+            if "bb_checkBox" in checkbox_name:
+                meal_id = 1
+            elif "ab_checkBox" in checkbox_name:
+                meal_id = 2
+            elif "bl_checkBox" in checkbox_name:
+                meal_id = 3
+            elif "al_checkBox" in checkbox_name:
+                meal_id = 4
+            elif "bd_checkBox" in checkbox_name:
+                meal_id = 5
+            elif "ad_checkBox" in checkbox_name:
+                meal_id = 6
+            elif "bbed_checkBox" in checkbox_name:
+                meal_id = 7
+
+            # ตรวจสอบว่ามีข้อมูลในฐานข้อมูลหรือไม่
+            self.cursor.execute('SELECT * FROM Meal WHERE meal_id = ?', (meal_id,))
+            existing_data = self.cursor.fetchone()
+
+            if existing_data:
+                # อัปเดตข้อมูล
+                self.cursor.execute('''
+                    UPDATE Meal
+                    SET meal_state = ?
+                    WHERE meal_id = ?
+                ''', (state, meal_id))
+            else:
+                # ถ้าไม่มีข้อมูล ให้เพิ่มข้อมูลใหม่
+                self.cursor.execute('''
+                    INSERT INTO Meal (meal_id, meal_state, time)
+                    VALUES (?, ?, ?)
+                ''', (meal_id, state, ""))
+
+        self.conn.commit()
+
 
     def retranslateUi(self, select_meal):
         _translate = QtCore.QCoreApplication.translate
@@ -340,3 +464,4 @@ if __name__ == "__main__":
     ui.setupUi(select_meal)
     select_meal.show()
     sys.exit(app.exec_())
+
