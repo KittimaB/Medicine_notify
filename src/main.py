@@ -321,7 +321,7 @@ class Ui_Medicine_App(object):
         self.addDrug_pushButton.setText(_translate("Medicine_App", "  คลังยา"))
         self.home_label.setText(_translate("Medicine_App", "   หน้าหลัก"))
         self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
-        self.putDrug_pushButton.setText(_translate("Medicine_App", "  วิธีการใส่ยาในกล่องบรรจุยา"))
+        self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยาในกล่องบรรจุยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนมื้อยาคงเหลือ"))
         
