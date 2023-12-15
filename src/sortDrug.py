@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
+from prepare import Ui_prepare
 
 class CircularColorItem(QtWidgets.QWidget):
     def __init__(self, color, text, parent=None):
@@ -55,6 +56,13 @@ class Ui_sortDrug(object):
         self.line.setLineWidth(3)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setObjectName("line")
+        self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.next_pushButton.setGeometry(QtCore.QRect(440, 31, 71, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.next_pushButton.setFont(font)
+        self.next_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.next_pushButton.setObjectName("next_pushButton")
         sortDrug.setCentralWidget(self.centralwidget)
 
         # Set up the table widget
@@ -67,6 +75,16 @@ class Ui_sortDrug(object):
             sortDrug.close()
             
         self.add_back_pushButton.clicked.connect(close_window)
+
+        self.next_pushButton.clicked.connect(self.open_prepare)
+
+    def open_prepare(self):
+        self.prepare_window = QtWidgets.QMainWindow()
+        self.prepare_ui = Ui_prepare()
+        self.prepare_ui.setupUi(self.prepare_window)
+        self.prepare_window.show()
+            
+
 
     def setup_table_widget(self):
         # สร้างและกำหนด QTableWidget
@@ -116,6 +134,7 @@ class Ui_sortDrug(object):
         sortDrug.setWindowTitle(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
         self.add_back_pushButton.setText(_translate("sortDrug", "ย้อนกลับ"))
         self.sort_label.setText(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
+        self.next_pushButton.setText(_translate("prepare", "ถัดไป"))
 
 if __name__ == "__main__":
     import sys
