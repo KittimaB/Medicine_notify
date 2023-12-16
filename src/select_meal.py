@@ -358,6 +358,8 @@ class Ui_select_meal(object):
 
     def save_checkbox_states_and_close(self):
         self.save_checkbox_states()
+        
+    ####################################### แก้ไขโค้ดในส่วนนี้ด้วยจากปลื้ม ###########################################    
 
     def load_checkbox_states(self):
         # โหลด checkbox_states จากฐานข้อมูล SQLite3
