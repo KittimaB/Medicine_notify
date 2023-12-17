@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 from drug_List import Ui_drug_List
-from setting import Ui_setting
+from select_time import Ui_select_time
 from pack_med import Ui_med_pack
 from sortDrug import Ui_sortDrug
 from drugTotal import Ui_drugTotal
@@ -175,64 +174,106 @@ class Ui_Medicine_App(object):
         self.connection = sqlite3.connect("medicine.db")
         self.cursor = self.connection.cursor()
 
-
-
         # Create Drug table
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Drug (
-                drug_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                drug_name TEXT,
-                drug_description TEXT,
-                drug_amount INTEGER,
-                drug_eat INTEGER
+                "drug_id"	INTEGER,
+                "drug_name"	TEXT,
+                "drug_description"	TEXT,
+                "drug_amount"	INTEGER,
+                "drug_eat"	INTEGER,
+                PRIMARY KEY("drug_id")
             )
         ''')
-
-        # Create Drug_Meal table
+        
+        
+        
+        # Create Meal table
         self.cursor.execute('''
             CREATE TABLE IF NOT EXISTS Meal (
-                meal_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                meal_name TEXT,
-                time TEXT,
-                checkbox_state INTEGER
+                "meal_id"	INTEGER,
+                "meal_name"	TEXT,
+                "time"	TEXT,
+                PRIMARY KEY("meal_id" AUTOINCREMENT)
             )
         ''')
 
-         # Create Relation table
+        # Create Drug_handle table 
+        ##################### ใช้ระบุว่า ยาตัวนั้นกินมื้อไหนบ้าง ######################## 
+        # ทำตารางนี้มาเพื่อแทนที่ meal_state ซึ่งเป็นการเก็บ state โดยรวม
         self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Relation (
-                rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                drug_id INTEGER,
-                meal_id INTEGER,
-                FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
-                FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
+            CREATE TABLE IF NOT EXISTS Drug_handle (
+                "handle_id"	INTEGER,
+                "drug_id"	INTEGER,
+                "meal_id"	INTEGER,
+                FOREIGN KEY("meal_id") REFERENCES "Meal"("meal_id"),
+                FOREIGN KEY("drug_id") REFERENCES "Drug"("drug_id"),
+                PRIMARY KEY("handle_id")
             )
         ''')
+        
+        # Create Day table
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Day (
+                day_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                day_start INTEGER
+            )
+        ''')
+
+        #  # Create Relation table
+        # self.cursor.execute('''
+        #     CREATE TABLE IF NOT EXISTS Relation (
+        #         rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        #         drug_id INTEGER,
+        #         meal_id INTEGER,
+        #         FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
+        #         FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
+        #     )
+        # ''')
         
         # Check if the Meal table is empty, and if so, insert default values
         self.cursor.execute("SELECT COUNT(*) FROM Meal")
         meal_count = self.cursor.fetchone()[0]
+        
+        ############################### ของแอม ######################################
 
+        # if meal_count == 0:
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเช้า ก่อนอาหาร", "06:00", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเช้า หลังอาหาร", "06:30", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเที่ยง ก่อนอาหาร", "12:00", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเที่ยง หลังอาหาร", "12:30", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเย็น ก่อนอาหาร", "18:00", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อเย็น หลังอาหาร", "18:30", 0))
+        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
+        #                         ("มื้อก่อนนอน", "20:30", 0))
+        
+        ############################### ปลื้มแก้ ######################################    
         if meal_count == 0:
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเช้า ก่อนอาหาร", "06:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเช้า เที่ยงอาหาร", "06:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเที่ยง ก่อนอาหาร", "12:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเที่ยง หลังอาหาร", "12:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเย็น ก่อนอาหาร", "18:00", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อเย็น หลังอาหาร", "18:30", 0))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time, checkbox_state) VALUES (?, ?, ?)",
-                                ("มื้อก่อนนอน", "20:30", 0))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเช้า ก่อนอาหาร", "06:00"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเช้า หลังอาหาร", "06:30"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเที่ยง ก่อนอาหาร", "12:00"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเที่ยง หลังอาหาร", "12:30"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเย็น ก่อนอาหาร", "18:00"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อเย็น หลังอาหาร", "18:30"))
+            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
+                                ("มื้อก่อนนอน", "20:30"))
 
         self.connection.commit()
         
         self.addDrug_pushButton.clicked.connect(self.open_drug_List_page)
-        self.setting_pushButton.clicked.connect(self.open_setting_page)
+        self.setting_pushButton.clicked.connect(self.open_select_time_page)
         self.putDrug_pushButton.clicked.connect(self.open_pack_page)
         self.alignment_pushButton.clicked.connect(self.open_sortdrug_page)
         self.drugLeft_pushButton.clicked.connect(self.open_drugTotal_page)
@@ -259,17 +300,17 @@ class Ui_Medicine_App(object):
         
         self.ui_drug_List.add_back_pushButton.clicked.connect(close_drug_List_window)
 
-    ###################### หน้าตั้งค่ามื้อยา ############################# 
-    def open_setting_page(self):
-        self.setting_window = QtWidgets.QMainWindow()
-        self.ui_setting = Ui_setting()
-        self.ui_setting.setupUi(self.setting_window)
-        self.setting_window.show()
+    ###################### หน้าตั้งเวลามื้อยา ############################# 
+    def open_select_time_page(self):
+        self.select_time_window = QtWidgets.QMainWindow()
+        self.ui_select_time = Ui_select_time()
+        self.ui_select_time.setupUi(self.select_time_window)
+        self.select_time_window.show()
         
-        def close_setting_window():
-            self.setting_window.close()
+        def close_select_time_window():
+            self.select_time_window.close()
         
-        self.ui_setting.back_pushButton.clicked.connect(close_setting_window)
+        self.ui_select_time.back_pushButton.clicked.connect(close_select_time_window)
         
     ###################### หน้าวิธีบรรจุยา ############################# 
     def open_pack_page(self):
@@ -313,8 +354,8 @@ class Ui_Medicine_App(object):
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))
         self.addDrug_pushButton.setText(_translate("Medicine_App", "  คลังยา"))
         self.home_label.setText(_translate("Medicine_App", "   หน้าหลัก"))
-        self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งค่ามื้อยา"))
-        self.putDrug_pushButton.setText(_translate("Medicine_App", "  วิธีการใส่ยาในกล่องบรรจุยา"))
+        self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
+        self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยาในกล่องบรรจุยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนมื้อยาคงเหลือ"))
         
