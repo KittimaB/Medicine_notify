@@ -1,6 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from AddDrug_New import Ui_Add_drug
 from each_drug import Ui_each_drug 
+from select_meal import Ui_select_meal
 import sqlite3
 
 class Ui_drug_List(object):
@@ -67,7 +68,7 @@ class Ui_drug_List(object):
             
         self.add_pushButton.clicked.connect(self.open_add_drug)
         
-
+        
         
 
     # def open_add_drug(self):
@@ -83,6 +84,7 @@ class Ui_drug_List(object):
     def handle_drug_item_click(self, item):
         # Get the text of the clicked item (drug name)
         drug_name = item.text()
+        # print(drug_name)
 
         # Open the each_drug window with the selected drug
         self.each_drug_window = QtWidgets.QMainWindow()
@@ -94,8 +96,22 @@ class Ui_drug_List(object):
 
         # Pass the drug name to the each_drug window
         self.each_drug_ui.label.setText(drug_name)
-
+        
         self.each_drug_window.show()
+        
+        ############################################################
+        
+        self.select_meal_window = QtWidgets.QMainWindow()
+        self.select_meal_ui = Ui_select_meal()
+        self.select_meal_ui.setupUi(self.select_meal_window)
+        
+        # Set drug info for the select_meal window
+        self.select_meal_ui.set_drug_info(drug_name)
+
+        # Pass the drug name to the select_meal window
+        # self.select_meal_ui.label.setText(drug_name)
+
+
 
     def open_add_drug(self):
         self.add_drug_window = QtWidgets.QMainWindow()
@@ -129,9 +145,6 @@ class Ui_drug_List(object):
         self.label.setText(_translate("drug_List", "คลังยา"))
         self.add_back_pushButton.setText(_translate("drug_List", "ย้อนกลับ"))
         self.add_pushButton.setText(_translate("drug_List", "เพิ่มยา"))
-
-
-
 
 if __name__ == "__main__":
     import sys

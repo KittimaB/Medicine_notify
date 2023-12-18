@@ -324,35 +324,54 @@ class Ui_select_meal(object):
             CREATE TABLE IF NOT EXISTS Meal (
                 meal_id INTEGER PRIMARY KEY AUTOINCREMENT,
                 meal_name TEXT,
-                time TEXT,
-                meal_state INTEGER
+                time TEXT
             )
         ''')
 
-        # เช็คว่ามีข้อมูลในตาราง Meal หรือยัง
-        self.cursor.execute('SELECT COUNT(*) FROM Meal')
-        count = self.cursor.fetchone()[0]
+        # # เช็คว่ามีข้อมูลในตาราง Meal หรือยัง
+        # self.cursor.execute('SELECT COUNT(*) FROM Meal')
+        # count = self.cursor.fetchone()[0]
 
-        if count == 0:
-            # สร้างรายชื่อของมื้อ
-            meal_names = [
-                "มื้อเช้า ก่อนอาหาร",
-                "มื้อเช้า หลังอาหาร",
-                "มื้อเที่ยง ก่อนอาหาร",
-                "มื้อเที่ยง หลังอาหาร",
-                "มื้อเย็น ก่อนอาหาร",
-                "มื้อเย็น หลังอาหาร",
-                "มื้อก่อนนอน"
-            ]
+        # if count == 0:
+        #     # สร้างรายชื่อของมื้อ
+        #     meal_names = [
+        #         "มื้อเช้า ก่อนอาหาร",
+        #         "มื้อเช้า หลังอาหาร",
+        #         "มื้อเที่ยง ก่อนอาหาร",
+        #         "มื้อเที่ยง หลังอาหาร",
+        #         "มื้อเย็น ก่อนอาหาร",
+        #         "มื้อเย็น หลังอาหาร",
+        #         "มื้อก่อนนอน"
+        #     ]
 
-            # เพิ่มรายชื่อมื้อลงในตาราง Meal
-            for meal_name in meal_names:
-                self.cursor.execute('INSERT INTO Meal (meal_name) VALUES (?)', (meal_name,))
+        #     # เพิ่มรายชื่อมื้อลงในตาราง Meal
+        #     for meal_name in meal_names:
+        #         self.cursor.execute('INSERT INTO Meal (meal_name) VALUES (?)', (meal_name,))
 
-            self.conn.commit()
+        #     self.conn.commit()
 
-        # Load checkbox states from the database
-        self.load_checkbox_states()
+        # # Load checkbox states from the database
+        # # self.load_checkbox_states()
+        
+        # query = '''
+        # SELECT h.drug_id, drug_name, drug_description, drug_amount, drug_eat,
+        #        h.meal_id, meal_name, time
+        #     FROM Drug_handle AS h
+        #     LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
+        #     LEFT JOIN Meal AS m ON h.meal_id = m.meal_id
+        # '''
+        
+        # self.cursor.execute(query)
+        # data = self.cursor.fetchall()
+        
+        # for row in data:
+        #     drug_id, drug_name, drug_description, drug_amount, drug_eat, meal_id, meal_name, time = row
+        #     # ทำต่อไปตามความต้องการ เช่น แสดงผลลัพธ์ทาง GUI หรือทำประมวลผลเพิ่มเติม
+        #     if drug_name is not None and meal_name is not None:
+        #         print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_amount}, {drug_eat}")
+        #         print(f"Meal: {meal_id}, {meal_name}, {time}")
+        #     else:
+        #         print("Error: Invalid data found.")
 
         QtCore.QMetaObject.connectSlotsByName(select_meal)
 
@@ -361,32 +380,27 @@ class Ui_select_meal(object):
         
     ####################################### แก้ไขโค้ดในส่วนนี้ด้วยจากปลื้ม ###########################################    
 
-    def load_checkbox_states(self):
-        # โหลด checkbox_states จากฐานข้อมูล SQLite3
-        self.cursor.execute('SELECT meal_id, meal_state FROM Meal')
-        data = self.cursor.fetchall()
+    # def load_checkbox_states(self):
+    #     # Load checkbox_states from the database
+    #     self.cursor.execute('SELECT h.drug_id, h.meal_id FROM Drug_handle AS h LEFT JOIN Drug AS d ON h.drug_id = d.drug_id LEFT JOIN Meal AS m on h.meal_id = m.meal_id')
+    #     data = self.cursor.fetchall()
 
-        for meal_id, state in data:
-            if meal_id == 1:
-                self.bb_checkBox.setChecked(state)
+    #     for drug_id, meal_id in data:
+    #         if meal_id == 1:
+    #             self.bb_checkBox.setChecked(1)
+    #         elif meal_id == 2:
+    #             self.ab_checkBox.setChecked(1)
+    #         elif meal_id == 3:
+    #             self.bl_checkBox.setChecked(1)
+    #         elif meal_id == 4:
+    #             self.al_checkBox.setChecked(1)
+    #         elif meal_id == 5:
+    #             self.bd_checkBox.setChecked(1)
+    #         elif meal_id == 6:
+    #             self.ad_checkBox.setChecked(1)
+    #         elif meal_id == 7:
+    #             self.bbed_checkBox.setChecked(1)
 
-            elif meal_id == 2:
-                self.ab_checkBox.setChecked(state)
-                
-            elif meal_id == 3:
-                self.bl_checkBox.setChecked(state)
-               
-            elif meal_id == 4:
-                self.al_checkBox.setChecked(state)
-               
-            elif meal_id == 5:
-                self.bd_checkBox.setChecked(state)
-               
-            elif meal_id == 6:
-                self.ad_checkBox.setChecked(state)
-               
-            elif meal_id == 7:
-                self.bbed_checkBox.setChecked(state)
                 
     def save_checkbox_states(self):
         checkbox_states = {
@@ -399,44 +413,79 @@ class Ui_select_meal(object):
             "bbed_checkBox": self.bbed_checkBox.isChecked()
         }
 
-        # บันทึก checkbox_states ลงในฐานข้อมูล SQLite3
-        for checkbox_name, state in checkbox_states.items():
-            meal_id = None
-            if "bb_checkBox" in checkbox_name:
-                meal_id = 1
-            elif "ab_checkBox" in checkbox_name:
-                meal_id = 2
-            elif "bl_checkBox" in checkbox_name:
-                meal_id = 3
-            elif "al_checkBox" in checkbox_name:
-                meal_id = 4
-            elif "bd_checkBox" in checkbox_name:
-                meal_id = 5
-            elif "ad_checkBox" in checkbox_name:
-                meal_id = 6
-            elif "bbed_checkBox" in checkbox_name:
-                meal_id = 7
+        # # Save checkbox_states to the database
+        # for checkbox_name, state in checkbox_states.items():
+        #     meal_id = None
+        #     if "bb_checkBox" in checkbox_name:
+        #         meal_id = 1
+        #     elif "ab_checkBox" in checkbox_name:
+        #         meal_id = 2
+        #     elif "bl_checkBox" in checkbox_name:
+        #         meal_id = 3
+        #     elif "al_checkBox" in checkbox_name:
+        #         meal_id = 4
+        #     elif "bd_checkBox" in checkbox_name:
+        #         meal_id = 5
+        #     elif "ad_checkBox" in checkbox_name:
+        #         meal_id = 6
+        #     elif "bbed_checkBox" in checkbox_name:
+        #         meal_id = 7
 
-            # ตรวจสอบว่ามีข้อมูลในฐานข้อมูลหรือไม่
-            self.cursor.execute('SELECT * FROM Meal WHERE meal_id = ?', (meal_id,))
-            existing_data = self.cursor.fetchone()
+            # Check if there is an existing record
+            # self.cursor.execute('SELECT * FROM Drug_handle WHERE meal_id = ? AND drug_id = ?', (meal_id, drug_id))
+            # existing_data = self.cursor.fetchone()
 
-            if existing_data:
-                # อัปเดตข้อมูล
-                self.cursor.execute('''
-                    UPDATE Meal
-                    SET meal_state = ?
-                    WHERE meal_id = ?
-                ''', (state, meal_id))
-            else:
-                # ถ้าไม่มีข้อมูล ให้เพิ่มข้อมูลใหม่
-                self.cursor.execute('''
-                    INSERT INTO Meal (meal_id, meal_state, time)
-                    VALUES (?, ?, ?)
-                ''', (meal_id, state, ""))
+            # if existing_data:
+            #     # Update the existing record
+            #     self.cursor.execute('''
+            #         UPDATE Drug_handle
+            #         SET state = ?
+            #         WHERE meal_id = ? AND h.drug_id = ?
+            #     ''', (state, meal_id, drug_id))
+            # else:
+            #     # If no existing record, insert a new one
+            #     self.cursor.execute('''
+            #         INSERT INTO Drug_handle (meal_id, drug_id, state)
+            #         VALUES (?, ?, ?)
+            #     ''', (meal_id, drug_id, state))
 
-        self.conn.commit()
+        # self.conn.commit()
 
+
+    def set_drug_info(self, drug_name):
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
+
+        query = '''
+        SELECT h.drug_id, drug_name, drug_description, drug_amount, drug_eat,
+            h.meal_id, meal_name, time
+            FROM Drug_handle AS h
+            LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
+            LEFT JOIN Meal AS m ON h.meal_id = m.meal_id
+            WHERE d.drug_name = ?
+        '''
+
+        cursor.execute(query, (drug_name,))
+        drug_info_list = cursor.fetchall()
+        connection.close()
+
+        for drug_info in drug_info_list:
+            drug_id, drug_name, drug_description, drug_amount, drug_eat, meal_id, meal_name, time = drug_info
+            if drug_name is not None and meal_name is not None:
+                ############# ส่ง parameter มาได้แล้ว #################
+                print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_amount}, {drug_eat}")
+                print(f"Meal: {meal_id}, {meal_name}, {time}")
+    
+            
+            # self.set_value.setText(str(drug_info[0]))
+        #     # drug_info[1] คือ drug_name
+        #     self.label_2.setText(drug_info[1])
+        #     # drug_info[2] คือ drug_description
+        #     self.label_3.setText(drug_info[2])
+        #     # drug_info[3] คือ drug_amount
+        #     self.label_4.setText(f"{drug_info[3]}")
+        #     # drug_info[4] คือ drug_eat
+        #     self.label_5.setText(f"{drug_info[4]}")
 
     def retranslateUi(self, select_meal):
         _translate = QtCore.QCoreApplication.translate

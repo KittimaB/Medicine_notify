@@ -182,11 +182,9 @@ class Ui_Medicine_App(object):
                 "drug_description"	TEXT,
                 "drug_amount"	INTEGER,
                 "drug_eat"	INTEGER,
-                PRIMARY KEY("drug_id")
+                PRIMARY KEY("drug_id" AUTOINCREMENT)
             )
         ''')
-        
-        
         
         # Create Meal table
         self.cursor.execute('''
@@ -208,7 +206,7 @@ class Ui_Medicine_App(object):
                 "meal_id"	INTEGER,
                 FOREIGN KEY("meal_id") REFERENCES "Meal"("meal_id"),
                 FOREIGN KEY("drug_id") REFERENCES "Drug"("drug_id"),
-                PRIMARY KEY("handle_id")
+                PRIMARY KEY("handle_id" AUTOINCREMENT)
             )
         ''')
         
