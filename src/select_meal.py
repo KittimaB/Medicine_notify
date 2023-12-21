@@ -457,7 +457,7 @@ class Ui_select_meal(object):
         cursor = connection.cursor()
 
         query = '''
-        SELECT h.drug_id, drug_name, drug_description, drug_amount, drug_eat,
+        SELECT h.drug_id, drug_name, drug_description, drug_remaining, drug_eat,
             h.meal_id, meal_name, time
             FROM Drug_handle AS h
             LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
@@ -470,12 +470,27 @@ class Ui_select_meal(object):
         connection.close()
 
         for drug_info in drug_info_list:
-            drug_id, drug_name, drug_description, drug_amount, drug_eat, meal_id, meal_name, time = drug_info
-            if drug_name is not None and meal_name is not None:
-                ############# ส่ง parameter มาได้แล้ว #################
-                print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_amount}, {drug_eat}")
-                print(f"Meal: {meal_id}, {meal_name}, {time}")
-    
+            drug_id, drug_name, drug_description, drug_remaining, drug_eat, meal_id, meal_name, time = drug_info
+
+            # Display drug and meal information
+            print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_remaining}, {drug_eat}")
+            print(f"Meal: {meal_id}, {meal_name}, {time}")
+
+            # Check the meal_id and set the corresponding checkbox
+            if meal_id == 1:
+                self.bb_checkBox.setChecked(True)
+            elif meal_id == 2:
+                self.ab_checkBox.setChecked(True)
+            elif meal_id == 3:
+                self.bl_checkBox.setChecked(True)
+            elif meal_id == 4:
+                self.al_checkBox.setChecked(True)
+            elif meal_id == 5:
+                self.bd_checkBox.setChecked(True)
+            elif meal_id == 6:
+                self.ad_checkBox.setChecked(True)
+            elif meal_id == 7:
+                self.bbed_checkBox.setChecked(True)
             
             # self.set_value.setText(str(drug_info[0]))
         #     # drug_info[1] คือ drug_name

@@ -96,8 +96,8 @@ class Ui_drug_List(object):
 
         # Pass the drug name to the each_drug window
         self.each_drug_ui.label.setText(drug_name)
-        
         self.each_drug_window.show()
+
         
         ############################################################
         
@@ -110,6 +110,8 @@ class Ui_drug_List(object):
 
         # Pass the drug name to the select_meal window
         # self.select_meal_ui.label.setText(drug_name)
+        self.select_meal_window.show()
+
 
 
 

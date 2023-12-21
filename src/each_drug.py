@@ -195,7 +195,7 @@ class Ui_each_drug(object):
             # drug_info[3] คือ drug_amount
             self.label_4.setText(f"{drug_info[3]}")
             # drug_info[4] คือ drug_eat
-            self.label_5.setText(f"{drug_info[4]}")
+            self.label_5.setText(f"{drug_info[8]}")
 
 
     def retranslateUi(self, each_drug):
