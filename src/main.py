@@ -175,13 +175,20 @@ class Ui_Medicine_App(object):
         self.cursor = self.connection.cursor()
 
         # Create Drug table
-        self.cursor.execute('''
+        self.cursor.execute('''   
             CREATE TABLE IF NOT EXISTS Drug (
                 "drug_id"	INTEGER,
                 "drug_name"	TEXT,
                 "drug_description"	TEXT,
-                "drug_amount"	INTEGER,
-                "drug_eat"	INTEGER,
+                "drug_remaining"	INTEGER,
+                "drug_remaining_meal"	REAL,
+                "fraction"	INTEGER,
+                "external_drug"	INTEGER,
+                "internal_drug"	INTEGER,
+                "drug_eat"	REAL,
+                "all_drug_recieve"	INTEGER,
+                "day_start"	INTEGER,
+                "drug_log"	TEXT,
                 PRIMARY KEY("drug_id" AUTOINCREMENT)
             )
         ''')
@@ -199,7 +206,7 @@ class Ui_Medicine_App(object):
         # Create Drug_handle table 
         ##################### ใช้ระบุว่า ยาตัวนั้นกินมื้อไหนบ้าง ######################## 
         # ทำตารางนี้มาเพื่อแทนที่ meal_state ซึ่งเป็นการเก็บ state โดยรวม
-        self.cursor.execute('''
+        self.cursor.execute('''       
             CREATE TABLE IF NOT EXISTS Drug_handle (
                 "handle_id"	INTEGER,
                 "drug_id"	INTEGER,
@@ -210,46 +217,9 @@ class Ui_Medicine_App(object):
             )
         ''')
         
-        # Create Day table
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Day (
-                day_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                day_start INTEGER
-            )
-        ''')
-
-        #  # Create Relation table
-        # self.cursor.execute('''
-        #     CREATE TABLE IF NOT EXISTS Relation (
-        #         rt_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        #         drug_id INTEGER,
-        #         meal_id INTEGER,
-        #         FOREIGN KEY (drug_id) REFERENCES Drug(drug_id)
-        #         FOREIGN KEY (meal_id) REFERENCES Meal(meal_id)
-        #     )
-        # ''')
-        
         # Check if the Meal table is empty, and if so, insert default values
         self.cursor.execute("SELECT COUNT(*) FROM Meal")
         meal_count = self.cursor.fetchone()[0]
-        
-        ############################### ของแอม ######################################
-
-        # if meal_count == 0:
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเช้า ก่อนอาหาร", "06:00", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเช้า หลังอาหาร", "06:30", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเที่ยง ก่อนอาหาร", "12:00", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเที่ยง หลังอาหาร", "12:30", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเย็น ก่อนอาหาร", "18:00", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อเย็น หลังอาหาร", "18:30", 0))
-        #     self.cursor.execute("INSERT INTO Meal (meal_name, time, meal_state) VALUES (?, ?, ?)",
-        #                         ("มื้อก่อนนอน", "20:30", 0))
         
         ############################### ปลื้มแก้ ######################################    
         if meal_count == 0:
