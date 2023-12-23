@@ -3,6 +3,9 @@ from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 from prepare import Ui_prepare
 import sqlite3
 
+row_max = 5
+col_max = 6
+
 class CircularColorItem(QtWidgets.QWidget):
     def __init__(self, color, text, parent=None):
         super().__init__(parent)
@@ -87,26 +90,14 @@ class Ui_sortDrug(object):
         self.prepare_ui.setupUi(self.prepare_window)
         self.prepare_window.show()
             
-    def get_color_text_mapping(meal_ids):
-        color_mapping = {
-            1: (255, 255, 102),  # เช้าก่อน (Yellow)
-            2: (255, 192, 203),  # เช้าหลัง (Pink)
-            3: (178, 255, 102),  # เที่ยงก่อน (Green)
-            4: (255, 178, 102),  # เที่ยงหลัง (Orange)
-            5: (102, 255, 255),  # เย็นก่อน (Blue)
-            6: (204, 153, 255),  # เย็นหลัง (Purple)
-            7: (255, 102, 102)   # ก่อนนอน (Red)
-        }
-
-        return {color_mapping[meal_id]: f"Meal {meal_id}" for meal_id in meal_ids}
+    
 
     def setup_table_widget(self):
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(25, 76, 483, 316))                         
         self.tableWidget.setObjectName("tableWidget")
-        row_max = 6
-        col_max = 6
+
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
         self.tableWidget.setColumnCount(col_max)
@@ -120,30 +111,36 @@ class Ui_sortDrug(object):
             self.tableWidget.setColumnWidth(col_idx, cell_size)
         for row_idx in range(row_max):
             self.tableWidget.setRowHeight(row_idx, cell_size)
+            
+        # color_text_mapping = {
+        #         (255, 255, 102): "เช้าก่อน",    # สีเหลือง
+        #         (255, 192, 203): "เช้าหลัง",    # สีชมพู
+        #         (178, 255, 102): "เที่ยงก่อน",   # สีเขียว
+        #         (255, 178, 102): "เที่ยงหลัง",   # สีส้ม
+        #         (102, 255, 255): "เย็นก่อน",    # สีฟ้า
+        #         (204, 153, 255): "เย็นหลัง",    # สีม่วง
+        #         (255, 102, 102): "ก่อนนอน"    # สีแดง
+        #     }
+            
+        # color_index = 0
+        
+        # for row in range(row_max):
+        #     for col in range(col_max):
+        #         # color = (255, 255, 0)  # Default color is yellow
+        #         print(f"color_index: {color_index}")
+                
+        #         if color_index < len(color_text_mapping):
+        #             color = list(color_text_mapping.keys())[color_index]
+        #             print(f"color: {color}")
 
-        # Set up the color-text associations using RGB tuples
-        color_text_mapping = {
-            (255, 255, 102): "เช้าก่อน",    # สีเหลือง
-            (255, 192, 203): "เช้าหลัง",    # สีชมพู
-            (178, 255, 102): "เที่ยงก่อน",   # สีเขียว
-            (255, 178, 102): "เที่ยงหลัง",   # สีส้ม
-            (102, 255, 255): "เย็นก่อน",    # สีฟ้า
-            (204, 153, 255): "เย็นหลัง",    # สีม่วง
-            (255, 102, 102): "ก่อนนอน"    # สีแดง
-        }
+        #         circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
+        #         self.tableWidget.setCellWidget(row, col, circular_item)
+                
+        #         # print(circular_item)
 
-        color_index = 0
-
-        for row in range(row_max):
-            for col in range(col_max):
-                # color = (255, 255, 0)  # Default color is yellow
-                if color_index < len(color_text_mapping):
-                    color = list(color_text_mapping.keys())[color_index]
-
-                circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
-                self.tableWidget.setCellWidget(row, col, circular_item)
-
-                color_index = (color_index + 1) % len(color_text_mapping)  # Rotate colors
+        #         color_index = (color_index + 1) % len(color_text_mapping)  # Rotate colors
+                
+                
                 
     def sort_handle(self):
         connection = sqlite3.connect("medicine.db")
@@ -190,8 +187,9 @@ class Ui_sortDrug(object):
         check_meal = 1
         slot = 1
         
-        
-        while(slot <= 30):
+        cursor_row = 0
+        cursor_col = 0
+        while(slot <= row_max * col_max):
             connection = sqlite3.connect("medicine.db")
             cursor = connection.cursor()
             query = '''
@@ -206,13 +204,50 @@ class Ui_sortDrug(object):
             cursor.execute(query, (check_meal,))   
             drug_info_list = cursor.fetchall()
             
+
             if drug_info_list:
                 print(f"ลำดับ: {slot}, ยา{drug_info_list[0][13]}\n")
                 print("ประกอบไปด้วย")
                 have_drug = False
+                
+                color_text_mapping = {
+                    (255, 102, 102): "เช้าก่อน",    # สีเหลือง
+                    (255, 178, 102): "เช้าหลัง",    # สีชมพู
+                    (255, 255, 102): "เที่ยงก่อน",   # สีเขียว
+                    (178, 255, 102): "เที่ยงหลัง",   # สีส้ม
+                    (0, 128, 0): "เย็นก่อน",    # สีฟ้า
+                    (102, 255, 255): "เย็นหลัง",    # สีม่วง
+                    (204, 153, 255): "ก่อนนอน"    # สีแดง
+                }
+
+                color_index = drug_info_list[0][12] - 1
+
+                # # for row in range(row_max):
+                # #     for col in range(col_max):
+                #         # color = (255, 255, 0)  # Default color is yellow
+                # print(f"color_index: {color_index}")
+                if color_index < len(color_text_mapping):
+                    color = list(color_text_mapping.keys())[color_index]
+                    # print(f"color: {color}")
+
+                circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
+                self.tableWidget.setCellWidget(cursor_col, cursor_row, circular_item)
+                
+                # print(f"color_index: {color_index}")
+                # print(f"cursor_col: {cursor_col}")
+                # print(f"cursor_row: {cursor_row}")
+                # print(f"color_text_mapping: {color_text_mapping}")
+                
+                loop_count = 0                  # นับจำนวนลูป
                 for drug_info in drug_info_list:
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, meal_id, meal_name, time = drug_info
+                    
+                    loop_count += 1
+                    # print(f"row = {row}")
+                    # print(f"col = {col}")
 
+                    # color_index = (color_index + 1) % len(color_text_mapping)  # Rotate colors
+                    # color_index = drug_info_list[0][12]
                     
                     if external_drug != 0:
                         print(f"- {drug_name}")
@@ -231,16 +266,45 @@ class Ui_sortDrug(object):
                         print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
                         
                         have_drug = True
+                        
                     else:
                         print("     หมด")
-                        
-                        
+            
+                # all_drugs_empty = all(drug_info[6] == 0 for drug_info in drug_info_list)
+
+                # if all_drugs_empty:
+                #     print("ทุกยามยาหมดแล้ว")
+                #     slot = (row_max * col_max) + 1
+                # else:
+                #     print("ยังมียาที่ยังไม่หมด")
                     
                 print("============================================================================")
                 
                 if have_drug:
                     slot += 1
+                    cursor_row += 1
+                    
+                # if cursor_row > row_max - 1:                # row = 5
+                #     cursor_row = 0
+                #     cursor_col += 1
+                # if cursor_col > col_max - 1:                # col = 5
+                #     cursor_col = 0
+                # check_meal += 1
+                
+                if cursor_row > row_max:                # row = 5
+                    cursor_row = 0
+                    cursor_col += 1
+                if cursor_col > col_max - 2:                # col = 6
+                    cursor_col = 0
                 check_meal += 1
+                
+                # if cursor_row > row_max + 1:                # row = 5
+                #     cursor_row = 0
+                #     cursor_col += 1
+                # if cursor_col > col_max - 3:                # col = 7
+                #     cursor_col = 0
+                # check_meal += 1
+                
                 
             else:
                 check_meal += 1
