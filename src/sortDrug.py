@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
 from prepare import Ui_prepare
 import sqlite3
 
-row_max = 5
+row_max = 6
 col_max = 6
 
 class CircularColorItem(QtWidgets.QWidget):
@@ -204,10 +204,13 @@ class Ui_sortDrug(object):
             cursor.execute(query, (check_meal,))   
             drug_info_list = cursor.fetchall()
             
+            if not drug_info_list:
+                break  # Exit the loop if no drug info is found
 
             if drug_info_list:
-                print(f"ลำดับ: {slot}, ยา{drug_info_list[0][13]}\n")
-                print("ประกอบไปด้วย")
+                
+                # print(f"ลำดับ: {slot}, ยา{drug_info_list[0][13]}\n")
+                # print("ประกอบไปด้วย")
                 have_drug = False
                 
                 color_text_mapping = {
@@ -215,42 +218,26 @@ class Ui_sortDrug(object):
                     (255, 178, 102): "เช้าหลัง",    # สีชมพู
                     (255, 255, 102): "เที่ยงก่อน",   # สีเขียว
                     (178, 255, 102): "เที่ยงหลัง",   # สีส้ม
-                    (0, 128, 0): "เย็นก่อน",    # สีฟ้า
+                    (0, 128, 0): "เย็นก่อน",        # สีฟ้า
                     (102, 255, 255): "เย็นหลัง",    # สีม่วง
                     (204, 153, 255): "ก่อนนอน"    # สีแดง
                 }
 
                 color_index = drug_info_list[0][12] - 1
 
-                # # for row in range(row_max):
-                # #     for col in range(col_max):
-                #         # color = (255, 255, 0)  # Default color is yellow
-                # print(f"color_index: {color_index}")
                 if color_index < len(color_text_mapping):
                     color = list(color_text_mapping.keys())[color_index]
-                    # print(f"color: {color}")
 
                 circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
                 self.tableWidget.setCellWidget(cursor_col, cursor_row, circular_item)
                 
-                # print(f"color_index: {color_index}")
-                # print(f"cursor_col: {cursor_col}")
-                # print(f"cursor_row: {cursor_row}")
-                # print(f"color_text_mapping: {color_text_mapping}")
                 
-                loop_count = 0                  # นับจำนวนลูป
                 for drug_info in drug_info_list:
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, meal_id, meal_name, time = drug_info
                     
-                    loop_count += 1
-                    # print(f"row = {row}")
-                    # print(f"col = {col}")
-
-                    # color_index = (color_index + 1) % len(color_text_mapping)  # Rotate colors
-                    # color_index = drug_info_list[0][12]
                     
                     if external_drug != 0:
-                        print(f"- {drug_name}")
+                        # print(f"- {drug_name}")
                         
                         # print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
                         # print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
@@ -262,52 +249,60 @@ class Ui_sortDrug(object):
                         cursor.execute(f"UPDATE Drug SET external_drug = {external_drug}, internal_drug = {internal_drug} WHERE drug_id = {drug_id}")
                         connection.commit()
                         
-                        print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
-                        print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
+                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
+                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
                         
                         have_drug = True
                         
                     else:
-                        print("     หมด")
-            
-                # all_drugs_empty = all(drug_info[6] == 0 for drug_info in drug_info_list)
-
-                # if all_drugs_empty:
-                #     print("ทุกยามยาหมดแล้ว")
-                #     slot = (row_max * col_max) + 1
-                # else:
-                #     print("ยังมียาที่ยังไม่หมด")
+                        # print("     หมด")
+                        pass
+                        
+                query = '''
+                SELECT  h.drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, 
+                        h.meal_id, meal_name, time
+                    FROM Drug_handle AS h
+                    LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
+                    LEFT JOIN Meal AS m ON h.meal_id = m.meal_id
+                '''
                     
-                print("============================================================================")
+                cursor.execute(query)   
+                drug_info_list = cursor.fetchall()
                 
-                if have_drug:
+                
+                for drug_info in drug_info_list:
+                    drug_info[6] == 0
+                    # print(f"\nชื่อยา:{drug_info[1]}\nยานอกเครื่อง:{drug_info[6]}\n")
+            
+                all_drugs_empty = all(drug_info[6] == 0 for drug_info in drug_info_list)
+
+                if all_drugs_empty:
+                    print("ทุกยามยาหมดแล้ว")
+                    slot = (row_max * col_max) + 1
+                else:
+                    # print("ยังมียาที่ยังไม่หมด")
+                    pass
+                    
+                # print("============================================================================")
+                
+                if have_drug:                                           # เช็คว่ามียาไหม
                     slot += 1
                     cursor_row += 1
-                    
-                # if cursor_row > row_max - 1:                # row = 5
-                #     cursor_row = 0
-                #     cursor_col += 1
-                # if cursor_col > col_max - 1:                # col = 5
-                #     cursor_col = 0
-                # check_meal += 1
                 
-                if cursor_row > row_max:                # row = 5
+                if row_max == col_max:                                  # คำนวณการขึ้น row ว่าต้องลบเท่าไหร่
+                    row_new = 1
+                    col_new = 1
+                else:                                                   # คำนวณการขึ้น col ใหม่ว่าต้องลบเท่าไหร่
+                    row_new = (col_max - row_max) - 1
+                    col_new = (row_max - col_max) - 1
+                
+                if cursor_row > row_max - row_new:                      # คำนวณตำแหน่งของ row
                     cursor_row = 0
                     cursor_col += 1
-                if cursor_col > col_max - 2:                # col = 6
+                if cursor_col > col_max - col_new:                      # คำนวณตำแหน่งของ col
                     cursor_col = 0
                 check_meal += 1
                 
-                # if cursor_row > row_max + 1:                # row = 5
-                #     cursor_row = 0
-                #     cursor_col += 1
-                # if cursor_col > col_max - 3:                # col = 7
-                #     cursor_col = 0
-                # check_meal += 1
-                
-                
-            else:
-                check_meal += 1
                 
             if check_meal > 7:
                 check_meal = 1
