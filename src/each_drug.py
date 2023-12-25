@@ -1,10 +1,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from day_start import Ui_day_start
+#from day_start import Ui_day_start
+from each_drug2 import Ui_each_drug2
 
 import sqlite3
 
 
 class Ui_each_drug(object):
+    
     def setupUi(self, each_drug):
         each_drug.setObjectName("each_drug")
         each_drug.resize(531, 401)
@@ -40,16 +42,16 @@ class Ui_each_drug(object):
         self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(166, 0, 0)")
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-        self.edit_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.edit_pushButton.setGeometry(QtCore.QRect(380, 40, 61, 31))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.edit_pushButton.setFont(font)
-        self.edit_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(85, 170, 127);")
-        self.edit_pushButton.setObjectName("edit_pushButton")
+#         self.edit_pushButton = QtWidgets.QPushButton(self.centralwidget)
+#         self.edit_pushButton.setGeometry(QtCore.QRect(380, 40, 61, 31))
+#         font = QtGui.QFont()
+#         font.setPointSize(12)
+#         self.edit_pushButton.setFont(font)
+#         self.edit_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
+# "background-color: rgb(85, 170, 127);")
+#         self.edit_pushButton.setObjectName("edit_pushButton")
         self.delete_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.delete_pushButton.setGeometry(QtCore.QRect(460, 40, 41, 31))
+        self.delete_pushButton.setGeometry(QtCore.QRect(430, 40, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.delete_pushButton.setFont(font)
@@ -80,7 +82,7 @@ class Ui_each_drug(object):
         self.drugAll_label.setFont(font)
         self.drugAll_label.setObjectName("drugAll_label")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(410, 300, 85, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(410, 280, 85, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
@@ -156,7 +158,8 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
-        self.next_pushButton.clicked.connect(self.open_day_start)
+        # self.next_pushButton.clicked.connect(self.open_day_start)
+        self.next_pushButton.clicked.connect(self.open_each_drug2)
 
         def delete_drug():
             drug_name = self.label_2.text()  # รับชื่อยาจาก Label
@@ -172,13 +175,30 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
         self.delete_pushButton.clicked.connect(delete_drug)
+        
 
-    def open_day_start(self):
-        self.day_start_window = QtWidgets.QMainWindow()
-        self.day_start_ui = Ui_day_start()
+    # def open_day_start(self):
+    #     self.day_start_window = QtWidgets.QMainWindow()
+    #     self.day_start_ui = Ui_day_start()
 
-        self.day_start_ui.setupUi(self.day_start_window)
-        self.day_start_window.show()
+    #     self.day_start_ui.setupUi(self.day_start_window)
+    #     self.day_start_ui.set_day_info(self.drug_id)
+    #     self.day_start_window.show()
+
+
+    def open_each_drug2(self):
+        #drug_name = self.label_2.text()
+        self.each_drug2_window = QtWidgets.QMainWindow()
+        self.each_drug2_ui = Ui_each_drug2()
+        self.each_drug2_ui.set_drug2_info(self.drug_id)
+
+       # self.each_drug_ui2.label.setText(drug_name)
+        self.each_drug2_ui.setupUi(self.each_drug2_window)
+        self.each_drug2_window.show()
+
+
+        
+        
 
     def set_drug_info(self, drug_name):
         connection = sqlite3.connect("medicine.db")
@@ -188,6 +208,7 @@ class Ui_each_drug(object):
         connection.close()
 
         if drug_info:
+            self.drug_id = drug_info[0]
             # drug_info[1] คือ drug_name
             self.label_2.setText(drug_info[1])
             # drug_info[2] คือ drug_description
@@ -195,7 +216,7 @@ class Ui_each_drug(object):
             # drug_info[3] คือ drug_amount
             self.label_4.setText(f"{drug_info[3]}")
             # drug_info[4] คือ drug_eat
-            self.label_5.setText(f"{drug_info[4]}")
+            self.label_5.setText(f"{drug_info[8]}")
 
 
     def retranslateUi(self, each_drug):
@@ -203,7 +224,7 @@ class Ui_each_drug(object):
         each_drug.setWindowTitle(_translate("each_drug", "ยาแต่ละตัว"))
         self.label.setText(_translate("each_drug", "ชื่อยา"))
         self.add_back_pushButton.setText(_translate("each_drug", "ย้อนกลับ"))
-        self.edit_pushButton.setText(_translate("each_drug", "แก้ไข"))
+        #self.edit_pushButton.setText(_translate("each_drug", "แก้ไข"))
         self.delete_pushButton.setText(_translate("each_drug", "ลบ"))
         self.drugName_label.setText(_translate("each_drug", "ชื่อยา : "))
         self.drugDescribe_label.setText(_translate("each_drug", "คำอธิบายยา : "))
