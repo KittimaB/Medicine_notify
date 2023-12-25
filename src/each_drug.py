@@ -196,7 +196,6 @@ class Ui_each_drug(object):
         self.each_drug2_ui.setupUi(self.each_drug2_window)
         self.each_drug2_window.show()
 
-
         
         
 
