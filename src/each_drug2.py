@@ -126,35 +126,51 @@ class Ui_each_drug2(object):
 
     def set_drug2_info(self, drug_id):
         self.drug_id = drug_id
-        print("drug_id = ", drug_id)
+        print(drug_id)
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
         query = '''
             SELECT * FROM Drug WHERE drug_id = ?
             '''
         cursor.execute(query, (drug_id,))  
-        drug_info = cursor.fetchall()
+        drug_info = cursor.fetchone()
 
         if drug_info:
+            # Convert the tuple to a list for modification
+            drug_info_list = list(drug_info)
+
+            # Modify the values as needed
+            drug_info_list[12] = 0
+
+            # Check for None values before performing the division
+            drug_remaining, drug_eat = drug_info_list[3], drug_info_list[8]
+            if drug_remaining is not None and drug_eat is not None and drug_eat != 0:
+                drug_remaining_meal = int(drug_remaining / drug_eat)
+            else:
+                drug_remaining_meal = 0
+
+            # Update the modified values back to the list
+            drug_info_list[4] = drug_remaining_meal
+
+            # Convert the list back to a tuple
+            drug_info = tuple(drug_info_list)
+
             self.drug_id = drug_info[0]
             self.label.setText(drug_info[1])
-           
             self.label_6.setText(f"{drug_info[12]}")
-          
             self.label_7.setText(f"{drug_info[4]}")
-       
             self.label_8.setText(f"{drug_info[9]}")
 
 
         print(drug_info)
-        
+
 
     def retranslateUi(self, each_drug2):
         _translate = QtCore.QCoreApplication.translate
         each_drug2.setWindowTitle(_translate("each_drug2", "ยาแต่ละตัว"))
         self.label_6.setText(_translate("each_drug2", "ยาที่ได้รับมาใหม่"))
         self.next_pushButton.setText(_translate("each_drug2", "ถัดไป"))
-        self.drugStill.setText(_translate("each_drug2", "จำนวนยาคงเหลือ (เม็ด) :"))
+        self.drugStill.setText(_translate("each_drug2", "จำนวนมื้อยาคงเหลือ (มื้อ) :"))
         self.label.setText(_translate("each_drug2", "ชื่อยา"))
         self.drugNew.setText(_translate("each_drug2", "จำนวนยาที่ได้รับมาใหม่ (เม็ด) :"))
         self.drugGot.setText(_translate("each_drug2", "จำนวนยาที่ได้รับมาแล้ว (เม็ด) :"))

@@ -190,10 +190,10 @@ class Ui_each_drug(object):
         #drug_name = self.label_2.text()
         self.each_drug2_window = QtWidgets.QMainWindow()
         self.each_drug2_ui = Ui_each_drug2()
-        self.each_drug2_ui.set_drug2_info(self.drug_id)
-
-       # self.each_drug_ui2.label.setText(drug_name)
+        
         self.each_drug2_ui.setupUi(self.each_drug2_window)
+
+        self.each_drug2_ui.set_drug2_info(self.drug_id)
         self.each_drug2_window.show()
         
         
