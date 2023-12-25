@@ -201,7 +201,7 @@ background-color: rgb(166, 0, 0)</string>
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
+     <string notr="true">background-color: rgb(206, 255, 197);</string>
     </property>
     <property name="text">
      <string>ถัดไป</string>

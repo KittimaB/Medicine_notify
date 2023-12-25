@@ -3,11 +3,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 
 import sqlite3
 
+#AddDrug_New ฉบับเพิ่มจำนวนยาที่ได้รับมาใหม่
 
 class NumericOnlyTextEdit(QtWidgets.QTextEdit):
     def keyPressEvent(self, event):
-        # Allow only numeric characters, Backspace, and Decimal point
-        if event.key() == QtCore.Qt.Key_Backspace or event.text().isdigit() or event.text() == '.':
+        # Allow only numeric characters and certain key events (e.g., Backspace)
+        if event.key() == QtCore.Qt.Key_Backspace or event.text().isdigit():
             super().keyPressEvent(event)
         else:
             event.ignore()
@@ -63,19 +64,19 @@ class Ui_Add_drug(object):
         self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
         self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(-10, 90, 551, 20))
+        self.line.setGeometry(QtCore.QRect(-10, 80, 551, 20))
         self.line.setFrameShadow(QtWidgets.QFrame.Plain)
         self.line.setLineWidth(3)
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setObjectName("line")
         self.drugName_label = QtWidgets.QLabel(self.centralwidget)
-        self.drugName_label.setGeometry(QtCore.QRect(30, 130, 101, 21))
+        self.drugName_label.setGeometry(QtCore.QRect(15, 110, 101, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.drugName_label.setFont(font)
         self.drugName_label.setObjectName("drugName_label")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setGeometry(QtCore.QRect(20, 160, 221, 31))
+        self.textEdit.setGeometry(QtCore.QRect(15, 140, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.textEdit.setFont(font)
@@ -84,13 +85,13 @@ class Ui_Add_drug(object):
         self.textEdit.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit.setObjectName("textEdit")
         self.drugDescribe_label = QtWidgets.QLabel(self.centralwidget)
-        self.drugDescribe_label.setGeometry(QtCore.QRect(30, 210, 131, 21))
+        self.drugDescribe_label.setGeometry(QtCore.QRect(15, 190, 131, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.drugDescribe_label.setFont(font)
         self.drugDescribe_label.setObjectName("drugDescribe_label")
         self.textEdit_2 = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit_2.setGeometry(QtCore.QRect(20, 240, 221, 51))
+        self.textEdit_2.setGeometry(QtCore.QRect(15, 220, 221, 51))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.textEdit_2.setFont(font)
@@ -100,20 +101,20 @@ class Ui_Add_drug(object):
         self.textEdit_2.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_2.setObjectName("textEdit_2")
         self.line_2 = QtWidgets.QFrame(self.centralwidget)
-        self.line_2.setGeometry(QtCore.QRect(250, 109, 20, 211))
+        self.line_2.setGeometry(QtCore.QRect(255, 100, 20, 270))
         self.line_2.setFrameShadow(QtWidgets.QFrame.Plain)
         self.line_2.setLineWidth(3)
         self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
         self.line_2.setObjectName("line_2")
         self.drugAll_label = QtWidgets.QLabel(self.centralwidget)
-        self.drugAll_label.setGeometry(QtCore.QRect(280, 130, 211, 21))
+        self.drugAll_label.setGeometry(QtCore.QRect(280, 110, 222, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.drugAll_label.setFont(font)
         self.drugAll_label.setAlignment(QtCore.Qt.AlignCenter)
         self.drugAll_label.setObjectName("drugAll_label")
         self.saveDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.saveDrug_pushButton.setGeometry(QtCore.QRect(220, 330, 81, 31))
+        self.saveDrug_pushButton.setGeometry(QtCore.QRect(350, 300, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.saveDrug_pushButton.setFont(font)
@@ -136,7 +137,7 @@ class Ui_Add_drug(object):
 "background-color: rgb(166, 0, 0)")
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.drugOne_label = QtWidgets.QLabel(self.centralwidget)
-        self.drugOne_label.setGeometry(QtCore.QRect(280, 210, 231, 21))
+        self.drugOne_label.setGeometry(QtCore.QRect(280, 190, 241, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.drugOne_label.setFont(font)
@@ -144,7 +145,7 @@ class Ui_Add_drug(object):
         self.drugOne_label.setObjectName("drugOne_label")
 
         self.textEdit_3 = NumericOnlyTextEdit(self.centralwidget)
-        self.textEdit_3.setGeometry(QtCore.QRect(280, 160, 221, 31))
+        self.textEdit_3.setGeometry(QtCore.QRect(280, 140, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.textEdit_3.setFont(font)
@@ -155,7 +156,7 @@ class Ui_Add_drug(object):
 
 
         self.textEdit_4 = NumericOnlyTextEdit(self.centralwidget)
-        self.textEdit_4.setGeometry(QtCore.QRect(280, 240, 221, 31))
+        self.textEdit_4.setGeometry(QtCore.QRect(280, 220, 221, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.textEdit_4.setFont(font)
@@ -163,6 +164,25 @@ class Ui_Add_drug(object):
         self.textEdit_4.setFrameShape(QtWidgets.QFrame.Box)
         self.textEdit_4.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_4.setObjectName("textEdit_4")
+
+        self.textEdit_5 = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit_5.setGeometry(QtCore.QRect(15, 320, 221, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.textEdit_5.setFont(font)
+        self.textEdit_5.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textEdit_5.setFrameShape(QtWidgets.QFrame.Box)
+        self.textEdit_5.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.textEdit_5.setObjectName("textEdit_5")
+
+        self.drugNew_label = QtWidgets.QLabel(self.centralwidget)
+        self.drugNew_label.setGeometry(QtCore.QRect(15, 290, 247, 21))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.drugNew_label.setFont(font)
+        self.drugNew_label.setObjectName("drugNew_label")
+
+
         Add_drug.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(Add_drug)
@@ -239,7 +259,7 @@ class Ui_Add_drug(object):
 
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
-        cursor.execute("INSERT INTO Drug (drug_name, drug_description, drug_remaining, drug_eat) VALUES (?, ?, ?, ?)", (drug_name, drug_description, drug_amount, drug_eat))
+        cursor.execute("INSERT INTO Drug (drug_name, drug_description, drug_amount, drug_eat) VALUES (?, ?, ?, ?)", (drug_name, drug_description, drug_amount, drug_eat))
         connection.commit()
         connection.close()
 
@@ -301,13 +321,14 @@ class Ui_Add_drug(object):
         _translate = QtCore.QCoreApplication.translate
         Add_drug.setWindowTitle(_translate("Add_drug", "เพิ่มยา"))
         self.label.setText(_translate("Add_drug", "   เพิ่มยา"))
-        self.drugName_label.setText(_translate("Add_drug", "ชื่อยา"))
-        self.drugDescribe_label.setText(_translate("Add_drug", "คำอธิบายยา"))
-        self.drugAll_label.setText(_translate("Add_drug", "จำนวนยาทั้งหมดที่มี (เม็ด)"))
+        self.drugName_label.setText(_translate("Add_drug", "1.ชื่อยา"))
+        self.drugDescribe_label.setText(_translate("Add_drug", "2.คำอธิบายยา"))
+        self.drugAll_label.setText(_translate("Add_drug", "4.จำนวนยาทั้งหมดที่มี (เม็ด)"))
         self.saveDrug_pushButton.setText(_translate("Add_drug", "บันทึกยา"))
         #self.listHave_pushButton.setText(_translate("Add_drug", "รายการยาที่มี"))
         self.add_back_pushButton.setText(_translate("Add_drug", "หน้าหลัก"))
-        self.drugOne_label.setText(_translate("Add_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
+        self.drugOne_label.setText(_translate("Add_drug", "5.จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
+        self.drugNew_label.setText(_translate("Add_drug", "3.จำนวนยาที่ได้รับมาใหม่ (เม็ด)"))
 import resources_rc
 
 if __name__ == "__main__":

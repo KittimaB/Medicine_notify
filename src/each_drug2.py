@@ -147,6 +147,7 @@ class Ui_each_drug2(object):
 
 
         print(drug_info)
+        
 
     def retranslateUi(self, each_drug2):
         _translate = QtCore.QCoreApplication.translate

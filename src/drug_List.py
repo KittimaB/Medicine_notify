@@ -97,6 +97,7 @@ class Ui_drug_List(object):
         self.each_drug_ui.label.setText(drug_name)
         self.each_drug_window.show()
 
+
         ############################################################
         
         # self.select_meal_window = QtWidgets.QMainWindow()
