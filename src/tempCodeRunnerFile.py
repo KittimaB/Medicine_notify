@@ -1,1 +1,1 @@
-label_2
+set_day_info

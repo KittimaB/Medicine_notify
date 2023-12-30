@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from day_start import Ui_day_start
 import sqlite3
 
 class Ui_each_drug2(object):
@@ -8,7 +9,7 @@ class Ui_each_drug2(object):
         each_drug2.setStyleSheet("background-color: rgb(217, 244, 255)")
         self.centralwidget = QtWidgets.QWidget(each_drug2)
         self.centralwidget.setObjectName("centralwidget")
-        self.label_6 = QtWidgets.QLabel(self.centralwidget)
+        self.label_6 = QtWidgets.QTextEdit(self.centralwidget)
         self.label_6.setGeometry(QtCore.QRect(270, 120, 191, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -18,10 +19,10 @@ class Ui_each_drug2(object):
         self.label_6.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_6.setFrameShape(QtWidgets.QFrame.Box)
         self.label_6.setLineWidth(1)
-        self.label_6.setTextFormat(QtCore.Qt.AutoText)
-        self.label_6.setScaledContents(False)
+        self.label_6.setCurrentCharFormat(QtGui.QTextCharFormat())
+       
         self.label_6.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_6.setWordWrap(True)
+        self.label_6.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.label_6.setObjectName("label_6")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.next_pushButton.setGeometry(QtCore.QRect(410, 280, 85, 31))
@@ -124,6 +125,16 @@ class Ui_each_drug2(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
+        self.next_pushButton.clicked.connect(self.open_day_start)
+
+    def open_day_start(self):
+        self.day_start_window = QtWidgets.QMainWindow()
+        self.day_start_ui = Ui_day_start()
+
+        self.day_start_ui.setupUi(self.day_start_window)
+        self.day_start_ui.set_day_info(self.drug_id)
+        self.day_start_window.show()
+
     def set_drug2_info(self, drug_id):
         self.drug_id = drug_id
         print(drug_id)
@@ -152,6 +163,16 @@ class Ui_each_drug2(object):
             # Update the modified values back to the list
             drug_info_list[4] = drug_remaining_meal
 
+            # Additional modification
+            drug_new = drug_info_list[12]
+            if drug_new is not None:
+                drug_remaining_with_new = drug_remaining + drug_new
+            else:
+                drug_remaining_with_new = drug_remaining
+
+            # Update the modified values back to the list
+            drug_info_list[9] = drug_remaining_with_new
+
             # Convert the list back to a tuple
             drug_info = tuple(drug_info_list)
 
@@ -161,8 +182,8 @@ class Ui_each_drug2(object):
             self.label_7.setText(f"{drug_info[4]}")
             self.label_8.setText(f"{drug_info[9]}")
 
-
         print(drug_info)
+
 
 
     def retranslateUi(self, each_drug2):

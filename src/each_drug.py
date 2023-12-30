@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-#from day_start import Ui_day_start
+
 from each_drug2 import Ui_each_drug2
 
 import sqlite3
@@ -88,7 +88,7 @@ class Ui_each_drug(object):
         self.next_pushButton.setFont(font)
         self.next_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.next_pushButton.setObjectName("next_pushButton")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2 = QtWidgets.QTextEdit(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(90, 120, 351, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -98,12 +98,12 @@ class Ui_each_drug(object):
         self.label_2.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_2.setFrameShape(QtWidgets.QFrame.Box)
         self.label_2.setLineWidth(1)
-        self.label_2.setTextFormat(QtCore.Qt.AutoText)
-        self.label_2.setScaledContents(False)
+        self.label_2.setCurrentCharFormat(QtGui.QTextCharFormat())
+        
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setWordWrap(True)
+        self.label_2.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3 = QtWidgets.QTextEdit(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(140, 150, 301, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -113,12 +113,12 @@ class Ui_each_drug(object):
         self.label_3.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_3.setFrameShape(QtWidgets.QFrame.Box)
         self.label_3.setLineWidth(1)
-        self.label_3.setTextFormat(QtCore.Qt.AutoText)
-        self.label_3.setScaledContents(False)
+        self.label_3.setCurrentCharFormat(QtGui.QTextCharFormat())
+        
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setWordWrap(True)
+        self.label_3.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.centralwidget)
+        self.label_4 = QtWidgets.QTextEdit(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(250, 180, 191, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -128,12 +128,12 @@ class Ui_each_drug(object):
         self.label_4.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_4.setFrameShape(QtWidgets.QFrame.Box)
         self.label_4.setLineWidth(1)
-        self.label_4.setTextFormat(QtCore.Qt.AutoText)
-        self.label_4.setScaledContents(False)
+        self.label_4.setCurrentCharFormat(QtGui.QTextCharFormat())
+        
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_4.setWordWrap(True)
+        self.label_4.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5 = QtWidgets.QTextEdit(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(270, 210, 171, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -143,10 +143,10 @@ class Ui_each_drug(object):
         self.label_5.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.label_5.setFrameShape(QtWidgets.QFrame.Box)
         self.label_5.setLineWidth(1)
-        self.label_5.setTextFormat(QtCore.Qt.AutoText)
-        self.label_5.setScaledContents(False)
+        self.label_5.setCurrentCharFormat(QtGui.QTextCharFormat())
+        
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_5.setWordWrap(True)
+        self.label_5.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
         self.label_5.setObjectName("label_5")
         each_drug.setCentralWidget(self.centralwidget)
 
@@ -158,7 +158,7 @@ class Ui_each_drug(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
-        # self.next_pushButton.clicked.connect(self.open_day_start)
+        
         self.next_pushButton.clicked.connect(self.open_each_drug2)
 
         def delete_drug():
@@ -176,14 +176,6 @@ class Ui_each_drug(object):
         self.add_back_pushButton.clicked.connect(close_window)
         self.delete_pushButton.clicked.connect(delete_drug)
         
-
-    # def open_day_start(self):
-    #     self.day_start_window = QtWidgets.QMainWindow()
-    #     self.day_start_ui = Ui_day_start()
-
-    #     self.day_start_ui.setupUi(self.day_start_window)
-    #     self.day_start_ui.set_day_info(self.drug_id)
-    #     self.day_start_window.show()
 
 
     def open_each_drug2(self):
@@ -207,14 +199,14 @@ class Ui_each_drug(object):
 
         if drug_info:
             self.drug_id = drug_info[0]
-            # drug_info[1] คือ drug_name
-            self.label_2.setText(drug_info[1])
-            # drug_info[2] คือ drug_description
-            self.label_3.setText(drug_info[2])
-            # drug_info[3] คือ drug_amount
-            self.label_4.setText(f"{drug_info[3]}")
-            # drug_info[4] คือ drug_eat
-            self.label_5.setText(f"{drug_info[8]}")
+            # drug_info[1] is drug_name
+            self.label_2.setPlainText(drug_info[1])
+            # drug_info[2] is drug_description
+            self.label_3.setPlainText(drug_info[2])
+            # drug_info[3] is drug_amount
+            self.label_4.setPlainText(str(drug_info[3]))  # Use str() to convert to string
+            # drug_info[4] is drug_eat
+            self.label_5.setPlainText(str(drug_info[8]))  # Use str() to convert to string
 
 
     def retranslateUi(self, each_drug):

@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlite3
-
+# ไม่ใช้แล้ว
 class Ui_select_day(object):
     def setupUi(self, select_day):
         select_day.setObjectName("select_day")
