@@ -83,16 +83,20 @@ class Ui_day_start(object):
         # Update the variable to indicate that the date has been selected
         self.date_selected = True
 
+    def set_day_info(self, drug_id):
+        self.drug_id = drug_id
+
     def open_select_meal(self):
         if self.date_selected:
             # Save the selected date to the database
             selected_date = self.calendar_widget.selectedDate().toString("yyyy-MM-dd")
-            self.save_date_to_database(selected_date)
+            self.save_date_to_database(selected_date, self.drug_id)
 
             # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()
             self.select_meal_ui = Ui_select_meal()
             self.select_meal_ui.setupUi(self.select_meal_window)
+            self.select_meal_ui.set_meal_info(self.drug_id)
             self.select_meal_window.show()
 
             # Disable the calendar after proceeding
@@ -100,22 +104,20 @@ class Ui_day_start(object):
         else:
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
     
-    def save_date_to_database(self, selected_date):
+    def save_date_to_database(self, selected_date, drug_id):
         # Connect to SQLite database
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
 
         # Check if a record already exists
-        cursor.execute("SELECT * FROM Day")
-        existing_record = cursor.fetchone()
+        cursor.execute("SELECT * FROM Drug")
+        existing_record = cursor.fetchall()
+        # print(existing_record)
 
         if existing_record:
             # Update the existing record
-            cursor.execute("UPDATE Day SET day_start = ? WHERE day_id = ?", (selected_date, existing_record[0]))
-        else:
-            # Insert a new record
-            cursor.execute("INSERT INTO Day (day_start) VALUES (?)", (selected_date,))
-
+            cursor.execute("UPDATE Drug SET day_start = ? WHERE drug_id = ?", (selected_date, drug_id))
+        
         # Commit changes and close connection
         connection.commit()
         connection.close()

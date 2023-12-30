@@ -189,8 +189,8 @@ class Ui_Medicine_App(object):
                 "all_drug_recieve"	INTEGER,
                 "day_start"	INTEGER,
                 "drug_log"	TEXT,
-                PRIMARY KEY("drug_id" AUTOINCREMENT)
-            )
+                "drug_new"  REAL,
+                PRIMARY KEY("drug_id" AUTOINCREMENT))
         ''')
         
         # Create Meal table

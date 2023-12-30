@@ -79,16 +79,14 @@ class Ui_drug_List(object):
     #         # if self.add_drug_window.close():
     #         #     self.update_drug_list()
 
-
-
     def handle_drug_item_click(self, item):
         # Get the text of the clicked item (drug name)
         drug_name = item.text()
-        # print(drug_name)
 
         # Open the each_drug window with the selected drug
         self.each_drug_window = QtWidgets.QMainWindow()
         self.each_drug_ui = Ui_each_drug()
+        
         self.each_drug_ui.setupUi(self.each_drug_window)
         
         # Set drug info for the each_drug window
@@ -98,19 +96,19 @@ class Ui_drug_List(object):
         self.each_drug_ui.label.setText(drug_name)
         self.each_drug_window.show()
 
-        
+
         ############################################################
         
-        self.select_meal_window = QtWidgets.QMainWindow()
-        self.select_meal_ui = Ui_select_meal()
-        self.select_meal_ui.setupUi(self.select_meal_window)
+        # self.select_meal_window = QtWidgets.QMainWindow()
+        # self.select_meal_ui = Ui_select_meal()
+        # self.select_meal_ui.setupUi(self.select_meal_window)
         
-        # Set drug info for the select_meal window
-        self.select_meal_ui.set_drug_info(drug_name)
+        # # Set drug info for the select_meal window
+        # self.select_meal_ui.set_drug_info(drug_name)
 
         # Pass the drug name to the select_meal window
         # self.select_meal_ui.label.setText(drug_name)
-        self.select_meal_window.show()
+        #self.select_meal_window.show()
 
 
 
@@ -121,9 +119,6 @@ class Ui_drug_List(object):
 
         self.add_drug_ui.setupUi(self.add_drug_window)
         self.add_drug_window.show()
-
-       
-
 
     def update_drug_list(self):
         connection = sqlite3.connect("medicine.db")
@@ -139,8 +134,6 @@ class Ui_drug_List(object):
         for drug in drugs:
             self.drug_list_widget.addItem(drug[0])
             
-        
-
     def retranslateUi(self, drug_List):
         _translate = QtCore.QCoreApplication.translate
         drug_List.setWindowTitle(_translate("drug_List", "คลังยา"))
