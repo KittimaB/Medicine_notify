@@ -110,9 +110,6 @@ class Ui_drug_List(object):
         # self.select_meal_ui.label.setText(drug_name)
         #self.select_meal_window.show()
 
-
-
-
     def open_add_drug(self):
         self.add_drug_window = QtWidgets.QMainWindow()
         self.add_drug_ui = Ui_Add_drug()

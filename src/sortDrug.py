@@ -183,10 +183,10 @@ class Ui_sortDrug(object):
             drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new = updated_drug_info
 
             # Display updated drug and meal information
-            # print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_remaining}, {drug_remaining_meal}, {fraction}, {external_drug}, {internal_drug}, {drug_eat}, {all_drug_recieve}, {day_start}, {drug_log}")
-            # print(f"Meal: {meal_id}, {meal_name}, {time}")
-            # print(f"ยา: {drug_name} และรับประทาน{meal_name}")
-            # print("=============================================================================")
+            print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_remaining}, {drug_remaining_meal}, {fraction}, {external_drug}, {internal_drug}, {drug_eat}, {all_drug_recieve}, {day_start}, {drug_log}")
+            print(f"Meal: {meal_id}, {meal_name}, {time}")
+            print(f"ยา: {drug_name} และรับประทาน{meal_name}")
+            print("=============================================================================")
         # print("\n")
         connection.close()
         
@@ -211,12 +211,12 @@ class Ui_sortDrug(object):
             drug_info_list = cursor.fetchall()
             
             if not drug_info_list:
-                break  # Exit the loop if no drug info is found
+                check_meal += 1
 
             if drug_info_list:
                 
-                # print(f"ลำดับ: {slot}, ยา{drug_info_list[0][13]}\n")
-                # print("ประกอบไปด้วย")
+                print(f"ลำดับ: {slot}, ยา{drug_info_list[0][14]}\n")
+                print("ประกอบไปด้วย")
                 have_drug = False
                 
                 color_text_mapping = {
@@ -237,15 +237,16 @@ class Ui_sortDrug(object):
                 circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
                 self.tableWidget.setCellWidget(cursor_col, cursor_row, circular_item)
                 
+                print(drug_info_list)
                 for drug_info in drug_info_list:
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, meal_id, meal_name, time = drug_info
                     
                     if external_drug != 0:
-                        # print(f"- {drug_name}")
+                        print(f"- {drug_name}")
                         
-                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
-                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
-                        # print("-----------------------")
+                        print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
+                        print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
+                        print("-----------------------")
                         
                         external_drug -= 1
                         internal_drug += 1
@@ -253,13 +254,13 @@ class Ui_sortDrug(object):
                         cursor.execute(f"UPDATE Drug SET external_drug = {external_drug}, internal_drug = {internal_drug} WHERE drug_id = {drug_id}")
                         connection.commit()
                         
-                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
-                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
+                        print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
+                        print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
                         
                         have_drug = True
                         
                     else:
-                        # print("     หมด")
+                        print("     หมด")
                         pass
                         
                 query = '''
@@ -276,15 +277,15 @@ class Ui_sortDrug(object):
                 
                 for drug_info in drug_info_list:
                     drug_info[6] == 0
-                    # print(f"\nชื่อยา:{drug_info[1]}\nยานอกเครื่อง:{drug_info[6]}\n")
+                    print(f"\nชื่อยา:{drug_info[1]}\nยานอกเครื่อง:{drug_info[6]}\n")
             
                 all_drugs_empty = all(drug_info[6] == 0 for drug_info in drug_info_list)
 
                 if all_drugs_empty:
-                    # print("ทุกยามยาหมดแล้ว")
+                    print("ทุกยามยาหมดแล้ว")
                     slot = (row_max * col_max) + 1
                 else:
-                    # print("ยังมียาที่ยังไม่หมด")
+                    print("ยังมียาที่ยังไม่หมด")
                     pass
                     
                 # print("============================================================================")
