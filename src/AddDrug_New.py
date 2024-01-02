@@ -230,7 +230,6 @@ class Ui_Add_drug(object):
             # Show the QDialog
             error_dialog.exec_()
             return  # Do not proceed with saving
-        self.update_drug_list
 
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
