@@ -211,7 +211,9 @@ class Ui_sortDrug(object):
             drug_info_list = cursor.fetchall()
             
             if not drug_info_list:
-                check_meal += 1
+                # ถ้าไม่มีข้อมูลในตาราง Drug_handle ให้แสดงข้อความเตือน
+                QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "กรุณากรอกข้อมูลในหน้า 'คลังยา'")
+                return
 
             if drug_info_list:
                 
@@ -242,11 +244,11 @@ class Ui_sortDrug(object):
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, meal_id, meal_name, time = drug_info
                     
                     if external_drug != 0:
-                        # print(f"- {drug_name}")
+                        print(f"- {drug_name}")
                         
-                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
-                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
-                        # print("-----------------------")
+                        print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
+                        print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
+                        print("-----------------------")
                         
                         external_drug -= 1
                         internal_drug += 1
@@ -254,13 +256,13 @@ class Ui_sortDrug(object):
                         cursor.execute(f"UPDATE Drug SET external_drug = {external_drug}, internal_drug = {internal_drug} WHERE drug_id = {drug_id}")
                         connection.commit()
                         
-                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
-                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
+                        print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
+                        print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
                         
                         have_drug = True
                         
                     else:
-                        # print("     หมด")
+                        print("     หมด")
                         pass
                         
                 query = '''
@@ -303,7 +305,9 @@ class Ui_sortDrug(object):
                 if cursor_col > col_max + col_new:                      # คำนวณตำแหน่งของ col
                     cursor_col = 0
                 check_meal += 1
-                
+            
+            else:
+                check_meal += 1    
                 
             if check_meal > 7:
                 check_meal = 1
