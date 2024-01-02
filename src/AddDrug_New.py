@@ -6,11 +6,12 @@ import sqlite3
 
 class NumericOnlyTextEdit(QtWidgets.QTextEdit):
     def keyPressEvent(self, event):
-        # Allow only numeric characters and certain key events (e.g., Backspace)
-        if event.key() == QtCore.Qt.Key_Backspace or event.text().isdigit():
+        # Allow only numeric characters, Backspace, and Decimal point
+        if event.key() == QtCore.Qt.Key_Backspace or event.text().isdigit() or event.text() == '.':
             super().keyPressEvent(event)
         else:
             event.ignore()
+            
 class Ui_Add_drug(object):
 
     def setupUi(self, Add_drug, drug_List):
