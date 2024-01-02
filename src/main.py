@@ -316,7 +316,6 @@ class Ui_Medicine_App(object):
             
         self.ui_drugTotal.add_back_pushButton.clicked.connect(close_drugTotal_window)
 
-
     def retranslateUi(self, Medicine_App):
         _translate = QtCore.QCoreApplication.translate
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))

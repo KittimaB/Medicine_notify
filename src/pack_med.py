@@ -111,8 +111,6 @@ class Ui_med_pack(object):
         
     def closeMedPack(self):
         self.med_pack.close()  # Close the main window
-        self.med_pack2.close()
-
 
     def retranslateUi(self, med_pack):
         _translate = QtCore.QCoreApplication.translate
@@ -225,7 +223,6 @@ class Ui_med_pack2(object):
         self.pack_back2_pushButton.clicked.connect(close_window_2)
         
     def showMedPack(self, med_pack2):
-
         self.med_pack2 = med_pack2  # บันทึกตัวแปรเข้าสมาชิกของคลาส
         self.med_pack2.show()
         
@@ -249,6 +246,6 @@ if __name__ == "__main__":
     med_pack = QtWidgets.QMainWindow()
     ui = Ui_med_pack()
     ui.setupUi(med_pack)
-    
+    med_pack.show()
     
     sys.exit(app.exec_())
