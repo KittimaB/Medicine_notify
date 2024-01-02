@@ -3,13 +3,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 # from select_meal import Ui_select_meal
 import sqlite3
-from PyQt5.QtCore import QTimer, QLocale
+from PyQt5.QtCore import QLocale
 import sys
 
-class Ui_drug_List(object):
-    def __init__(self):
-        self.drug_List = None  # Initialize med_pack as an instance variable
-        
+class Ui_drug_List(object):       
     def setupUi(self, drug_List):
         self.drug_List = drug_List
         drug_List.setObjectName("drug_List")
@@ -74,64 +71,22 @@ class Ui_drug_List(object):
             
         self.add_pushButton.clicked.connect(self.open_add_drug)
 
-    # def open_add_drug(self):
-    #         self.add_drug_window = QtWidgets.QMainWindow()
-    #         self.add_drug_ui = Ui_Add_drug()
-    #         self.add_drug_ui.setupUi(self.add_drug_window)
-    #         self.add_drug_window.show()
-    #         # if self.add_drug_window.close():
-    #         #     self.update_drug_list()
-
     def handle_drug_item_click(self, item):
         # Get the text of the clicked item (drug name)
         drug_name = item.text()
 
         # Open the each_drug window with the selected drug
-        self.each_drug_window = QtWidgets.QMainWindow()             ###
-        self.each_drug_ui = Ui_each_drug()                          ###
+        self.each_drug_window = QtWidgets.QMainWindow()           
+        self.each_drug_ui = Ui_each_drug()                          
         
-        self.each_drug_ui.setupUi(self.each_drug_window, self)      ###
+        self.each_drug_ui.setupUi(self.each_drug_window, self)     
         
         # Set drug info for the each_drug window
         self.each_drug_ui.set_drug_info(drug_name)
 
         # Pass the drug name to the each_drug window
-        self.each_drug_ui.label.setText(drug_name)
-        self.each_drug_ui.showMedEach(self.each_drug_window)       ###
-        self.each_drug_window.show()                     ###
-        
-    ###################################################################################################################################
-        
-    #     # ปุ่มย้อนกลับ
-
-    #     self.pack_back_pushButton.clicked.connect(self.closeMedPack)
-        
-    #     # ปุ่มถัดไป
-        
-    #     # self.next_pushButton.clicked.connect(self.showMedPack2)
-        
-    # # def showMedPack2(self):     # ฟังก์ชันไปหน้าถัดไป
-    # #     # self.med_pack2 = QtWidgets.QMainWindow()
-    # #     # self.ui2 = Ui_med_pack2()
-    # #     # self.ui2.setupUi(self.med_pack2, self)
-    # #     self.ui2.showMedPack(self.med_pack2)
-    # #     self.med_pack2.show()
-        
-    # def closeMedPack(self):     # ฟังก์ชันย้อนกลับ
-    #     self.med_pack.close()
-        
-    ###################################################################################################################################
-        
-        # self.select_meal_window = QtWidgets.QMainWindow()
-        # self.select_meal_ui = Ui_select_meal()
-        # self.select_meal_ui.setupUi(self.select_meal_window)
-        
-        # # Set drug info for the select_meal window
-        # self.select_meal_ui.set_drug_info(drug_name)
-
-        # Pass the drug name to the select_meal window
-        # self.select_meal_ui.label.setText(drug_name)
-        #self.select_meal_window.show()
+        self.each_drug_ui.label.setText(drug_name)   
+        self.each_drug_window.show()                    
         
     def closeAll(self):
         self.drug_List.close()
@@ -163,10 +118,11 @@ class Ui_drug_List(object):
         self.add_back_pushButton.setText(_translate("drug_List", "ย้อนกลับ"))
         self.add_pushButton.setText(_translate("drug_List", "เพิ่มยา"))
         
-############################################################################################################
+##################################################################################################################################
 
 class Ui_each_drug(object):   
     def setupUi(self, each_drug, drug_List):
+        self.each_drug = each_drug
         self.drug_List = drug_List
         
         each_drug.setObjectName("each_drug")
@@ -203,14 +159,6 @@ class Ui_each_drug(object):
         self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(166, 0, 0)")
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-#         self.edit_pushButton = QtWidgets.QPushButton(self.centralwidget)
-#         self.edit_pushButton.setGeometry(QtCore.QRect(380, 40, 61, 31))
-#         font = QtGui.QFont()
-#         font.setPointSize(12)
-#         self.edit_pushButton.setFont(font)
-#         self.edit_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-# "background-color: rgb(85, 170, 127);")
-#         self.edit_pushButton.setObjectName("edit_pushButton")
         self.delete_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.delete_pushButton.setGeometry(QtCore.QRect(430, 40, 71, 31))
         font = QtGui.QFont()
@@ -336,23 +284,14 @@ class Ui_each_drug(object):
         
         self.delete_pushButton.clicked.connect(delete_drug)
         
-    ###################################################################################################################################
-        
     def closeAll(self):
         self.each_drug.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
-        
-    def showMedEach(self, each_drug):
-        self.each_drug = each_drug  # บันทึกตัวแปรเข้าสมาชิกของคลาส
-        
-        
-    ###################################################################################################################################
 
     def open_each_drug2(self):
         #drug_name = self.label_2.text()
         self.each_drug2_window = QtWidgets.QMainWindow()
         self.each_drug2_ui = Ui_each_drug2()
         self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self)
-        self.each_drug2_ui.showMedEach2(self.each_drug2_window)
         self.each_drug2_ui.set_drug2_info(self.drug_id)
         self.each_drug2_window.show()
 
@@ -392,10 +331,11 @@ class Ui_each_drug(object):
         self.label_4.setText(_translate("each_drug", "ยาทั้งหมด"))
         self.label_5.setText(_translate("each_drug", "ยาที่กิน"))
         
-############################################################################################################
+##################################################################################################################################
 
 class Ui_each_drug2(object):
     def setupUi(self, each_drug2, drug_List, each_drug):
+        self.each_drug2 = each_drug2
         self.drug_List = drug_List
         self.each_drug = each_drug
         
@@ -488,13 +428,6 @@ class Ui_each_drug2(object):
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setWordWrap(True)
         self.label_7.setObjectName("label_7")
-        # self.delete_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        # self.delete_pushButton.setGeometry(QtCore.QRect(430, 40, 71, 31))
-        # font = QtGui.QFont()
-        # font.setPointSize(12)
-        # self.delete_pushButton.setFont(font)
-        # self.delete_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
-        # self.delete_pushButton.setObjectName("delete_pushButton")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(270, 180, 191, 21))
         font = QtGui.QFont()
@@ -521,9 +454,6 @@ class Ui_each_drug2(object):
         self.add_back_pushButton.clicked.connect(close_window)
 
         self.next_pushButton.clicked.connect(self.open_day_start)
-        
-    def showMedEach2(self, each_drug2):
-        self.each_drug2 = each_drug2
 
     def open_day_start(self):
         self.day_start_window = QtWidgets.QMainWindow()
@@ -1113,35 +1043,6 @@ class Ui_select_meal(object):
 
     def save_checkbox_states_and_close(self):
         self.save_checkbox_states()
-        # QtWidgets.qApp.closeAllWindows()
-        # # app = QtWidgets.QApplication(sys.argv)
-        # drug_List = QtWidgets.QMainWindow()
-        # ui = Ui_drug_List()
-        # ui.setupUi(drug_List)
-        # drug_List.show()
-        
-        # sys.exit(app.exec_())
-        # อาจต้องสร้างฟังก์ชันในฟังก์ชัน
-        
-        
-        # from main import Ui_Medicine_App  # version ใช้ไปก่อน จริงๆต้องimport drug_List แต่ยังไม่ได้ทำอัปเดทเลยยังไม่สามารถรู้ได้ในทันที
-        # self.drug_list_again_window = QtWidgets.QMainWindow()
-        # self.drug_list_again_ui = Ui_Medicine_App()
-        # self.drug_list_again_ui.setupUi(self.drug_list_again_window)
-        # self.drug_list_again_window.show()
-        
-        # for widget in QtWidgets.qApp.topLevelWidgets():
-        #     print(self)
-        #     if isinstance(widget, QtWidgets.QMainWindow) and widget is not self:
-        #         print(widget)
-        #         widget.close()
-        #     else:
-        #         print("not close" if isinstance(widget, Ui_drug_List) else "Ui_drug_list not closed")
-        #         drug_List = QtWidgets.QMainWindow()
-        #         ui = Ui_drug_List()
-        #         ui.setupUi(drug_List)
-        #         drug_List.show()
-        #     print('\n')
                 
     def save_checkbox_states(self):
         checkbox_states = {
@@ -1206,22 +1107,6 @@ class Ui_select_meal(object):
                     pass
 
         self.conn.commit()
-
-            # if existing_data:
-            #     # อัปเดตข้อมูล
-            #     self.cursor.execute('''
-            #         UPDATE Drug_handle
-            #         SET meal_state = ?
-            #         WHERE meal_id = ?
-            #     ''', (state, meal_id))
-            # else:
-            #     # ถ้าไม่มีข้อมูล ให้เพิ่มข้อมูลใหม่
-            #     self.cursor.execute('''
-            #         INSERT INTO Meal (meal_id, meal_state, time)
-            #         VALUES (?, ?, ?)
-            #     ''', (meal_id, state, ""))
-
-        # self.conn.commit()
     
     def retranslateUi(self, select_meal):
         _translate = QtCore.QCoreApplication.translate
@@ -1241,6 +1126,7 @@ class Ui_select_meal(object):
         self.bbed_label.setText(_translate("select_meal", "ก่อนนอน"))
         self.next_pushButton.setText(_translate("select_meal", "เสร็จสิ้น"))
 
+##################################################################################################################################
 
 class NumericOnlyTextEdit(QtWidgets.QTextEdit):
     def keyPressEvent(self, event):
@@ -1249,7 +1135,6 @@ class NumericOnlyTextEdit(QtWidgets.QTextEdit):
             super().keyPressEvent(event)
         else:
             event.ignore()
-
 class Ui_Add_drug(object):
 
     def setupUi(self, Add_drug, drug_List):
