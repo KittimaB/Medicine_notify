@@ -195,6 +195,7 @@ class Ui_sortDrug(object):
         
         cursor_row = 0
         cursor_col = 0
+        check_all = 1
         while(slot <= row_max * col_max):
             connection = sqlite3.connect("medicine.db")
             cursor = connection.cursor()
@@ -206,17 +207,23 @@ class Ui_sortDrug(object):
                     LEFT JOIN Meal AS m ON h.meal_id = m.meal_id
                 WHERE h.meal_id = ?
                 '''
-                    
+            
+            # print(check_meal)
             cursor.execute(query, (check_meal,))   
             drug_info_list = cursor.fetchall()
             
             if not drug_info_list:
-                # ถ้าไม่มีข้อมูลในตาราง Drug_handle ให้แสดงข้อความเตือน
-                QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "กรุณากรอกข้อมูลในหน้า 'คลังยา'")
-                return
+                pass
+                # print(f"check all:{check_all}")
+                
+                if check_all == 7:
+                    QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "ไม่พบข้อมูลยา")
+                    return
+                check_all += 1
+                
 
             if drug_info_list:
-                
+                check_all = 1
                 # print(f"ลำดับ: {slot}, ยา{drug_info_list[0][14]}\n")
                 # print("ประกอบไปด้วย")
                 have_drug = False
@@ -244,11 +251,11 @@ class Ui_sortDrug(object):
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, meal_id, meal_name, time = drug_info
                     
                     if external_drug != 0:
-                        print(f"- {drug_name}")
+                        # print(f"- {drug_name}")
                         
-                        print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
-                        print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
-                        print("-----------------------")
+                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (ก่อน update)")
+                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (ก่อน update)")
+                        # print("-----------------------")
                         
                         external_drug -= 1
                         internal_drug += 1
@@ -256,13 +263,13 @@ class Ui_sortDrug(object):
                         cursor.execute(f"UPDATE Drug SET external_drug = {external_drug}, internal_drug = {internal_drug} WHERE drug_id = {drug_id}")
                         connection.commit()
                         
-                        print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
-                        print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
+                        # print(f"    มื้อยานอกเครื่อง:{external_drug} (หลัง update)")
+                        # print(f"    มื้อยาในเครื่อง:{internal_drug} (หลัง update)")
                         
                         have_drug = True
                         
                     else:
-                        print("     หมด")
+                        # print("     หมด")
                         pass
                         
                 query = '''
