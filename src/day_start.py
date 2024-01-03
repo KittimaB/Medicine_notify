@@ -2,6 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 from select_meal import Ui_select_meal
 import sqlite3
+from datetime import datetime
 
 class Ui_day_start(object):
     def setupUi(self, day_start):
@@ -62,6 +63,10 @@ class Ui_day_start(object):
 
         self.calendar_widget.selectionChanged.connect(self.update_selected_date)
 
+        # Set the minimum date to the current date
+        current_date = QtCore.QDate.currentDate()
+        self.calendar_widget.setMinimumDate(current_date)
+
         self.retranslateUi(day_start)
         QtCore.QMetaObject.connectSlotsByName(day_start)
 
@@ -77,11 +82,19 @@ class Ui_day_start(object):
 
     def update_selected_date(self):
         selected_date = self.calendar_widget.selectedDate()
-        self.label_date.setText(selected_date.toString("yyyy-MM-dd"))
-        # Enable further date changes
-        self.calendar_widget.setEnabled(True)
-        # Update the variable to indicate that the date has been selected
-        self.date_selected = True
+        
+        # Check if the selected date is not in the past
+        if selected_date >= QtCore.QDate.currentDate():
+            self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
+            # Enable further date changes
+            self.calendar_widget.setEnabled(True)
+            # Update the variable to indicate that the date has been selected
+            self.date_selected = True
+        else:
+            # Show a warning message and reset the selected date
+            QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
+            self.calendar_widget.setSelectedDate(QtCore.QDate.currentDate())
+            
 
     def set_day_info(self, drug_id):
         self.drug_id = drug_id
