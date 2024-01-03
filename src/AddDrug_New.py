@@ -11,17 +11,13 @@ class NumericOnlyTextEdit(QtWidgets.QTextEdit):
             super().keyPressEvent(event)
         else:
             event.ignore()
-
-
+            
 class Ui_Add_drug(object):
-    def open_main_again(self):
-        from main import Ui_Medicine_App  
-        self.main_again_window = QtWidgets.QMainWindow()
-        self.main_again_ui = Ui_Medicine_App()
-        self.main_again_ui.setupUi(self.main_again_window)
-        self.main_again_window.show()
 
-    def setupUi(self, Add_drug):
+    def setupUi(self, Add_drug, drug_List):
+        self.Add_drug = Add_drug
+        self.drug_List = drug_List
+        
         Add_drug.setObjectName("Add_drug")
         Add_drug.resize(531, 401)
         icon = QtGui.QIcon()
@@ -170,7 +166,7 @@ class Ui_Add_drug(object):
         Add_drug.setTabOrder(self.textEdit, self.textEdit_2)
         Add_drug.setTabOrder(self.textEdit_2, self.saveDrug_pushButton)
 
-        self.add_back_pushButton.clicked.connect(self.open_main_again)
+        self.add_back_pushButton.clicked.connect(self.closeAll)
 
         #Add_drug.setTabOrder(self.saveDrug_pushButton, self.listHave_pushButton)
         #Add_drug.setTabOrder(self.listHave_pushButton, self.add_back_pushButton)
@@ -235,7 +231,6 @@ class Ui_Add_drug(object):
             # Show the QDialog
             error_dialog.exec_()
             return  # Do not proceed with saving
-        self.update_drug_list
 
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
@@ -291,11 +286,10 @@ class Ui_Add_drug(object):
         self.textEdit_2.clear()
         self.textEdit_3.clear()
         self.textEdit_4.clear()
-
-    def update_drug_list(self):
-        # เพิ่มรายการยาลงใน QListWidget หรือหน้าจอคลังยา
-        pass
-
+        
+    def closeAll(self):
+        self.drug_List.closeAll()
+        self.Add_drug.close()
 
     def retranslateUi(self, Add_drug):
         _translate = QtCore.QCoreApplication.translate
@@ -308,6 +302,7 @@ class Ui_Add_drug(object):
         #self.listHave_pushButton.setText(_translate("Add_drug", "รายการยาที่มี"))
         self.add_back_pushButton.setText(_translate("Add_drug", "หน้าหลัก"))
         self.drugOne_label.setText(_translate("Add_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
+        
 import resources_rc
 
 if __name__ == "__main__":

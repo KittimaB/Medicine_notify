@@ -4,7 +4,7 @@ from prepare import Ui_prepare
 import sqlite3
 
 row_max = 5     # แถวของกล่องยา                                  # กำหนดจำนวน row ของยา
-col_max = 8     # จำนวนลูกบอลที่ใส่ได้ในแต่ละแถว                      # กำหนดจำนวน col ของยา
+col_max = 6     # จำนวนลูกบอลที่ใส่ได้ในแต่ละแถว                      # กำหนดจำนวน col ของยา
 
 class CircularColorItem(QtWidgets.QWidget):
     def __init__(self, color, text, parent=None):
@@ -195,6 +195,7 @@ class Ui_sortDrug(object):
         
         cursor_row = 0
         cursor_col = 0
+        check_all = 1
         while(slot <= row_max * col_max):
             connection = sqlite3.connect("medicine.db")
             cursor = connection.cursor()
@@ -206,16 +207,24 @@ class Ui_sortDrug(object):
                     LEFT JOIN Meal AS m ON h.meal_id = m.meal_id
                 WHERE h.meal_id = ?
                 '''
-                    
+            
+            # print(check_meal)
             cursor.execute(query, (check_meal,))   
             drug_info_list = cursor.fetchall()
             
             if not drug_info_list:
-                check_meal += 1
+                pass
+                # print(f"check all:{check_all}")
+                
+                if check_all == 7:
+                    QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "ไม่พบข้อมูลยา")
+                    return
+                check_all += 1
+                
 
             if drug_info_list:
-                
-                # print(f"ลำดับ: {slot}, ยา{drug_info_list[0][13]}\n")
+                check_all = 1
+                # print(f"ลำดับ: {slot}, ยา{drug_info_list[0][14]}\n")
                 # print("ประกอบไปด้วย")
                 have_drug = False
                 
@@ -237,6 +246,7 @@ class Ui_sortDrug(object):
                 circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping[color])
                 self.tableWidget.setCellWidget(cursor_col, cursor_row, circular_item)
                 
+                # print(drug_info_list)
                 for drug_info in drug_info_list:
                     drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, meal_id, meal_name, time = drug_info
                     
@@ -302,7 +312,9 @@ class Ui_sortDrug(object):
                 if cursor_col > col_max + col_new:                      # คำนวณตำแหน่งของ col
                     cursor_col = 0
                 check_meal += 1
-                
+            
+            else:
+                check_meal += 1    
                 
             if check_meal > 7:
                 check_meal = 1

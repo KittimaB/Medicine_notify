@@ -1,11 +1,16 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 from select_meal import Ui_select_meal
+from PyQt5.QtCore import QLocale
 import sqlite3
-from datetime import datetime
 
 class Ui_day_start(object):
-    def setupUi(self, day_start):
+    def setupUi(self, day_start, drug_List, each_drug, each_drug2):
+        self.day_start = day_start
+        self.drug_List = drug_List
+        self.each_drug = each_drug
+        self.each_drug2 = each_drug2
+        
         day_start.setObjectName("day_start")
         day_start.resize(531, 401)
         day_start.setStyleSheet("background-color: rgb(217, 244, 255)")
@@ -94,7 +99,7 @@ class Ui_day_start(object):
             # Show a warning message and reset the selected date
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
             self.calendar_widget.setSelectedDate(QtCore.QDate.currentDate())
-            
+
 
     def set_day_info(self, drug_id):
         self.drug_id = drug_id
@@ -108,7 +113,7 @@ class Ui_day_start(object):
             # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()
             self.select_meal_ui = Ui_select_meal()
-            self.select_meal_ui.setupUi(self.select_meal_window)
+            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self)
             self.select_meal_ui.set_meal_info(self.drug_id)
             self.select_meal_window.show()
 
@@ -116,6 +121,11 @@ class Ui_day_start(object):
             self.calendar_widget.setEnabled(False)
         else:
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
+            
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.closeAll()
+        self.day_start.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
     
     def save_date_to_database(self, selected_date, drug_id):
         # Connect to SQLite database
@@ -125,7 +135,7 @@ class Ui_day_start(object):
         # Check if a record already exists
         cursor.execute("SELECT * FROM Drug")
         existing_record = cursor.fetchall()
-        print(existing_record)
+        # print(existing_record)
 
         if existing_record:
             # Update the existing record
@@ -135,15 +145,13 @@ class Ui_day_start(object):
         connection.commit()
         connection.close()
 
-
     def retranslateUi(self, day_start):
         _translate = QtCore.QCoreApplication.translate
         day_start.setWindowTitle(_translate("day_start", "วันที่เริ่มรับประทานยา"))
         self.label.setText(_translate("day_start", "วันที่เริ่มรับประทานยา"))
         self.add_back_pushButton.setText(_translate("day_start", "ย้อนกลับ"))
         self.next_pushButton.setText(_translate("day_start", "ถัดไป"))
-        self.label_date.setText("เลือกวันที่เริ่มรับประทานยา")
-
+        self.label_date.setText("เลือกวันที่เริ่มรับประทานยา")          
 
 if __name__ == "__main__":
     import sys

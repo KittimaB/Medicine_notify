@@ -5,9 +5,11 @@ from each_drug2 import Ui_each_drug2
 import sqlite3
 
 
-class Ui_each_drug(object):
-    
-    def setupUi(self, each_drug):
+class Ui_each_drug(object):   
+    def setupUi(self, each_drug, drug_List):
+        self.each_drug = each_drug
+        self.drug_List = drug_List
+        
         each_drug.setObjectName("each_drug")
         each_drug.resize(531, 401)
         each_drug.setStyleSheet("background-color: rgb(217, 244, 255)")
@@ -42,14 +44,6 @@ class Ui_each_drug(object):
         self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
 "background-color: rgb(166, 0, 0)")
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-#         self.edit_pushButton = QtWidgets.QPushButton(self.centralwidget)
-#         self.edit_pushButton.setGeometry(QtCore.QRect(380, 40, 61, 31))
-#         font = QtGui.QFont()
-#         font.setPointSize(12)
-#         self.edit_pushButton.setFont(font)
-#         self.edit_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-# "background-color: rgb(85, 170, 127);")
-#         self.edit_pushButton.setObjectName("edit_pushButton")
         self.delete_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.delete_pushButton.setGeometry(QtCore.QRect(430, 40, 71, 31))
         font = QtGui.QFont()
@@ -172,23 +166,19 @@ class Ui_each_drug(object):
                 connection.commit()
                 connection.close()
                 each_drug.close()  # ปิดหน้าต่างหลังจากลบเสร็จ
-
-        self.add_back_pushButton.clicked.connect(close_window)
+        
         self.delete_pushButton.clicked.connect(delete_drug)
         
-
+    def closeAll(self):
+        self.each_drug.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
 
     def open_each_drug2(self):
         #drug_name = self.label_2.text()
         self.each_drug2_window = QtWidgets.QMainWindow()
         self.each_drug2_ui = Ui_each_drug2()
-        
-        self.each_drug2_ui.setupUi(self.each_drug2_window)
-
+        self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self)
         self.each_drug2_ui.set_drug2_info(self.drug_id)
         self.each_drug2_window.show()
-        
-        
 
     def set_drug_info(self, drug_name):
         connection = sqlite3.connect("medicine.db")
@@ -225,7 +215,7 @@ class Ui_each_drug(object):
         self.label_3.setText(_translate("each_drug", "คำอธิบายยา"))
         self.label_4.setText(_translate("each_drug", "ยาทั้งหมด"))
         self.label_5.setText(_translate("each_drug", "ยาที่กิน"))
-
+import resources_rc
 
 if __name__ == "__main__":
     import sys

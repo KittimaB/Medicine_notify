@@ -3,7 +3,11 @@ from day_start import Ui_day_start
 import sqlite3
 
 class Ui_each_drug2(object):
-    def setupUi(self, each_drug2):
+    def setupUi(self, each_drug2, drug_List, each_drug):
+        self.each_drug2 = each_drug2
+        self.drug_List = drug_List
+        self.each_drug = each_drug
+        
         each_drug2.setObjectName("each_drug2")
         each_drug2.resize(531, 401)
         each_drug2.setStyleSheet("background-color: rgb(217, 244, 255)")
@@ -93,13 +97,6 @@ class Ui_each_drug2(object):
         self.label_7.setAlignment(QtCore.Qt.AlignCenter)
         self.label_7.setWordWrap(True)
         self.label_7.setObjectName("label_7")
-        # self.delete_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        # self.delete_pushButton.setGeometry(QtCore.QRect(430, 40, 71, 31))
-        # font = QtGui.QFont()
-        # font.setPointSize(12)
-        # self.delete_pushButton.setFont(font)
-        # self.delete_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
-        # self.delete_pushButton.setObjectName("delete_pushButton")
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
         self.label_8.setGeometry(QtCore.QRect(270, 180, 191, 21))
         font = QtGui.QFont()
@@ -130,14 +127,13 @@ class Ui_each_drug2(object):
     def open_day_start(self):
         self.day_start_window = QtWidgets.QMainWindow()
         self.day_start_ui = Ui_day_start()
-
-        self.day_start_ui.setupUi(self.day_start_window)
+        self.day_start_ui.setupUi(self.day_start_window, self.drug_List, self.each_drug, self)
         self.day_start_ui.set_day_info(self.drug_id)
         self.day_start_window.show()
 
     def set_drug2_info(self, drug_id):
         self.drug_id = drug_id
-        print(drug_id)
+        # print(drug_id)
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
         query = '''
@@ -182,9 +178,11 @@ class Ui_each_drug2(object):
             self.label_7.setText(f"{drug_info[4]}")
             self.label_8.setText(f"{drug_info[9]}")
 
-        print(drug_info)
-
-
+        # print(drug_info)
+        
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
 
     def retranslateUi(self, each_drug2):
         _translate = QtCore.QCoreApplication.translate
@@ -199,7 +197,7 @@ class Ui_each_drug2(object):
         self.label_7.setText(_translate("each_drug2", "ยาคงเหลือ"))
         # self.delete_pushButton.setText(_translate("each_drug2", "ลบ"))
         self.label_8.setText(_translate("each_drug2", "ยาที่ได้รับมาแล้ว"))
-
+        
 
 if __name__ == "__main__":
     import sys

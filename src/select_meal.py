@@ -2,14 +2,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import sqlite3
 # อันนี้ของเรา
 class Ui_select_meal(object):
-    def open_drug_list_again(self):
-        from main import Ui_Medicine_App  # version ใช้ไปก่อน จริงๆต้องimport drug_List แต่ยังไม่ได้ทำอัปเดทเลยยังไม่สามารถรู้ได้ในทันที
-        self.drug_list_again_window = QtWidgets.QMainWindow()
-        self.drug_list_again_ui = Ui_Medicine_App()
-        self.drug_list_again_ui.setupUi(self.drug_list_again_window)
-        self.drug_list_again_window.show()
-
-    def setupUi(self, select_meal):
+    def setupUi(self, select_meal, drug_List, each_drug, each_drug2, day_start):
+        self.select_meal = select_meal
+        self.drug_List = drug_List
+        self.each_drug = each_drug
+        self.each_drug2 = each_drug2
+        self.day_start = day_start
+        
         select_meal.setObjectName("select_meal")
         select_meal.resize(531, 401)
         select_meal.setStyleSheet("background-color: rgb(217, 244, 255)")
@@ -305,15 +304,15 @@ class Ui_select_meal(object):
 
         self.retranslateUi(select_meal)
         QtCore.QMetaObject.connectSlotsByName(select_meal)
-
         def close_window():
             select_meal.close()
 
         self.back_pushButton.clicked.connect(close_window)
-        self.next_pushButton.clicked.connect(close_window)
+        # self.next_pushButton.clicked.connect(close_window)
 
         # ในส่วนนี้เราเพิ่มการเชื่อมต่อกับเมธอด save_checkbox_states ในปุ่มย้อนกลับ
         self.next_pushButton.clicked.connect(self.save_checkbox_states_and_close)
+        self.next_pushButton.clicked.connect(self.closeAll)
 
         # เพิ่มการเชื่อมต่อฐานข้อมูล SQLite3
         self.conn = sqlite3.connect("medicine.db")
@@ -321,11 +320,18 @@ class Ui_select_meal(object):
 
 
         QtCore.QMetaObject.connectSlotsByName(select_meal)
+    
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.closeAll()
+        self.day_start.closeAll()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
+        self.select_meal.close()
+        
 
     def set_meal_info(self, drug_id):
         self.drug_id = drug_id
 
-        print("drug_id: ",drug_id)
+        # print("drug_id: ",drug_id)
         
         # Check which meal_id is associated with the given drug_id
         self.cursor.execute('SELECT meal_id FROM Drug_handle WHERE drug_id = ?', (drug_id,))
@@ -361,7 +367,6 @@ class Ui_select_meal(object):
 
     def save_checkbox_states_and_close(self):
         self.save_checkbox_states()
-        
                 
     def save_checkbox_states(self):
         checkbox_states = {
@@ -426,26 +431,7 @@ class Ui_select_meal(object):
                     pass
 
         self.conn.commit()
-
-
-
-            # if existing_data:
-            #     # อัปเดตข้อมูล
-            #     self.cursor.execute('''
-            #         UPDATE Drug_handle
-            #         SET meal_state = ?
-            #         WHERE meal_id = ?
-            #     ''', (state, meal_id))
-            # else:
-            #     # ถ้าไม่มีข้อมูล ให้เพิ่มข้อมูลใหม่
-            #     self.cursor.execute('''
-            #         INSERT INTO Meal (meal_id, meal_state, time)
-            #         VALUES (?, ?, ?)
-            #     ''', (meal_id, state, ""))
-
-        self.conn.commit()
-
-
+    
     def retranslateUi(self, select_meal):
         _translate = QtCore.QCoreApplication.translate
         select_meal.setWindowTitle(_translate("select_meal", "เลือกมื้อ"))
@@ -463,8 +449,8 @@ class Ui_select_meal(object):
         self.bed_label.setText(_translate("select_meal", "มื้อก่อนนอน"))
         self.bbed_label.setText(_translate("select_meal", "ก่อนนอน"))
         self.next_pushButton.setText(_translate("select_meal", "เสร็จสิ้น"))
-import resources_rc
 
+import resources_rc
 
 if __name__ == "__main__":
     import sys
