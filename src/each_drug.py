@@ -1,3 +1,4 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from each_drug2 import Ui_each_drug2
@@ -153,7 +154,7 @@ class Ui_each_drug(object):
         self.add_back_pushButton.clicked.connect(close_window)
 
         
-        self.next_pushButton.clicked.connect(self.open_each_drug2)
+        # self.next_pushButton.clicked.connect(self.open_each_drug2)
 
         def delete_drug():
             drug_name = self.label_2.text()  # รับชื่อยาจาก Label
@@ -168,15 +169,28 @@ class Ui_each_drug(object):
                 each_drug.close()  # ปิดหน้าต่างหลังจากลบเสร็จ
         
         self.delete_pushButton.clicked.connect(delete_drug)
+
+        def save_changes():
+            # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
+            updated_data = {}  # นี่คือตัวอย่าง เปลี่ยนตามความต้องการ
+            updated_data['drugname'] = self.label_2.toPlainText()
+            updated_data['drugdescribe'] = self.label_3.toPlainText()
+            updated_data['drugall'] = self.label_4.toPlainText()
+            updated_data['drugone'] = self.label_5.toPlainText()
+
+            # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้า each_drug2
+            self.open_each_drug2(updated_data)
+        
+        self.next_pushButton.clicked.connect(save_changes)
         
     def closeAll(self):
         self.each_drug.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
 
-    def open_each_drug2(self):
-        #drug_name = self.label_2.text()
+    def open_each_drug2(self,updated_data):
         self.each_drug2_window = QtWidgets.QMainWindow()
         self.each_drug2_ui = Ui_each_drug2()
-        self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self)
+        self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self,updated_data)
+        print(f"each_drug {updated_data}")
         self.each_drug2_ui.set_drug2_info(self.drug_id)
         self.each_drug2_window.show()
 
@@ -225,3 +239,4 @@ if __name__ == "__main__":
     ui.setupUi(each_drug)
     each_drug.show()
     sys.exit(app.exec_())
+

@@ -4,7 +4,7 @@ from prepare import Ui_prepare
 import sqlite3
 
 row_max = 5     # แถวของกล่องยา                                  # กำหนดจำนวน row ของยา
-col_max = 6     # จำนวนลูกบอลที่ใส่ได้ในแต่ละแถว                      # กำหนดจำนวน col ของยา
+col_max = 8     # จำนวนลูกบอลที่ใส่ได้ในแต่ละแถว                      # กำหนดจำนวน col ของยา
 
 class CircularColorItem(QtWidgets.QWidget):
     def __init__(self, color, text, parent=None):

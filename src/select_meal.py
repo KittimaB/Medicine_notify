@@ -1,13 +1,15 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from data_check import Ui_data_check
 import sqlite3
 # อันนี้ของเรา
 class Ui_select_meal(object):
-    def setupUi(self, select_meal, drug_List, each_drug, each_drug2, day_start):
+    def setupUi(self, select_meal, drug_List, each_drug, each_drug2, day_start, updated_data2):
         self.select_meal = select_meal
         self.drug_List = drug_List
         self.each_drug = each_drug
         self.each_drug2 = each_drug2
         self.day_start = day_start
+        self.updated_data2 = updated_data2
         
         select_meal.setObjectName("select_meal")
         select_meal.resize(531, 401)
@@ -312,14 +314,18 @@ class Ui_select_meal(object):
 
         # ในส่วนนี้เราเพิ่มการเชื่อมต่อกับเมธอด save_checkbox_states ในปุ่มย้อนกลับ
         self.next_pushButton.clicked.connect(self.save_checkbox_states_and_close)
-        self.next_pushButton.clicked.connect(self.closeAll)
-
         # เพิ่มการเชื่อมต่อฐานข้อมูล SQLite3
         self.conn = sqlite3.connect("medicine.db")
         self.cursor = self.conn.cursor()
 
 
         QtCore.QMetaObject.connectSlotsByName(select_meal)
+
+        def save_changes():
+            # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
+            self.open_data_check(self.updated_data2)
+        
+        self.next_pushButton.clicked.connect(save_changes)
     
     def closeAll(self):
         self.each_drug.closeAll()
@@ -327,9 +333,17 @@ class Ui_select_meal(object):
         self.day_start.closeAll()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
         self.select_meal.close()
         
+    def open_data_check(self, updated_data2):
+        self.data_check_window = QtWidgets.QMainWindow()
+        self.data_check_ui = Ui_data_check()
+        self.data_check_ui.setupUi(self.data_check_window, self.day_start, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
+        self.data_check_ui.set_data_info(self.drug_id)
+        self.data_check_window.show()
 
     def set_meal_info(self, drug_id):
         self.drug_id = drug_id
+
+        print(f"select_meal {self.updated_data2}")
 
         # print("drug_id: ",drug_id)
         
@@ -448,7 +462,7 @@ class Ui_select_meal(object):
         self.d_label.setText(_translate("select_meal", "มื้อเย็น"))
         self.bed_label.setText(_translate("select_meal", "มื้อก่อนนอน"))
         self.bbed_label.setText(_translate("select_meal", "ก่อนนอน"))
-        self.next_pushButton.setText(_translate("select_meal", "เสร็จสิ้น"))
+        self.next_pushButton.setText(_translate("select_meal", "ถัดไป"))
 
 import resources_rc
 

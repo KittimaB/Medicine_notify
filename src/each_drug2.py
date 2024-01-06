@@ -3,10 +3,11 @@ from day_start import Ui_day_start
 import sqlite3
 
 class Ui_each_drug2(object):
-    def setupUi(self, each_drug2, drug_List, each_drug):
+    def setupUi(self, each_drug2, drug_List, each_drug, updated_data):
         self.each_drug2 = each_drug2
         self.drug_List = drug_List
         self.each_drug = each_drug
+        self.updated_data = updated_data
         
         each_drug2.setObjectName("each_drug2")
         each_drug2.resize(531, 401)
@@ -122,16 +123,30 @@ class Ui_each_drug2(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
-        self.next_pushButton.clicked.connect(self.open_day_start)
+        # self.next_pushButton.clicked.connect(self.open_day_start)
 
-    def open_day_start(self):
+        def save_changes():
+            # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
+            updated_data2 = self.updated_data
+            updated_data2['drugnew'] = self.label_6.toPlainText()
+            updated_data2['drugstill'] = self.label_7.text()
+            updated_data2['druggot'] = self.label_8.text()
+
+            # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
+            self.open_day_start(updated_data2)
+        
+        self.next_pushButton.clicked.connect(save_changes)
+
+    def open_day_start(self, updated_data2):
         self.day_start_window = QtWidgets.QMainWindow()
         self.day_start_ui = Ui_day_start()
-        self.day_start_ui.setupUi(self.day_start_window, self.drug_List, self.each_drug, self)
+        self.day_start_ui.setupUi(self.day_start_window, self.drug_List, self.each_drug, self, updated_data2)
+        print(f"each_drug2 ครั้งที่ 2 {updated_data2}")
         self.day_start_ui.set_day_info(self.drug_id)
         self.day_start_window.show()
 
     def set_drug2_info(self, drug_id):
+        print(f"each_drug2 {self.updated_data}")
         self.drug_id = drug_id
         # print(drug_id)
         connection = sqlite3.connect("medicine.db")

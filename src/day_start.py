@@ -5,11 +5,12 @@ from PyQt5.QtCore import QLocale
 import sqlite3
 
 class Ui_day_start(object):
-    def setupUi(self, day_start, drug_List, each_drug, each_drug2):
+    def setupUi(self, day_start, drug_List, each_drug, each_drug2, updated_data2):
         self.day_start = day_start
         self.drug_List = drug_List
         self.each_drug = each_drug
         self.each_drug2 = each_drug2
+        self.updated_data2 = updated_data2
         
         day_start.setObjectName("day_start")
         day_start.resize(531, 401)
@@ -80,7 +81,11 @@ class Ui_day_start(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
-        self.next_pushButton.clicked.connect(self.open_select_meal)
+        def save_changes():
+            # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
+            self.open_select_meal(self.updated_data2)
+        
+        self.next_pushButton.clicked.connect(save_changes)
 
         # Initialize variable to track if the date has been selected
         self.date_selected = False
@@ -103,8 +108,9 @@ class Ui_day_start(object):
 
     def set_day_info(self, drug_id):
         self.drug_id = drug_id
+        print(f"day_start {self.updated_data2}")
 
-    def open_select_meal(self):
+    def open_select_meal(self, updated_data2):
         if self.date_selected:
             # Save the selected date to the database
             selected_date = self.calendar_widget.selectedDate().toString("yyyy-MM-dd")
@@ -113,7 +119,7 @@ class Ui_day_start(object):
             # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()
             self.select_meal_ui = Ui_select_meal()
-            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self)
+            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
             self.select_meal_ui.set_meal_info(self.drug_id)
             self.select_meal_window.show()
 

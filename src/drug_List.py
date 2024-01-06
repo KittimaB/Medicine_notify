@@ -135,3 +135,4 @@ if __name__ == "__main__":
     ui.setupUi(drug_List)
     drug_List.show()
     sys.exit(app.exec_())
+
