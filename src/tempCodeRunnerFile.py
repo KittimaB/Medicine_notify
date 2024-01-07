@@ -1,1 +1,1 @@
-set_day_info
+select_meal_label

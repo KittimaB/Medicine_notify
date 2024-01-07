@@ -234,7 +234,7 @@ class Ui_Add_drug(object):
 
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
-        cursor.execute("INSERT INTO Drug (drug_name, drug_description, drug_remaining, drug_eat) VALUES (?, ?, ?, ?)", (drug_name, drug_description, drug_amount, drug_eat))
+        cursor.execute("INSERT INTO Drug (drug_name, drug_description, drug_remaining, drug_eat, all_drug_recieve) VALUES (?, ?, ?, ?, ?)", (drug_name, drug_description, drug_amount, drug_eat, drug_amount))
         connection.commit()
         connection.close()
 

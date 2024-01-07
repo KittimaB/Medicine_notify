@@ -134,7 +134,7 @@ class Ui_each_drug2(object):
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_day_start(updated_data2)
-        
+
         self.next_pushButton.clicked.connect(save_changes)
 
     def open_day_start(self, updated_data2):
@@ -176,13 +176,14 @@ class Ui_each_drug2(object):
 
             # Additional modification
             drug_new = drug_info_list[12]
+            all_drug_recieve =int(drug_info_list[9])
             if drug_new is not None:
-                drug_remaining_with_new = drug_remaining + drug_new
+                all_drug_recieve = all_drug_recieve + drug_new
             else:
-                drug_remaining_with_new = drug_remaining
+                all_drug_recieve = all_drug_recieve
 
             # Update the modified values back to the list
-            drug_info_list[9] = drug_remaining_with_new
+            drug_info_list[9] = all_drug_recieve
 
             # Convert the list back to a tuple
             drug_info = tuple(drug_info_list)
