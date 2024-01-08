@@ -47,7 +47,7 @@ class Ui_day_start(object):
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setObjectName("line")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(420, 320, 91, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(420, 330, 91, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
@@ -55,23 +55,31 @@ class Ui_day_start(object):
         self.next_pushButton.setObjectName("next_pushButton")
         day_start.setCentralWidget(self.centralwidget)
 
-        self.calendar_widget = QCalendarWidget(self.centralwidget)
-        self.calendar_widget.setGeometry(QtCore.QRect(125, 105, 271, 191))
-        self.calendar_widget.setObjectName("calendarWidget")
-
+        self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
+        self.calendarWidget.setGeometry(QtCore.QRect(100, 100, 341, 221))
+        self.calendarWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"color: rgb(0, 0, 0);")
+        self.calendarWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.calendarWidget.setGridVisible(True)
+        self.calendarWidget.setSelectionMode(QtWidgets.QCalendarWidget.SingleSelection)
+        self.calendarWidget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.ShortDayNames)
+        self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.NoVerticalHeader)
+        self.calendarWidget.setObjectName("calendarWidget")
+        
         self.label_date = QtWidgets.QLabel(self.centralwidget)
-        self.label_date.setGeometry(QtCore.QRect(125, 320, 271, 31))
+        self.label_date.setGeometry(QtCore.QRect(125, 330, 271, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_date.setFont(font)
         self.label_date.setAlignment(QtCore.Qt.AlignCenter)
         self.label_date.setObjectName("label_date")
+        self.label_date.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
 
-        self.calendar_widget.selectionChanged.connect(self.update_selected_date)
+        self.calendarWidget.selectionChanged.connect(self.update_selected_date)
 
         # Set the minimum date to the current date
         current_date = QtCore.QDate.currentDate()
-        self.calendar_widget.setMinimumDate(current_date)
+        self.calendarWidget.setMinimumDate(current_date)
 
         self.retranslateUi(day_start)
         QtCore.QMetaObject.connectSlotsByName(day_start)
@@ -82,6 +90,10 @@ class Ui_day_start(object):
         self.add_back_pushButton.clicked.connect(close_window)
 
         def save_changes():
+            updated_data2 = self.updated_data2
+            updated_data2['day_start'] = self.label_date.text()
+
+
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_select_meal(self.updated_data2)
         
@@ -91,19 +103,19 @@ class Ui_day_start(object):
         self.date_selected = False
 
     def update_selected_date(self):
-        selected_date = self.calendar_widget.selectedDate()
+        selected_date = self.calendarWidget.selectedDate()
         
         # Check if the selected date is not in the past
         if selected_date >= QtCore.QDate.currentDate():
             self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
             # Enable further date changes
-            self.calendar_widget.setEnabled(True)
+            self.calendarWidget.setEnabled(True)
             # Update the variable to indicate that the date has been selected
             self.date_selected = True
         else:
             # Show a warning message and reset the selected date
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
-            self.calendar_widget.setSelectedDate(QtCore.QDate.currentDate())
+            self.calendarWidget.setSelectedDate(QtCore.QDate.currentDate())
 
 
     def set_day_info(self, drug_id):
@@ -113,7 +125,7 @@ class Ui_day_start(object):
     def open_select_meal(self, updated_data2):
         if self.date_selected:
             # Save the selected date to the database
-            selected_date = self.calendar_widget.selectedDate().toString("yyyy-MM-dd")
+            selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
             self.save_date_to_database(selected_date, self.drug_id)
 
             # Open the select_meal window
@@ -123,8 +135,8 @@ class Ui_day_start(object):
             self.select_meal_ui.set_meal_info(self.drug_id)
             self.select_meal_window.show()
 
-            # Disable the calendar after proceeding
-            self.calendar_widget.setEnabled(False)
+            
+            self.calendarWidget.setEnabled(True)
         else:
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
             

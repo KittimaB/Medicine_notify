@@ -322,6 +322,8 @@ class Ui_select_meal(object):
         QtCore.QMetaObject.connectSlotsByName(select_meal)
 
         def save_changes():
+            updated_data2 = self.updated_data2
+            # updated_data2['meals'] = self.label_date.text()
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_data_check(self.updated_data2)
         
