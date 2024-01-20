@@ -115,7 +115,7 @@ class Ui_med_pack(object):
     def retranslateUi(self, med_pack):
         _translate = QtCore.QCoreApplication.translate
         med_pack.setWindowTitle(_translate("med_pack", "วิธีการใส่ยา"))
-        self.packMed_label.setText(_translate("med_pack", "     วิธีการใส่ยาในกล่องบรรจุยา"))
+        self.packMed_label.setText(_translate("med_pack", "     คำแนะนำการใส่ยาในกล่องบรรจุยา"))
         self.pack_back_pushButton.setText(_translate("med_pack", "ย้อนกลับ"))
         self.step_label.setText(_translate("med_pack", "1. นำยาใส่ในซองสีชา"))
         self.next_pushButton.setText(_translate("med_pack", " ถัดไป"))
@@ -233,7 +233,7 @@ class Ui_med_pack2(object):
     def retranslateUi(self, med_pack2):
         _translate = QtCore.QCoreApplication.translate
         med_pack2.setWindowTitle(_translate("med_pack2", "วิธีการใส่ยา"))
-        self.packMed2_label.setText(_translate("med_pack2", "     วิธีการใส่ยาในกล่องบรรจุยา"))
+        self.packMed2_label.setText(_translate("med_pack2", "     คำแนะนำการใส่ยาในกล่องบรรจุยา"))
         self.pack_back2_pushButton.setText(_translate("med_pack2", "ย้อนกลับ"))
         self.step2_label.setText(_translate("med_pack2", "2. นำซองยาสีชาใส่ในกล่องบรรจุยา"))
         self.next2_pushButton.setText(_translate("med_pack2", " เข้าใจแล้ว"))

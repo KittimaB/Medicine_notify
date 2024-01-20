@@ -123,7 +123,7 @@ class Ui_encrypt_check(object):
         self.add_back_pushButton.setText(_translate("encrypt_check", "ย้อนกลับ"))
         self.label_3.setText(_translate("encrypt_check", ""))
         self.label.setText(_translate("encrypt_check", "ยืนยันการแก้ไข"))
-        self.set_code_label.setText(_translate("encrypt_check", "รหัสที่กำหนด : "))
+        self.set_code_label.setText(_translate("encrypt_check", "รหัสตรวจสอบ: "))
         self.fill_code_label.setText(_translate("encrypt_check", " กรุณากรอกรหัส: "))
         self.next_pushButton.setText(_translate("encrypt_check", "ยืนยัน"))
 

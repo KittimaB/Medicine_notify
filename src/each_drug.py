@@ -157,7 +157,7 @@ class Ui_each_drug(object):
         # self.next_pushButton.clicked.connect(self.open_each_drug2)
 
         def delete_drug():
-            drug_name = self.label_2.text()  # รับชื่อยาจาก Label
+            drug_name = self.label_2.toPlainText()  # รับชื่อยาจาก Label
             reply = QtWidgets.QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
                                                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
             if reply == QtWidgets.QMessageBox.Yes:
