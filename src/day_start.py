@@ -91,11 +91,25 @@ class Ui_day_start(object):
 
         def save_changes():
             updated_data2 = self.updated_data2
-            updated_data2['day_start'] = self.label_date.text()
 
+            # If the user hasn't selected a date, use the current date
+            if not self.date_selected:
+                current_date = QtCore.QDate.currentDate()
+                self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
+                updated_data2['day_start'] = self.label_date.text()
+            # else:
+            #     updated_data2['day_start'] = self.label_date.text()
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_select_meal(self.updated_data2)
+
+        # def save_changes():                                                                  แบบเดิม
+        #     updated_data2 = self.updated_data2
+        #     updated_data2['day_start'] = self.label_date.text()
+
+
+        #     # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
+        #     self.open_select_meal(self.updated_data2)
         
         self.next_pushButton.clicked.connect(save_changes)
 
@@ -116,6 +130,14 @@ class Ui_day_start(object):
             # Show a warning message and reset the selected date
             QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
             self.calendarWidget.setSelectedDate(QtCore.QDate.currentDate())
+
+        if not self.date_selected:
+            current_date = QtCore.QDate.currentDate()
+            self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
+            self.calendarWidget.setEnabled(True)
+           
+        
+
 
 
     def set_day_info(self, drug_id):
@@ -138,7 +160,21 @@ class Ui_day_start(object):
             
             self.calendarWidget.setEnabled(True)
         else:
-            QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
+            # Save the selected date to the database
+            selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
+            self.save_date_to_database(selected_date, self.drug_id)
+
+            # Open the select_meal window
+            self.select_meal_window = QtWidgets.QMainWindow()
+            self.select_meal_ui = Ui_select_meal()
+            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
+            self.select_meal_ui.set_meal_info(self.drug_id)
+            self.select_meal_window.show()
+
+            
+            self.calendarWidget.setEnabled(True)
+
+            # QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
             
     def closeAll(self):
         self.each_drug.closeAll()
@@ -169,7 +205,9 @@ class Ui_day_start(object):
         self.label.setText(_translate("day_start", "วันที่เริ่มรับประทานยา"))
         self.add_back_pushButton.setText(_translate("day_start", "ย้อนกลับ"))
         self.next_pushButton.setText(_translate("day_start", "ถัดไป"))
-        self.label_date.setText("เลือกวันที่เริ่มรับประทานยา")          
+        current_date = QtCore.QDate.currentDate()
+        self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
+        # self.label_date.setText("เลือกวันที่เริ่มรับประทานยา")          
 
 if __name__ == "__main__":
     import sys

@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from encrypt_check import Ui_encrypt_check
-
+import sqlite3
 class Ui_data_check(object):
     def setupUi(self, data_check, day_start, drug_List, each_drug, each_drug2, select_meal, updated_data2):
         self.data_check = data_check
@@ -235,6 +235,7 @@ class Ui_data_check(object):
         self.listWidget.setFrameShadow(QtWidgets.QFrame.Plain)
         self.listWidget.setLineWidth(2)
         self.listWidget.setMidLineWidth(0)
+        self.listWidget.setSelectionMode(QtWidgets.QAbstractItemView.NoSelection)
         self.listWidget.setObjectName("listWidget")
         self.select_meal_label = QtWidgets.QLabel(self.centralwidget)
         self.select_meal_label.setGeometry(QtCore.QRect(350, 110, 181, 21))
@@ -264,8 +265,20 @@ class Ui_data_check(object):
         self.drug_id = drug_id
         print(f"data_check {self.updated_data2}")
 
-        # connection = sqlite3.connect("medicine.db")
-        # cursor = connection.cursor()
+        # Fetch meal data for the given drug_id from the database
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
+
+        query = '''
+            SELECT Meal.meal_name
+            FROM Meal
+            JOIN Drug_handle ON Meal.meal_id = Drug_handle.meal_id
+            WHERE Drug_handle.drug_id = ?
+        '''
+        cursor.execute(query, (self.drug_id,))
+        meal_data = cursor.fetchall()
+
+        connection.close()
         # cursor.execute("SELECT * FROM Drug")
         # drugs = cursor.fetchall()
         # connection.close()
@@ -285,10 +298,14 @@ class Ui_data_check(object):
          # Clear the listWidget before adding new items
         self.listWidget.clear()
 
-        # Add meal selection data to the listWidget
-        meal_data = self.updated_data2.get('meals', [])
-        print(f"Meal Data: {meal_data}")
-        self.listWidget.addItems(meal_data)
+        # # Add meal selection data to the listWidget
+        # meal_data = self.updated_data2.get('meals', [])
+        # print(f"Meal Data: {meal_data}")
+        # self.listWidget.addItems(meal_data)
+
+         # Add fetched meal data to the listWidget
+        meal_names = [item[0] for item in meal_data]
+        self.listWidget.addItems(meal_names)
 
     def retranslateUi(self, data_check):
         _translate = QtCore.QCoreApplication.translate
