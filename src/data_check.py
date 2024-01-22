@@ -2,13 +2,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from encrypt_check import Ui_encrypt_check
 import sqlite3
 class Ui_data_check(object):
-    def setupUi(self, data_check, day_start, drug_List, each_drug, each_drug2, select_meal, updated_data2):
+    def setupUi(self, data_check, drug_List, each_drug, each_drug2, day_start, select_meal, updated_data2):
         self.data_check = data_check
-        self.select_meal = select_meal
         self.drug_List = drug_List
         self.each_drug = each_drug
         self.each_drug2 = each_drug2
         self.day_start = day_start
+        self.select_meal = select_meal
         self.updated_data2 = updated_data2
 
         data_check.setObjectName("data_check")
@@ -252,12 +252,12 @@ class Ui_data_check(object):
             data_check.close()
             
         self.add_back_pushButton.clicked.connect(close_window)
-        self.next_pushButton.clicked.connect(self.open_encrypt_check)
+        self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
 
-    def open_encrypt_check(self):
+    def open_encrypt_check(self,updated_data2):
         self.encrypt_check_window = QtWidgets.QMainWindow()
         self.encrypt_check_ui = Ui_encrypt_check()
-        self.encrypt_check_ui.setupUi(self.encrypt_check_window)
+        self.encrypt_check_ui.setupUi(self.encrypt_check_window, self.drug_List, self.each_drug, self.each_drug2, self.day_start, self.select_meal, self, {'drug_id': self.drug_id, **updated_data2})
         self.encrypt_check_window.show()
         
 
@@ -279,6 +279,7 @@ class Ui_data_check(object):
         meal_data = cursor.fetchall()
 
         connection.close()
+        
         # cursor.execute("SELECT * FROM Drug")
         # drugs = cursor.fetchall()
         # connection.close()
@@ -336,6 +337,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     data_check = QtWidgets.QMainWindow()
     ui = Ui_data_check()
-    ui.setupUi(data_check,0,0,0,0,0,0)
+    ui.setupUi(data_check)
     data_check.show()
     sys.exit(app.exec_())

@@ -2,10 +2,20 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 import random
+import sqlite3
 import string
 
 class Ui_encrypt_check(object):
-    def setupUi(self, encrypt_check):
+    def setupUi(self, encrypt_check, drug_List, each_drug, each_drug2, day_start, select_meal, data_check, updated_data2):
+        self.encrypt_check = encrypt_check
+        self.drug_List = drug_List
+        self.each_drug = each_drug
+        self.each_drug2 = each_drug2
+        self.day_start = day_start
+        self.select_meal = select_meal
+        self.data_check = data_check
+        self.updated_data2 = updated_data2
+
         encrypt_check.setObjectName("encrypt_check")
         encrypt_check.resize(531, 401)
         encrypt_check.setStyleSheet("background-color: rgb(217, 244, 255)")
@@ -97,6 +107,8 @@ class Ui_encrypt_check(object):
 
         self.add_back_pushButton.clicked.connect(close_window)
 
+        self.updated_data2 = updated_data2
+
         # Generate a random code with both numbers and letters
         characters = string.ascii_letters + string.digits
         self.generated_code = ''.join(random.choice(characters) for _ in range(6))
@@ -108,8 +120,30 @@ class Ui_encrypt_check(object):
 
             # Check if the user-entered code matches the generated code
             if user_code == self.generated_code:
-                # Code is correct, do something (e.g., close the window)
-                print("Code is correct. Do something here.")
+                # Code is correct, update the database with the received data
+                connection = sqlite3.connect("medicine.db")
+                cursor = connection.cursor()
+
+                update_query = '''
+                    UPDATE Drug
+                    SET drug_name = ?,
+                        drug_description = ?,
+                        drug_remaining = ?,
+                        drug_eat = ?,
+                        drug_new = ?
+                    WHERE drug_id = ?
+                '''
+                cursor.execute(update_query, (
+                    self.updated_data2['drugname'],
+                    self.updated_data2['drugdescribe'],
+                    self.updated_data2['drugall'],
+                    self.updated_data2['drugone'],
+                    self.updated_data2['drugnew'],
+                    self.updated_data2['drug_id']
+                ))
+
+                connection.commit()
+                connection.close()
             else:
                 # Code is incorrect, prompt the user to enter the correct code
                 QMessageBox.warning(self.centralwidget, "รหัสไม่ถูกต้อง", "กรุณากรอกรหัสให้ถูกต้อง")

@@ -338,7 +338,7 @@ class Ui_select_meal(object):
     def open_data_check(self, updated_data2):
         self.data_check_window = QtWidgets.QMainWindow()
         self.data_check_ui = Ui_data_check()
-        self.data_check_ui.setupUi(self.data_check_window, self.day_start, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
+        self.data_check_ui.setupUi(self.data_check_window, self.drug_List, self.each_drug, self.each_drug2, self.day_start, self, updated_data2)
         self.data_check_ui.set_data_info(self.drug_id)
         self.data_check_window.show()
 
