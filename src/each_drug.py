@@ -173,10 +173,10 @@ class Ui_each_drug(object):
         def save_changes():
             # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
             updated_data = {}  # นี่คือตัวอย่าง เปลี่ยนตามความต้องการ
-            updated_data['drugname'] = self.label_2.toPlainText()
-            updated_data['drugdescribe'] = self.label_3.toPlainText()
-            updated_data['drugall'] = self.label_4.toPlainText()
-            updated_data['drugone'] = self.label_5.toPlainText()
+            updated_data['drug_name'] = self.label_2.toPlainText()
+            updated_data['drug_description'] = self.label_3.toPlainText()
+            updated_data['drug_remaining'] = self.label_4.toPlainText()
+            updated_data['drug_eat'] = self.label_5.toPlainText()
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้า each_drug2
             self.open_each_drug2(updated_data)
@@ -207,7 +207,7 @@ class Ui_each_drug(object):
             self.label_2.setPlainText(drug_info[1])
             # drug_info[2] is drug_description
             self.label_3.setPlainText(drug_info[2])
-            # drug_info[3] is drug_amount
+            # drug_info[3] is drug_remaining
             self.label_4.setPlainText(str(drug_info[3]))  # Use str() to convert to string
             # drug_info[4] is drug_eat
             self.label_5.setPlainText(str(drug_info[8]))  # Use str() to convert to string

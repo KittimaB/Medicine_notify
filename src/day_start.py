@@ -112,6 +112,7 @@ class Ui_day_start(object):
         #     self.open_select_meal(self.updated_data2)
         
         self.next_pushButton.clicked.connect(save_changes)
+        # self.next_pushButton.clicked.connect(self.closeAll)
 
         # Initialize variable to track if the date has been selected
         self.date_selected = False

@@ -328,11 +328,12 @@ class Ui_select_meal(object):
             self.open_data_check(self.updated_data2)
         
         self.next_pushButton.clicked.connect(save_changes)
+        # self.next_pushButton.clicked.connect(self.closeAll)
     
     def closeAll(self):
         self.each_drug.closeAll()
         self.each_drug2.closeAll()
-        self.day_start.closeAll()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
+        self.day_start.closeAll()  
         self.select_meal.close()
         
     def open_data_check(self, updated_data2):

@@ -128,9 +128,9 @@ class Ui_each_drug2(object):
         def save_changes():
             # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
             updated_data2 = self.updated_data
-            updated_data2['drugnew'] = self.label_6.toPlainText()
-            updated_data2['drugstill'] = self.label_7.text()
-            updated_data2['druggot'] = self.label_8.text()
+            updated_data2['drug_new'] = self.label_6.toPlainText()
+            updated_data2['drug_remaining_meal'] = self.label_7.text()
+            updated_data2['all_drug_recieve'] = self.label_8.text()
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_day_start(updated_data2)

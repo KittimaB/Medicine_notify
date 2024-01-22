@@ -1,1 +1,1 @@
-INSER
+closeAll

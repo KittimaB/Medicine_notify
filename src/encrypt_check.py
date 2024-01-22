@@ -134,21 +134,34 @@ class Ui_encrypt_check(object):
                     WHERE drug_id = ?
                 '''
                 cursor.execute(update_query, (
-                    self.updated_data2['drugname'],
-                    self.updated_data2['drugdescribe'],
-                    self.updated_data2['drugall'],
-                    self.updated_data2['drugone'],
-                    self.updated_data2['drugnew'],
+                    self.updated_data2['drug_name'],
+                    self.updated_data2['drug_description'],
+                    self.updated_data2['drug_remaining'],
+                    self.updated_data2['drug_eat'],
+                    self.updated_data2['drug_new'],
                     self.updated_data2['drug_id']
                 ))
 
+                
+
                 connection.commit()
                 connection.close()
+                
+                
             else:
                 # Code is incorrect, prompt the user to enter the correct code
                 QMessageBox.warning(self.centralwidget, "รหัสไม่ถูกต้อง", "กรุณากรอกรหัสให้ถูกต้อง")
 
         self.next_pushButton.clicked.connect(check_code)
+        self.next_pushButton.clicked.connect(self.closeAll)
+
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.closeAll()
+        self.day_start.closeAll() 
+        self.select_meal.closeAll()
+        self.data_check.closeAll()
+        self.encrypt_check.close()
 
     def retranslateUi(self, encrypt_check):
         _translate = QtCore.QCoreApplication.translate

@@ -252,7 +252,8 @@ class Ui_data_check(object):
             data_check.close()
             
         self.add_back_pushButton.clicked.connect(close_window)
-        self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
+        # self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
+        self.next_pushButton.clicked.connect(self.closeAll)
 
     def open_encrypt_check(self,updated_data2):
         self.encrypt_check_window = QtWidgets.QMainWindow()
@@ -287,13 +288,13 @@ class Ui_data_check(object):
 
 
         # Set the data in the labels and listWidget
-        self.label_2.setText(f"{self.updated_data2['drugname']}")
-        self.label_3.setText(f"{self.updated_data2['drugdescribe']}")
-        self.label_4.setText(f"{self.updated_data2['drugall']}")
-        self.label_5.setText(f"{self.updated_data2['drugone']}")
-        self.label_6.setText(f"{self.updated_data2['drugnew']}")
-        self.label_7.setText(f"{self.updated_data2['drugstill']}")
-        self.label_8.setText(f"{self.updated_data2['druggot']}")
+        self.label_2.setText(f"{self.updated_data2['drug_name']}")
+        self.label_3.setText(f"{self.updated_data2['drug_description']}")
+        self.label_4.setText(f"{self.updated_data2['drug_remaining']}")
+        self.label_5.setText(f"{self.updated_data2['drug_eat']}")
+        self.label_6.setText(f"{self.updated_data2['drug_new']}")
+        self.label_7.setText(f"{self.updated_data2['drug_remaining_meal']}")
+        self.label_8.setText(f"{self.updated_data2['all_drug_recieve']}")
         self.label_9.setText(f"{self.updated_data2['day_start']}")
 
          # Clear the listWidget before adding new items
@@ -307,6 +308,13 @@ class Ui_data_check(object):
          # Add fetched meal data to the listWidget
         meal_names = [item[0] for item in meal_data]
         self.listWidget.addItems(meal_names)
+
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.closeAll()
+        self.day_start.closeAll()
+        self.select_meal.closeAll()
+        self.data_check.close()
 
     def retranslateUi(self, data_check):
         _translate = QtCore.QCoreApplication.translate
