@@ -252,8 +252,8 @@ class Ui_data_check(object):
             data_check.close()
             
         self.add_back_pushButton.clicked.connect(close_window)
-        # self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
-        self.next_pushButton.clicked.connect(self.closeAll)
+        self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
+        # self.next_pushButton.clicked.connect(self.closeAll)
 
     def open_encrypt_check(self,updated_data2):
         self.encrypt_check_window = QtWidgets.QMainWindow()
@@ -312,9 +312,10 @@ class Ui_data_check(object):
     def closeAll(self):
         self.each_drug.closeAll()
         self.each_drug2.closeAll()
-        self.day_start.closeAll()
         self.select_meal.closeAll()
         self.data_check.close()
+
+
 
     def retranslateUi(self, data_check):
         _translate = QtCore.QCoreApplication.translate

@@ -155,10 +155,17 @@ class Ui_encrypt_check(object):
         self.next_pushButton.clicked.connect(check_code)
         self.next_pushButton.clicked.connect(self.closeAll)
 
+    # def closeAll(self):
+    #     self.each_drug.closeAll()
+    #     self.each_drug2.closeAll()
+    #     self.day_start.closeAll() 
+    #     self.select_meal.closeAll()
+    #     self.data_check.closeAll()
+    #     self.encrypt_check.close()
+
     def closeAll(self):
         self.each_drug.closeAll()
         self.each_drug2.closeAll()
-        self.day_start.closeAll() 
         self.select_meal.closeAll()
         self.data_check.closeAll()
         self.encrypt_check.close()
