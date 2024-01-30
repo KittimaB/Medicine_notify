@@ -150,6 +150,9 @@ background-color: rgb(166, 0, 0)</string>
       <height>51</height>
      </rect>
     </property>
+    <property name="locale">
+     <locale language="English" country="UnitedStates"/>
+    </property>
    </widget>
   </widget>
  </widget>
