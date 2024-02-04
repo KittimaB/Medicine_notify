@@ -130,7 +130,8 @@ class Ui_encrypt_check(object):
                         drug_description = ?,
                         drug_remaining = ?,
                         drug_eat = ?,
-                        drug_new = ?
+                        drug_new = ?,
+                        day_start = ?
                     WHERE drug_id = ?
                 '''
                 cursor.execute(update_query, (
@@ -139,6 +140,7 @@ class Ui_encrypt_check(object):
                     self.updated_data2['drug_remaining'],
                     self.updated_data2['drug_eat'],
                     self.updated_data2['drug_new'],
+                    self.updated_data2['day_start'],
                     self.updated_data2['drug_id']
                 ))
 
