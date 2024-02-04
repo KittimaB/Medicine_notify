@@ -149,7 +149,7 @@ class Ui_day_start(object):
         if self.date_selected:
             # Save the selected date to the database
             selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
-            self.save_date_to_database(selected_date, self.drug_id)
+            # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()
@@ -163,7 +163,7 @@ class Ui_day_start(object):
         else:
             # Save the selected date to the database
             selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
-            self.save_date_to_database(selected_date, self.drug_id)
+            # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window
             self.select_meal_window = QtWidgets.QMainWindow()

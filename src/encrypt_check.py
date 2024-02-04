@@ -145,6 +145,7 @@ class Ui_encrypt_check(object):
                 
 
                 connection.commit()
+                QtWidgets.QMessageBox.information(encrypt_check, "Success", "ข้อมูลถูกบันทึกเรียบร้อยแล้ว")
                 connection.close()
                 
                 
