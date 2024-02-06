@@ -1,2 +1,1 @@
-
-class Ui_Medicine_App(object):
+frame_14

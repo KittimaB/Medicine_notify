@@ -1,4 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from AddDrug_New import Ui_Add_drug
 from each_drug import Ui_each_drug
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
@@ -12,23 +13,39 @@ class Ui_drug_List(object):
         self.drug_List = drug_List
         drug_List.setObjectName("drug_List")
         drug_List.resize(531, 401)
-        drug_List.setStyleSheet("background-color: rgb(217, 244, 255)")
+        drug_List.setStyleSheet("\n"
+"background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(drug_List)
         self.centralwidget.setObjectName("centralwidget")
-        self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(-10, 80, 551, 20))
-        self.line.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.line.setLineWidth(3)
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setObjectName("line")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(190, 20, 141, 51))
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setStyleSheet("border-radius: 40px;\n"
+"background-color: rgb(255, 255, 255);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.frame)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.frame.setGraphicsEffect(shadow)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
         font = QtGui.QFont()
-        font.setPointSize(24)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
-        self.label.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label.setStyleSheet("border-radius: 16px;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: rgb(23, 73, 110);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.label)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
         self.label.setLineWidth(1)
         self.label.setTextFormat(QtCore.Qt.AutoText)
@@ -36,21 +53,35 @@ class Ui_drug_List(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
-        self.add_back_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 40, 71, 31))
+        self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
-        self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(166, 0, 0)")
+        self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(244, 212, 99);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-        self.add_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.add_pushButton.setGeometry(QtCore.QRect(410, 40, 81, 31))
+        self.add_pushButton = QtWidgets.QPushButton(self.frame)
+        self.add_pushButton.setGeometry(QtCore.QRect(410, 80, 61, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_pushButton.setFont(font)
-        self.add_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(81, 179, 85);")
+        self.add_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: rgb(85, 170, 127);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.add_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.add_pushButton.setGraphicsEffect(shadow)
         self.add_pushButton.setObjectName("add_pushButton")
         drug_List.setCentralWidget(self.centralwidget)
 
@@ -58,7 +89,16 @@ class Ui_drug_List(object):
         QtCore.QMetaObject.connectSlotsByName(drug_List)
 
         self.drug_list_widget = QtWidgets.QListWidget(self.centralwidget)
-        self.drug_list_widget.setGeometry(QtCore.QRect(20, 120, 491, 261))
+        self.drug_list_widget.setGeometry(QtCore.QRect(20, 90, 491, 261))
+        self.drug_list_widget.setStyleSheet("border-radius: 4px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(226, 226, 226);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.drug_list_widget)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.drug_list_widget.setGraphicsEffect(shadow)
         self.update_drug_list()  # เรียกใช้ฟังก์ชันเพื่อแสดงรายการยาในคลังยา
 
         # Connect the itemClicked signal to handle_drug_item_click method
@@ -71,6 +111,28 @@ class Ui_drug_List(object):
         self.add_back_pushButton.clicked.connect(close_window)
             
         self.add_pushButton.clicked.connect(self.open_add_drug)
+
+        # Set up button press and release styling
+        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
+        self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
+
+        self.add_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_pushButton))
+        self.add_pushButton.released.connect(lambda: self.set_button_released_style(self.add_pushButton))
+
+    def set_button_pressed_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(200, 200, 200);"  # Change color when pressed
+        )
+
+    def set_button_released_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(255, 255, 255);\n"
+            "background-color: rgb(85, 170, 127);"
+        )
+
 
     def handle_drug_item_click(self, item):
         # Get the text of the clicked item (drug name)

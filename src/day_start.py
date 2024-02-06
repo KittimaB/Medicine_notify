@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from select_meal import Ui_select_meal
 from PyQt5.QtCore import QLocale
 import sqlite3
@@ -14,17 +15,39 @@ class Ui_day_start(object):
         
         day_start.setObjectName("day_start")
         day_start.resize(531, 401)
-        day_start.setStyleSheet("background-color: rgb(217, 244, 255)")
+        day_start.setStyleSheet("\n"
+"background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(day_start)
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(130, 20, 320, 51))
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setStyleSheet("border-radius: 40px;\n"
+"background-color: rgb(255, 255, 255);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.frame)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.frame.setGraphicsEffect(shadow)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
         font = QtGui.QFont()
-        font.setPointSize(24)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
-        self.label.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.label.setStyleSheet("border-radius: 16px;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: rgb(23, 73, 110);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.label)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
         self.label.setLineWidth(1)
         self.label.setTextFormat(QtCore.Qt.AutoText)
@@ -32,42 +55,51 @@ class Ui_day_start(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
-        self.add_back_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 40, 71, 31))
+        self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
-        self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(166, 0, 0)")
+        self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(244, 212, 99);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-        self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(-10, 80, 551, 20))
-        self.line.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.line.setLineWidth(3)
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setObjectName("line")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(420, 330, 91, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(430, 350, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
-        self.next_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.next_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(227, 151, 61);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.next_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
-        day_start.setCentralWidget(self.centralwidget)
-
-        self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
-        self.calendarWidget.setGeometry(QtCore.QRect(100, 100, 341, 221))
-        self.calendarWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"color: rgb(0, 0, 0);")
-        self.calendarWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.calendarWidget.setGridVisible(True)
-        self.calendarWidget.setSelectionMode(QtWidgets.QCalendarWidget.SingleSelection)
-        self.calendarWidget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.ShortDayNames)
-        self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.NoVerticalHeader)
-        self.calendarWidget.setObjectName("calendarWidget")
-        
-        self.label_date = QtWidgets.QLabel(self.centralwidget)
-        self.label_date.setGeometry(QtCore.QRect(125, 330, 271, 31))
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(90, 80, 361, 261))
+        self.frame_2.setStyleSheet("border-radius: 9px;\n"
+"background-color: rgb(236, 236, 236);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.frame_2)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.frame_2.setGraphicsEffect(shadow)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.label_date = QtWidgets.QLabel(self.frame_2)
+        self.label_date.setGeometry(QtCore.QRect(80, 3, 211, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.label_date.setFont(font)
@@ -75,6 +107,20 @@ class Ui_day_start(object):
         self.label_date.setObjectName("label_date")
         self.label_date.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
 
+        self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
+        self.calendarWidget.setGeometry(QtCore.QRect(100, 110, 341, 221))
+        self.calendarWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border-color: rgb(0, 0, 0);\n"
+"color: rgb(0, 0, 0);")
+        self.calendarWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.calendarWidget.setGridVisible(True)
+        self.calendarWidget.setSelectionMode(QtWidgets.QCalendarWidget.SingleSelection)
+        self.calendarWidget.setHorizontalHeaderFormat(QtWidgets.QCalendarWidget.ShortDayNames)
+        self.calendarWidget.setVerticalHeaderFormat(QtWidgets.QCalendarWidget.NoVerticalHeader)
+        self.calendarWidget.setObjectName("calendarWidget")
+        day_start.setCentralWidget(self.centralwidget)
+      
+        
         self.calendarWidget.selectionChanged.connect(self.update_selected_date)
 
         # Set the minimum date to the current date
@@ -116,6 +162,29 @@ class Ui_day_start(object):
 
         # Initialize variable to track if the date has been selected
         self.date_selected = False
+
+         # Set up button press and release styling
+        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
+        self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
+
+        self.next_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.next_pushButton))
+        self.next_pushButton.released.connect(lambda: self.set_button_released_style(self.next_pushButton))
+
+
+    def set_button_pressed_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(200, 200, 200);"  # Change color when pressed
+        )
+
+    def set_button_released_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(227, 151, 61);"
+        )
+
 
     def update_selected_date(self):
         selected_date = self.calendarWidget.selectedDate()

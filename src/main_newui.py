@@ -1,15 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from drug_List import Ui_drug_List
-from select_time import Ui_select_time
-from pack_med import Ui_med_pack
-from sortDrug import Ui_sortDrug
-from drugTotal import Ui_drugTotal
-
-import sqlite3
-
-import datetime
-from PyQt5.QtCore import QTimer, QLocale
+# เอาแค่ui เฉยๆ ไม่ใช้แล้ว
 
 class Ui_Medicine_App(object):
     def setupUi(self, Medicine_App):
@@ -22,7 +13,8 @@ class Ui_Medicine_App(object):
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
-"background-color: rgb(255, 255, 255);\n" )
+"background-color: rgb(255, 255, 255);\n" 
+"box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
         shadow.setBlurRadius(8)
@@ -73,7 +65,8 @@ class Ui_Medicine_App(object):
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(130, 90, 271, 281))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
-"background-color: rgb(236, 236, 236);\n")
+"background-color: rgb(236, 236, 236);\n"
+"box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
         shadow.setBlurRadius(8)
@@ -208,208 +201,26 @@ class Ui_Medicine_App(object):
 
         self.retranslateUi(Medicine_App)
         QtCore.QMetaObject.connectSlotsByName(Medicine_App)
-        
-        # อัพเดทเวลา
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_time)
-        self.timer.start(1000)
-        
-        # Connect to SQLite database
-        self.connection = sqlite3.connect("medicine.db")
-        self.cursor = self.connection.cursor()
-
-        # Create Drug table
-        self.cursor.execute('''   
-            CREATE TABLE IF NOT EXISTS Drug (
-                "drug_id"	INTEGER,
-                "drug_name"	TEXT,
-                "drug_description"	TEXT,
-                "drug_remaining"	REAL,
-                "drug_remaining_meal"	INTEGER,
-                "fraction"	REAL,
-                "external_drug"	INTEGER,
-                "internal_drug"	INTEGER,
-                "drug_eat"	REAL,
-                "all_drug_recieve"	INTEGER,
-                "day_start"	INTEGER,
-                "drug_log"	TEXT,
-                "drug_new"  REAL,
-                PRIMARY KEY("drug_id" AUTOINCREMENT))
-        ''')
-        
-        # Create Meal table
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Meal (
-                "meal_id"	INTEGER,
-                "meal_name"	TEXT,
-                "time"	TEXT,
-                PRIMARY KEY("meal_id" AUTOINCREMENT)
-            )
-        ''')
-
-        # Create Drug_handle table 
-        ##################### ใช้ระบุว่า ยาตัวนั้นกินมื้อไหนบ้าง ######################## 
-        # ทำตารางนี้มาเพื่อแทนที่ meal_state ซึ่งเป็นการเก็บ state โดยรวม
-        self.cursor.execute('''       
-            CREATE TABLE IF NOT EXISTS Drug_handle (
-                "handle_id"	INTEGER,
-                "drug_id"	INTEGER,
-                "meal_id"	INTEGER,
-                FOREIGN KEY("meal_id") REFERENCES "Meal"("meal_id"),
-                FOREIGN KEY("drug_id") REFERENCES "Drug"("drug_id"),
-                PRIMARY KEY("handle_id" AUTOINCREMENT)
-            )
-        ''')
-        
-        # Check if the Meal table is empty, and if so, insert default values
-        self.cursor.execute("SELECT COUNT(*) FROM Meal")
-        meal_count = self.cursor.fetchone()[0]
-        
-        ############################### ปลื้มแก้ ######################################    
-        if meal_count == 0:
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเช้า ก่อนอาหาร", "06:00"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเช้า หลังอาหาร", "06:30"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเที่ยง ก่อนอาหาร", "12:00"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเที่ยง หลังอาหาร", "12:30"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเย็น ก่อนอาหาร", "18:00"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อเย็น หลังอาหาร", "18:30"))
-            self.cursor.execute("INSERT INTO Meal (meal_name, time) VALUES (?, ?)",
-                                ("มื้อก่อนนอน", "20:30"))
-
-        self.connection.commit()
-        
-        self.addDrug_pushButton.clicked.connect(self.open_drug_List_page)
-        self.setting_pushButton.clicked.connect(self.open_select_time_page)
-        self.putDrug_pushButton.clicked.connect(self.open_pack_page)
-        self.alignment_pushButton.clicked.connect(self.open_sortdrug_page)
-        self.drugLeft_pushButton.clicked.connect(self.open_drugTotal_page)
-
-        # Set up button press and release styling
-        self.addDrug_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.addDrug_pushButton))
-        self.addDrug_pushButton.released.connect(lambda: self.set_button_released_style(self.addDrug_pushButton))
-
-        self.setting_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.setting_pushButton))
-        self.setting_pushButton.released.connect(lambda: self.set_button_released_style(self.setting_pushButton))
-
-        self.putDrug_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.putDrug_pushButton))
-        self.putDrug_pushButton.released.connect(lambda: self.set_button_released_style(self.putDrug_pushButton))
-
-        self.alignment_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.alignment_pushButton))
-        self.alignment_pushButton.released.connect(lambda: self.set_button_released_style(self.alignment_pushButton))
-
-        self.drugLeft_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.drugLeft_pushButton))
-        self.drugLeft_pushButton.released.connect(lambda: self.set_button_released_style(self.drugLeft_pushButton))
-
-        
-    def set_button_pressed_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(200, 200, 200);"  # Change color when pressed
-        )
-
-    def set_button_released_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(255, 255, 255);"
-        )
-        
-    ###################### เวลา #############################
-    def update_time(self):
-        current_datetime = datetime.datetime.now()
-        current_time = current_datetime.strftime("%H:%M:%S")
-        current_date = current_datetime.strftime("%a, %d %b %Y")
-        
-        self.label.setText(current_time)
-        self.label_3.setText(current_date)
-
-    ###################### หน้าคลังยา #############################  
-    def open_drug_List_page(self):
-        self.drug_List_window = QtWidgets.QMainWindow()
-        self.ui_drug_List = Ui_drug_List()
-        self.ui_drug_List.setupUi(self.drug_List_window)
-        self.drug_List_window.show()
-
-        def close_drug_List_window():
-            self.drug_List_window.close()
-        
-        self.ui_drug_List.add_back_pushButton.clicked.connect(close_drug_List_window)
-
-    ###################### หน้าตั้งเวลามื้อยา ############################# 
-    def open_select_time_page(self):
-        self.select_time_window = QtWidgets.QMainWindow()
-        self.ui_select_time = Ui_select_time()
-        self.ui_select_time.setupUi(self.select_time_window)
-        self.select_time_window.show()
-        
-        def close_select_time_window():
-            self.select_time_window.close()
-        
-        self.ui_select_time.back_pushButton.clicked.connect(close_select_time_window)
-        
-    ###################### หน้าวิธีบรรจุยา ############################# 
-    def open_pack_page(self):
-        self.pack_window = QtWidgets.QMainWindow()
-        self.ui_pack = Ui_med_pack()
-        self.ui_pack.setupUi(self.pack_window)
-        self.pack_window.show()
-        
-        def close_pack_window():
-            self.pack_window.close()
-            
-        self.ui_pack.pack_back_pushButton.clicked.connect(close_pack_window)
-
-    ###################### หน้าวิธีจัดเรียงยาตามผัง ############################# 
-    def open_sortdrug_page(self):
-        self.sortdrug_window = QtWidgets.QMainWindow()
-        self.ui_sortdrug = Ui_sortDrug()
-        self.ui_sortdrug.setupUi(self.sortdrug_window)
-        self.sortdrug_window.show()
-        
-        def close_sortdrug_window():
-            self.sortdrug_window.close()
-            
-        self.ui_sortdrug.add_back_pushButton.clicked.connect(close_sortdrug_window)
-    
-    ##################### หน้าจำนวนมื้อยาคงเหลือ ############################# 
-    def open_drugTotal_page(self):
-        self.drugTotal_window = QtWidgets.QMainWindow()
-        self.ui_drugTotal = Ui_drugTotal()
-        self.ui_drugTotal.setupUi(self.drugTotal_window)
-        self.drugTotal_window.show()
-        
-        def close_drugTotal_window():
-            self.drugTotal_window.close()
-            
-        self.ui_drugTotal.add_back_pushButton.clicked.connect(close_drugTotal_window)
 
     def retranslateUi(self, Medicine_App):
         _translate = QtCore.QCoreApplication.translate
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))
-        self.addDrug_pushButton.setText(_translate("Medicine_App", "  คลังยา"))
-        self.home_label.setText(_translate("Medicine_App", "   หน้าหลัก"))
+        self.home_label.setText(_translate("Medicine_App", "หน้าหลัก"))
+        self.label_3.setText(_translate("Medicine_App", "อา. 28 ก.ค."))
+        self.label.setText(_translate("Medicine_App", "23:00:25"))
+        self.addDrug_pushButton.setText(_translate("Medicine_App", "คลังยา"))
         self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
-        self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยา"))
+        self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยาในกล่องบรรจุยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนมื้อยาคงเหลือ"))
-        
 import resources_rc
+
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Medicine_App = QtWidgets.QMainWindow()
+    Medicine_App = QtWidgets.QMedicine_App()
     ui = Ui_Medicine_App()
     ui.setupUi(Medicine_App)
-    # Set the locale to English
-    english_locale = QLocale(QLocale.English)
-    QLocale.setDefault(english_locale)
     Medicine_App.show()
     sys.exit(app.exec_())
