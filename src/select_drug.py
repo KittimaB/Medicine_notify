@@ -206,7 +206,7 @@ class Ui_select_drug(object):
         self.add_drug_window = QtWidgets.QMainWindow()
         self.add_drug_ui = Ui_Add_drug()
         self.add_drug_ui.setupUi(self.add_drug_window)
-
+        self.main_window.close()
         self.add_drug_window.show()
         
     def set_drug_timing(self, text):

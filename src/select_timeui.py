@@ -1,15 +1,9 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from timeEdit import Ui_time_Edit
+from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_select_time(object):
-    def open_time_edit(self, meal_label_text):
-        time_edit_window = QtWidgets.QMainWindow()
-        time_edit_ui = Ui_time_Edit()
-        time_edit_ui.meal_label_text = meal_label_text  # Set meal label text
-        time_edit_ui.setupUi(time_edit_window)
-        time_edit_window.show()
-
     def setupUi(self, select_time):
         select_time.setObjectName("select_time")
         select_time.resize(683, 400)
@@ -334,46 +328,15 @@ class Ui_select_time(object):
         self.retranslateUi(select_time)
         QtCore.QMetaObject.connectSlotsByName(select_time)
 
-        self.bb_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเช้า ก่อนอาหาร"))
-        self.ab_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเช้า หลังอาหาร"))
-        self.bl_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเที่ยง ก่อนอาหาร"))
-        self.al_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเที่ยง หลังอาหาร"))
-        self.bd_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเย็น ก่อนอาหาร"))
-        self.ad_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเย็น หลังอาหาร"))
-        self.bbed_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อก่อนนอน"))
-
-        def close_window():
-            select_time.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
-        self.bb_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.bb_pushButton))
-        self.ab_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.ab_pushButton))
-        self.bl_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.bl_pushButton))
-        self.al_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.al_pushButton))
-        self.bd_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.bd_pushButton))
-        self.ad_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.ad_pushButton))
-        self.bbed_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.bbed_pushButton))
-        
-
-        
-    def set_button_pressed_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(200, 200, 200);"  # Change color when pressed
-        )
-
     def retranslateUi(self, select_time):
         _translate = QtCore.QCoreApplication.translate
         select_time.setWindowTitle(_translate("select_time", "ตั้งเวลามื้อยา"))
-        self.b_label.setText(_translate("select_time", "มื้อเช้า"))
+        self.label.setText(_translate("select_time", "ตั้งเวลามื้อยา"))
         self.add_back_pushButton.setText(_translate("select_time", "ย้อนกลับ"))
         self.d_label.setText(_translate("select_time", "มื้อเย็น"))
-        self.l_label.setText(_translate("select_time", "มื้อเที่ยง"))
-        self.label.setText(_translate("select_time", "ตั้งเวลามื้อยา"))
+        self.b_label.setText(_translate("select_time", "มื้อเช้า"))
         self.bed_label.setText(_translate("select_time", "มื้อก่อนนอน"))
+        self.l_label.setText(_translate("select_time", "มื้อเที่ยง"))
         self.bb_pushButton.setText(_translate("select_time", "ก่อน อาหาร"))
         self.ab_pushButton.setText(_translate("select_time", "หลัง อาหาร"))
         self.bl_pushButton.setText(_translate("select_time", "ก่อน อาหาร"))
@@ -381,7 +344,6 @@ class Ui_select_time(object):
         self.bd_pushButton.setText(_translate("select_time", "ก่อน อาหาร"))
         self.ad_pushButton.setText(_translate("select_time", "หลัง อาหาร"))
         self.bbed_pushButton.setText(_translate("select_time", "ก่อนนอน"))
-import resources_rc
 
 
 if __name__ == "__main__":

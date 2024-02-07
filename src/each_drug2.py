@@ -11,13 +11,13 @@ class Ui_each_drug2(object):
         self.updated_data = updated_data
 
         each_drug2.setObjectName("each_drug2")
-        each_drug2.resize(531, 401)
+        each_drug2.resize(683, 400)
         each_drug2.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(each_drug2)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -30,7 +30,7 @@ class Ui_each_drug2(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
+        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -53,7 +53,7 @@ class Ui_each_drug2(object):
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
@@ -69,7 +69,7 @@ class Ui_each_drug2(object):
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(20, 90, 231, 211))
+        self.frame_2.setGeometry(QtCore.QRect(100, 100, 231, 220))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -144,7 +144,7 @@ class Ui_each_drug2(object):
 
         
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_3.setGeometry(QtCore.QRect(270, 90, 241, 211))
+        self.frame_3.setGeometry(QtCore.QRect(350, 100, 241, 220))
         self.frame_3.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -219,7 +219,7 @@ class Ui_each_drug2(object):
         self.label_8.setObjectName("label_8")
 
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(430, 330, 71, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(510, 330, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
@@ -249,6 +249,7 @@ class Ui_each_drug2(object):
         def save_changes():
             # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
             updated_data2 = self.updated_data
+            updated_data2['drug_size'] = self.size_label.toPlainText()
             updated_data2['drug_new'] = self.label_6.toPlainText()
             updated_data2['drug_remaining_meal'] = self.label_7.text()
             updated_data2['all_drug_recieve'] = self.label_8.text()
@@ -350,7 +351,7 @@ class Ui_each_drug2(object):
         self.next_pushButton.setText(_translate("each_drug2", "ถัดไป"))
         self.drugStill.setText(_translate("each_drug2", "จำนวนมื้อยาคงเหลือ (มื้อ)"))
         self.label.setText(_translate("each_drug2", "ชื่อยา"))
-        self.size_label.setText(_translate("each_drug2", "ขนาดยา"))
+        self.size_label.setText(_translate("each_drug2", ""))
         self.drugSize.setText(_translate("each_drug2", "ขนาดเม็ดยา (มิลลิเมตร)"))
         self.drugNew.setText(_translate("each_drug2", "จำนวนยาที่ได้รับมาใหม่ (เม็ด)"))
         self.drugGot.setText(_translate("each_drug2", "จำนวนยาที่ได้รับมาแล้ว (เม็ด)"))

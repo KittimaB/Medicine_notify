@@ -14,13 +14,13 @@ class Ui_day_start(object):
         self.updated_data2 = updated_data2
         
         day_start.setObjectName("day_start")
-        day_start.resize(531, 401)
+        day_start.resize(683, 400)
         day_start.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(day_start)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -33,7 +33,7 @@ class Ui_day_start(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
+        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -56,7 +56,7 @@ class Ui_day_start(object):
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
@@ -71,7 +71,7 @@ class Ui_day_start(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(430, 350, 71, 31))
+        self.next_pushButton.setGeometry(QtCore.QRect(510, 340, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
@@ -86,7 +86,7 @@ class Ui_day_start(object):
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(90, 80, 361, 261))
+        self.frame_2.setGeometry(QtCore.QRect(155, 80, 361, 261))
         self.frame_2.setStyleSheet("border-radius: 9px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -108,7 +108,7 @@ class Ui_day_start(object):
         self.label_date.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
 
         self.calendarWidget = QtWidgets.QCalendarWidget(self.centralwidget)
-        self.calendarWidget.setGeometry(QtCore.QRect(100, 110, 341, 221))
+        self.calendarWidget.setGeometry(QtCore.QRect(165, 110, 341, 221))
         self.calendarWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-color: rgb(0, 0, 0);\n"
 "color: rgb(0, 0, 0);")
@@ -213,6 +213,7 @@ class Ui_day_start(object):
     def set_day_info(self, drug_id):
         self.drug_id = drug_id
         print(f"day_start {self.updated_data2}")
+        self.label.setText(f"{self.updated_data2['drug_name']}")
 
     def open_select_meal(self, updated_data2):
         if self.date_selected:

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
-    <height>401</height>
+    <width>683</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -794,7 +794,7 @@ background-color: rgb(244, 212, 99);</string>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>260</x>
       <y>80</y>
       <width>211</width>
       <height>21</height>
@@ -815,10 +815,10 @@ background-color: rgb(244, 212, 99);</string>
    <widget class="QFrame" name="frame_11">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>320</y>
-      <width>121</width>
-      <height>51</height>
+      <x>510</x>
+      <y>120</y>
+      <width>141</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -834,10 +834,10 @@ background-color: rgb(244, 212, 99);</string>
     <widget class="QLabel" name="bed_label">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>91</width>
-       <height>31</height>
+       <x>20</x>
+       <y>0</y>
+       <width>101</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
@@ -856,10 +856,10 @@ background-color: rgb(244, 212, 99);</string>
    <widget class="QFrame" name="frame_12">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>320</y>
-      <width>131</width>
-      <height>51</height>
+      <x>510</x>
+      <y>160</y>
+      <width>141</width>
+      <height>121</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -871,14 +871,91 @@ background-color: rgb(244, 212, 99);</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+    <widget class="QLabel" name="bbed_label">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-radius: 9px;
+color: rgb(0, 0, 0);
+background-color: rgb(176, 107, 193);
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
+     </property>
+     <property name="text">
+      <string>ก่อนนอน</string>
+     </property>
+     <property name="textFormat">
+      <enum>Qt::AutoText</enum>
+     </property>
+     <property name="scaledContents">
+      <bool>false</bool>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="bbed_checkBox">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>16</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="tristate">
+      <bool>false</bool>
+     </property>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_13">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>320</y>
-      <width>51</width>
-      <height>51</height>
+      <x>510</x>
+      <y>260</y>
+      <width>141</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -895,8 +972,8 @@ background-color: rgb(255, 255, 255);</string>
    <widget class="QPushButton" name="next_pushButton">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>340</y>
+      <x>560</x>
+      <y>320</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -913,102 +990,6 @@ background-color: rgb(227, 151, 61);</string>
     </property>
     <property name="text">
      <string>ถัดไป</string>
-    </property>
-   </widget>
-   <widget class="QFrame" name="frame_14">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>340</y>
-      <width>120</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="bbed_label">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>330</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-radius: 9px;
-color: rgb(0, 0, 0);
-background-color: rgb(176, 107, 193);
-</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="lineWidth">
-     <number>1</number>
-    </property>
-    <property name="text">
-     <string>ก่อนนอน</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="bbed_checkBox">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>320</y>
-      <width>21</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-     </font>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::WheelFocus</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(255, 255, 255);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="tristate">
-     <bool>false</bool>
     </property>
    </widget>
    <zorder>frame_10</zorder>
@@ -1030,9 +1011,6 @@ background-color: rgb(176, 107, 193);
    <zorder>frame_12</zorder>
    <zorder>next_pushButton</zorder>
    <zorder>frame_13</zorder>
-   <zorder>frame_14</zorder>
-   <zorder>bbed_label</zorder>
-   <zorder>bbed_checkBox</zorder>
   </widget>
  </widget>
  <resources/>

@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from encrypt_check import Ui_encrypt_check
 import sqlite3
+
+# ไม่ใช้แล้ว
 class Ui_data_check(object):
     def setupUi(self, data_check, drug_List, each_drug, each_drug2, day_start, select_meal, updated_data2):
         self.data_check = data_check

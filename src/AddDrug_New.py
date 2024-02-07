@@ -19,13 +19,13 @@ class Ui_Add_drug(object):
         self.drug_List = drug_List
         
         Add_drug.setObjectName("Add_drug")
-        Add_drug.resize(531, 401)
+        Add_drug.resize(683, 400)
         Add_drug.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(Add_drug)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -38,7 +38,7 @@ class Ui_Add_drug(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
+        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -76,7 +76,7 @@ class Ui_Add_drug(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(20, 90, 231, 220))
+        self.frame_2.setGeometry(QtCore.QRect(100, 100, 231, 220))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -135,7 +135,7 @@ class Ui_Add_drug(object):
         self.textEdit_2.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_2.setObjectName("textEdit_2")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_3.setGeometry(QtCore.QRect(270, 90, 241, 220))
+        self.frame_3.setGeometry(QtCore.QRect(350, 100, 241, 220))
         self.frame_3.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -148,7 +148,7 @@ class Ui_Add_drug(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.drugAll_label = QtWidgets.QLabel(self.frame_3)
-        self.drugAll_label.setGeometry(QtCore.QRect(-15, 20, 251, 21))
+        self.drugAll_label.setGeometry(QtCore.QRect(-25, 20, 251, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.drugAll_label.setFont(font)
@@ -172,7 +172,7 @@ class Ui_Add_drug(object):
         self.textEdit_3.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_3.setObjectName("textEdit_3")
         self.drugOne_label = QtWidgets.QLabel(self.frame_3)
-        self.drugOne_label.setGeometry(QtCore.QRect(-10, 110, 261, 21))
+        self.drugOne_label.setGeometry(QtCore.QRect(-20, 110, 261, 21))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.drugOne_label.setFont(font)
@@ -196,7 +196,7 @@ class Ui_Add_drug(object):
         self.textEdit_4.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_4.setObjectName("textEdit_4")
         self.saveDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.saveDrug_pushButton.setGeometry(QtCore.QRect(220, 330, 81, 31))
+        self.saveDrug_pushButton.setGeometry(QtCore.QRect(300, 330, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.saveDrug_pushButton.setFont(font)
@@ -336,7 +336,7 @@ class Ui_Add_drug(object):
         ok_button.setFont(ok_button_font)
 
         # Set background color for the dialog
-        message_dialog.setStyleSheet("background-color: rgb(255, 241, 129); border-radius: 30px;")
+        message_dialog.setStyleSheet("background-color: rgb(255, 255, 255); border-radius: 30px;")
 
         # Set button background and text color
         ok_button.setStyleSheet("background-color: rgb(85, 170, 127); color: white; border: none; border-radius: 15px;")

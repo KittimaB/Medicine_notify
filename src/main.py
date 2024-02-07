@@ -14,13 +14,13 @@ from PyQt5.QtCore import QTimer, QLocale
 class Ui_Medicine_App(object):
     def setupUi(self, Medicine_App):
         Medicine_App.setObjectName("Medicine_App")
-        Medicine_App.resize(531, 401)
+        Medicine_App.resize(683, 400)
         Medicine_App.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(Medicine_App)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);\n" )
         # Add drop shadow effect to the button
@@ -33,7 +33,7 @@ class Ui_Medicine_App(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.home_label = QtWidgets.QLabel(self.frame)
-        self.home_label.setGeometry(QtCore.QRect(180, 70, 171, 51))
+        self.home_label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -56,7 +56,7 @@ class Ui_Medicine_App(object):
         self.home_label.setWordWrap(True)
         self.home_label.setObjectName("home_label")
         self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(30, 70, 121, 51))
+        self.label_3.setGeometry(QtCore.QRect(50, 80, 100, 31))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label_3.setFont(font)
@@ -64,14 +64,14 @@ class Ui_Medicine_App(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(410, 70, 71, 51))
+        self.label.setGeometry(QtCore.QRect(530, 70, 71, 51))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(130, 90, 271, 281))
+        self.frame_2.setGeometry(QtCore.QRect(205, 90, 271, 281))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);\n")
         # Add drop shadow effect to the button
@@ -84,7 +84,7 @@ class Ui_Medicine_App(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.addDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.addDrug_pushButton.setGeometry(QtCore.QRect(150, 110, 231, 41))
+        self.addDrug_pushButton.setGeometry(QtCore.QRect(225, 110, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -109,7 +109,7 @@ class Ui_Medicine_App(object):
         self.addDrug_pushButton.setFlat(False)
         self.addDrug_pushButton.setObjectName("addDrug_pushButton")
         self.setting_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.setting_pushButton.setGeometry(QtCore.QRect(150, 160, 231, 41))
+        self.setting_pushButton.setGeometry(QtCore.QRect(225, 160, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -133,7 +133,7 @@ class Ui_Medicine_App(object):
         self.setting_pushButton.setFlat(False)
         self.setting_pushButton.setObjectName("setting_pushButton")
         self.putDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.putDrug_pushButton.setGeometry(QtCore.QRect(150, 210, 231, 41))
+        self.putDrug_pushButton.setGeometry(QtCore.QRect(225, 210, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -157,7 +157,7 @@ class Ui_Medicine_App(object):
         self.putDrug_pushButton.setFlat(False)
         self.putDrug_pushButton.setObjectName("putDrug_pushButton")
         self.alignment_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.alignment_pushButton.setGeometry(QtCore.QRect(150, 260, 231, 41))
+        self.alignment_pushButton.setGeometry(QtCore.QRect(225, 260, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -181,7 +181,7 @@ class Ui_Medicine_App(object):
         self.alignment_pushButton.setFlat(False)
         self.alignment_pushButton.setObjectName("alignment_pushButton")
         self.drugLeft_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.drugLeft_pushButton.setGeometry(QtCore.QRect(150, 310, 231, 41))
+        self.drugLeft_pushButton.setGeometry(QtCore.QRect(225, 310, 231, 41))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -234,6 +234,7 @@ class Ui_Medicine_App(object):
                 "day_start"	INTEGER,
                 "drug_log"	TEXT,
                 "drug_new"  REAL,
+                "drug_size" REAL,
                 PRIMARY KEY("drug_id" AUTOINCREMENT))
         ''')
         
@@ -352,7 +353,7 @@ class Ui_Medicine_App(object):
         def close_select_time_window():
             self.select_time_window.close()
         
-        self.ui_select_time.back_pushButton.clicked.connect(close_select_time_window)
+        self.ui_select_time.add_back_pushButton.clicked.connect(close_select_time_window)
         
     ###################### หน้าวิธีบรรจุยา ############################# 
     def open_pack_page(self):

@@ -12,13 +12,13 @@ class Ui_drug_List(object):
     def setupUi(self, drug_List):
         self.drug_List = drug_List
         drug_List.setObjectName("drug_List")
-        drug_List.resize(531, 401)
+        drug_List.resize(683, 400)
         drug_List.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(drug_List)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 531, 131))
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -31,7 +31,7 @@ class Ui_drug_List(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(180, 70, 171, 51))
+        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setBold(True)
@@ -54,7 +54,7 @@ class Ui_drug_List(object):
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_back_pushButton.setFont(font)
@@ -69,7 +69,7 @@ class Ui_drug_List(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.add_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_pushButton.setGeometry(QtCore.QRect(410, 80, 61, 31))
+        self.add_pushButton.setGeometry(QtCore.QRect(530, 80, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.add_pushButton.setFont(font)
@@ -89,7 +89,7 @@ class Ui_drug_List(object):
         QtCore.QMetaObject.connectSlotsByName(drug_List)
 
         self.drug_list_widget = QtWidgets.QListWidget(self.centralwidget)
-        self.drug_list_widget.setGeometry(QtCore.QRect(20, 90, 491, 261))
+        self.drug_list_widget.setGeometry(QtCore.QRect(100, 90, 491, 261))
         self.drug_list_widget.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(226, 226, 226);")

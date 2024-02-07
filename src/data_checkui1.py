@@ -1,20 +1,24 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from each_drug2 import Ui_each_drug2
-
+# from encrypt_check import Ui_encrypt_check
+from data_checkui2 import Ui_data_check2
 import sqlite3
-
-
-class Ui_each_drug(object):   
-    def setupUi(self, each_drug, drug_List):
-        self.each_drug = each_drug
+class Ui_data_check1(object):
+    def setupUi(self, data_check1, drug_List, each_drug, each_drug2, day_start, select_meal, updated_data2):
+        self.data_check1 = data_check1
         self.drug_List = drug_List
-        
-        each_drug.setObjectName("each_drug")
-        each_drug.resize(683, 400)
-        each_drug.setStyleSheet("\n"
+        self.each_drug = each_drug
+        self.each_drug2 = each_drug2
+        self.day_start = day_start
+        self.select_meal = select_meal
+        self.updated_data2 = updated_data2
+
+        data_check1.setObjectName("data_check1")
+        data_check1.resize(683, 400)
+        data_check1.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
-        self.centralwidget = QtWidgets.QWidget(each_drug)
+        self.centralwidget = QtWidgets.QWidget(data_check1)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
@@ -29,7 +33,6 @@ class Ui_each_drug(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
-
         self.label = QtWidgets.QLabel(self.frame)
         self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
@@ -68,22 +71,6 @@ class Ui_each_drug(object):
         shadow.setOffset(0,2)
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
-        self.delete_pushButton = QtWidgets.QPushButton(self.frame)
-        self.delete_pushButton.setGeometry(QtCore.QRect(550, 80, 41, 31))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.delete_pushButton.setFont(font)
-        self.delete_pushButton.setStyleSheet("border-radius: 9px;\n"
-"background-color: rgb(171, 57, 57);\n"
-"color: rgb(255, 255, 255);\n"
-"")
-        # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.delete_pushButton)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.delete_pushButton.setGraphicsEffect(shadow)
-        self.delete_pushButton.setObjectName("delete_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(100, 100, 231, 220))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
@@ -109,8 +96,7 @@ class Ui_each_drug(object):
         font.setPointSize(12)
         self.drugDescribe_label.setFont(font)
         self.drugDescribe_label.setObjectName("drugDescribe_label")
-
-        self.label_2 = QtWidgets.QTextEdit(self.frame_2)
+        self.label_2 = QtWidgets.QLabel(self.frame_2)
         self.label_2.setGeometry(QtCore.QRect(10, 50, 211, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -128,13 +114,12 @@ class Ui_each_drug(object):
         self.label_2.setGraphicsEffect(shadow)
         self.label_2.setFrameShape(QtWidgets.QFrame.Box)
         self.label_2.setLineWidth(1)
-        self.label_2.setCurrentCharFormat(QtGui.QTextCharFormat())
-        
+        self.label_2.setTextFormat(QtCore.Qt.AutoText)
+        self.label_2.setScaledContents(False)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.label_2.setWordWrap(True)
         self.label_2.setObjectName("label_2")
-
-        self.label_3 = QtWidgets.QTextEdit(self.frame_2)
+        self.label_3 = QtWidgets.QLabel(self.frame_2)
         self.label_3.setGeometry(QtCore.QRect(10, 140, 211, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -152,22 +137,21 @@ class Ui_each_drug(object):
         self.label_3.setGraphicsEffect(shadow)
         self.label_3.setFrameShape(QtWidgets.QFrame.Box)
         self.label_3.setLineWidth(1)
-        self.label_3.setCurrentCharFormat(QtGui.QTextCharFormat())
-        
+        self.label_3.setTextFormat(QtCore.Qt.AutoText)
+        self.label_3.setScaledContents(False)
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_3.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.label_3.setWordWrap(True)
         self.label_3.setObjectName("label_3")
-
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(350, 100, 241, 220))
         self.frame_3.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.label_3)
+        shadow = QGraphicsDropShadowEffect(self.frame_3)
         shadow.setBlurRadius(8)
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
         shadow.setOffset(0,2)
-        self.label_3.setGraphicsEffect(shadow)
+        self.frame_3.setGraphicsEffect(shadow)
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -185,8 +169,7 @@ class Ui_each_drug(object):
         self.drugOne_label.setFont(font)
         self.drugOne_label.setAlignment(QtCore.Qt.AlignCenter)
         self.drugOne_label.setObjectName("drugOne_label")
-
-        self.label_4 = QtWidgets.QTextEdit(self.frame_3)
+        self.label_4 = QtWidgets.QLabel(self.frame_3)
         self.label_4.setGeometry(QtCore.QRect(10, 50, 221, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -204,13 +187,12 @@ class Ui_each_drug(object):
         self.label_4.setGraphicsEffect(shadow)
         self.label_4.setFrameShape(QtWidgets.QFrame.Box)
         self.label_4.setLineWidth(1)
-        self.label_4.setCurrentCharFormat(QtGui.QTextCharFormat())
-        
+        self.label_4.setTextFormat(QtCore.Qt.AutoText)
+        self.label_4.setScaledContents(False)
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_4.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.label_4.setWordWrap(True)
         self.label_4.setObjectName("label_4")
-
-        self.label_5 = QtWidgets.QTextEdit(self.frame_3)
+        self.label_5 = QtWidgets.QLabel(self.frame_3)
         self.label_5.setGeometry(QtCore.QRect(10, 140, 221, 41))
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -228,12 +210,11 @@ class Ui_each_drug(object):
         self.label_5.setGraphicsEffect(shadow)
         self.label_5.setFrameShape(QtWidgets.QFrame.Box)
         self.label_5.setLineWidth(1)
-        self.label_5.setCurrentCharFormat(QtGui.QTextCharFormat())
-        
+        self.label_5.setTextFormat(QtCore.Qt.AutoText)
+        self.label_5.setScaledContents(False)
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_5.setLineWrapMode(QtWidgets.QTextEdit.WidgetWidth)
+        self.label_5.setWordWrap(True)
         self.label_5.setObjectName("label_5")
-
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.next_pushButton.setGeometry(QtCore.QRect(510, 330, 81, 31))
         font = QtGui.QFont()
@@ -249,54 +230,27 @@ class Ui_each_drug(object):
         shadow.setOffset(0,2)
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
-        each_drug.setCentralWidget(self.centralwidget)
+        data_check1.setCentralWidget(self.centralwidget)
 
-        
-
-        self.retranslateUi(each_drug)
-        QtCore.QMetaObject.connectSlotsByName(each_drug)
+        self.retranslateUi(data_check1)
+        QtCore.QMetaObject.connectSlotsByName(data_check1)
 
         def close_window():
-            each_drug.close()
-
+            data_check1.close()
+            
         self.add_back_pushButton.clicked.connect(close_window)
+        # self.next_pushButton.clicked.connect(lambda: self.open_encrypt_check(updated_data2))
+        self.next_pushButton.clicked.connect(lambda: self.open_data_check2(updated_data2))
 
+#     def open_encrypt_check(self,updated_data2):
+#         self.encrypt_check_window = QtWidgets.QMainWindow()
+#         self.encrypt_check_ui = Ui_encrypt_check()
+#         self.encrypt_check_ui.setupUi(self.encrypt_check_window, self.drug_List, self.each_drug, self.each_drug2, self.day_start, self.select_meal, self, {'drug_id': self.drug_id, **updated_data2})
+#         self.encrypt_check_window.show()
         
-        # self.next_pushButton.clicked.connect(self.open_each_drug2)
-
-        def delete_drug():
-            drug_name = self.label_2.toPlainText()  # รับชื่อยาจาก Label
-            reply = QtWidgets.QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
-                                                   QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
-            if reply == QtWidgets.QMessageBox.Yes:
-                connection = sqlite3.connect("medicine.db")
-                cursor = connection.cursor()
-                cursor.execute("DELETE FROM Drug WHERE drug_name = ?", (drug_name,))
-                connection.commit()
-                connection.close()
-                each_drug.close()  # ปิดหน้าต่างหลังจากลบเสร็จ
-        
-        self.delete_pushButton.clicked.connect(delete_drug)
-
-        def save_changes():
-            # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
-            updated_data = {}  # นี่คือตัวอย่าง เปลี่ยนตามความต้องการ
-            updated_data['drug_name'] = self.label_2.toPlainText()
-            updated_data['drug_description'] = self.label_3.toPlainText()
-            updated_data['drug_remaining'] = self.label_4.toPlainText()
-            updated_data['drug_eat'] = self.label_5.toPlainText()
-
-            # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้า each_drug2
-            self.open_each_drug2(updated_data)
-        
-        self.next_pushButton.clicked.connect(save_changes)
-
-        # Set up button press and release styling
+         # Set up button press and release styling
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
         self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
-
-        self.delete_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.delete_pushButton))
-        self.delete_pushButton.released.connect(lambda: self.set_button_released_style(self.delete_pushButton))
 
         self.next_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.next_pushButton))
         self.next_pushButton.released.connect(lambda: self.set_button_released_style(self.next_pushButton))
@@ -315,61 +269,91 @@ class Ui_each_drug(object):
             "color: rgb(0, 0, 0);\n"
             "background-color: rgb(227, 151, 61);"
         )
+
+
+    def open_data_check2(self,updated_data2):
+        self.data_check2_window = QtWidgets.QMainWindow()
+        self.data_check2_ui = Ui_data_check2()
+        self.data_check2_ui.setupUi(self.data_check2_window, self.drug_List, self.each_drug, self.each_drug2, self.day_start, self.select_meal, self, {'drug_id': self.drug_id, **updated_data2})
+        self.data_check2_ui.set_data_info2(self.drug_id)
+        self.data_check2_window.show()
         
-    def closeAll(self):
-        self.each_drug.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
 
-    def open_each_drug2(self,updated_data):
-        self.each_drug2_window = QtWidgets.QMainWindow()
-        self.each_drug2_ui = Ui_each_drug2()
-        self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self,updated_data)
-        print(f"each_drug {updated_data}")
-        self.each_drug2_ui.set_drug2_info(self.drug_id)
-        self.each_drug2_window.show()
+    def set_data_info1(self, drug_id):
+        self.drug_id = drug_id
+        print(f"data_check1 {self.updated_data2}")
 
-    def set_drug_info(self, drug_name):
+        # Fetch meal data for the given drug_id from the database
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM Drug WHERE drug_name = ?", (drug_name,))
-        drug_info = cursor.fetchone()
+
+        query = '''
+            SELECT Meal.meal_name
+            FROM Meal
+            JOIN Drug_handle ON Meal.meal_id = Drug_handle.meal_id
+            WHERE Drug_handle.drug_id = ?
+        '''
+        cursor.execute(query, (self.drug_id,))
+        meal_data = cursor.fetchall()
+
         connection.close()
-
-        if drug_info:
-            self.drug_id = drug_info[0]
-            # drug_info[1] is drug_name
-            self.label_2.setPlainText(drug_info[1])
-            # drug_info[2] is drug_description
-            self.label_3.setPlainText(drug_info[2])
-            # drug_info[3] is drug_remaining
-            self.label_4.setPlainText(str(drug_info[3]))  # Use str() to convert to string
-            # drug_info[4] is drug_eat
-            self.label_5.setPlainText(str(drug_info[8]))  # Use str() to convert to string
+        
+        # cursor.execute("SELECT * FROM Drug")
+        # drugs = cursor.fetchall()
+        # connection.close()
+        # print(drugs)
 
 
-    def retranslateUi(self, each_drug):
+        # Set the data in the labels and listWidget
+        self.label_2.setText(f"{self.updated_data2['drug_name']}")
+        self.label_3.setText(f"{self.updated_data2['drug_description']}")
+        self.label_4.setText(f"{self.updated_data2['drug_remaining']}")
+        self.label_5.setText(f"{self.updated_data2['drug_eat']}")
+
+        # self.label_6.setText(f"{self.updated_data2['drug_new']}")
+        # self.label_7.setText(f"{self.updated_data2['drug_remaining_meal']}")
+        # self.label_8.setText(f"{self.updated_data2['all_drug_recieve']}")
+        # self.label_9.setText(f"{self.updated_data2['day_start']}")               ใช้
+
+        #  # Clear the listWidget before adding new items
+        # self.listWidget.clear()                                                  ใช้
+
+        # # Add meal selection data to the listWidget
+        # meal_data = self.updated_data2.get('meals', [])
+        # print(f"Meal Data: {meal_data}")
+        # self.listWidget.addItems(meal_data)
+
+        #  # Add fetched meal data to the listWidget
+        # meal_names = [item[0] for item in meal_data]                             ใช้
+        # self.listWidget.addItems(meal_names)
+
+    def closeAll(self):
+        self.each_drug.closeAll()
+        self.each_drug2.closeAll()
+        self.select_meal.closeAll()
+        self.data_check1.close()
+
+    def retranslateUi(self, data_check1):
         _translate = QtCore.QCoreApplication.translate
-        each_drug.setWindowTitle(_translate("each_drug", "ยาแต่ละตัว"))
-        self.label.setText(_translate("each_drug", "ชื่อยา"))
-        self.add_back_pushButton.setText(_translate("each_drug", "ย้อนกลับ"))
-        #self.edit_pushButton.setText(_translate("each_drug", "แก้ไข"))
-        self.delete_pushButton.setText(_translate("each_drug", "ลบ"))
-        self.drugName_label.setText(_translate("each_drug", "ชื่อยา"))
-        self.drugDescribe_label.setText(_translate("each_drug", "คำอธิบายยา"))
-        self.drugOne_label.setText(_translate("each_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
-        self.drugAll_label.setText(_translate("each_drug", "จำนวนยาทั้งหมดที่มี (เม็ด)"))
-        self.next_pushButton.setText(_translate("each_drug", "ถัดไป"))
-        self.label_2.setText(_translate("each_drug", "ชื่อยา"))
-        self.label_3.setText(_translate("each_drug", "คำอธิบายยา"))
-        self.label_4.setText(_translate("each_drug", "ยาทั้งหมด"))
-        self.label_5.setText(_translate("each_drug", "ยาที่กิน"))
-import resources_rc
+        data_check1.setWindowTitle(_translate("data_check1", "ตรวจสอบความถูกต้อง"))
+        self.label.setText(_translate("data_check1", "ตรวจสอบความถูกต้อง"))
+        self.add_back_pushButton.setText(_translate("data_check1", "ย้อนกลับ"))
+        self.drugName_label.setText(_translate("data_check1", "ชื่อยา"))
+        self.drugDescribe_label.setText(_translate("data_check1", "คำอธิบายยา"))
+        self.label_2.setText(_translate("data_check1", "ชื่อยา"))
+        self.label_3.setText(_translate("data_check1", "คำอธิบายยา"))
+        self.drugAll_label.setText(_translate("data_check1", "จำนวนยาทั้งหมดที่มี (เม็ด)"))
+        self.drugOne_label.setText(_translate("data_check1", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
+        self.label_4.setText(_translate("data_check1", "ยาทั้งหมด"))
+        self.label_5.setText(_translate("data_check1", "ยาที่กิน"))
+        self.next_pushButton.setText(_translate("data_check1", "ถัดไป"))
+
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    each_drug = QtWidgets.QMainWindow()
-    ui = Ui_each_drug()
-    ui.setupUi(each_drug)
-    each_drug.show()
+    data_check1 = QtWidgets.QMainWindow()
+    ui = Ui_data_check1()
+    ui.setupUi(data_check1)
+    data_check1.show()
     sys.exit(app.exec_())
-
