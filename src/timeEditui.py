@@ -1,31 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-import sqlite3
+
+# ไม่ใช้แล้ว
+
 
 class Ui_time_Edit(object):
-    def __init__(self):
-        self.meal_label_text = ""
-        self.connection = sqlite3.connect("medicine.db")
-
-    def convert_thai_to_arabic(self, thai_numeral):
-        thai_to_arabic_mapping = {
-            '๐': '0',
-            '๑': '1',
-            '๒': '2',
-            '๓': '3',
-            '๔': '4',
-            '๕': '5',
-            '๖': '6',
-            '๗': '7',
-            '๘': '8',
-            '๙': '9'
-        }
-
-        arabic_numeral = ''.join(thai_to_arabic_mapping.get(char, char) for char in thai_numeral)
-        return arabic_numeral
-
-
-        
     def setupUi(self, time_Edit):
         time_Edit.setObjectName("time_Edit")
         time_Edit.resize(683, 400)
@@ -144,56 +123,6 @@ class Ui_time_Edit(object):
         self.retranslateUi(time_Edit)
         QtCore.QMetaObject.connectSlotsByName(time_Edit)
 
-        self.label.setText(self.meal_label_text)
-
-        def close_window():
-            time_Edit.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        try:
-            cursor = self.connection.cursor()
-            cursor.execute("SELECT time FROM Meal WHERE meal_name = ?", (self.meal_label_text,))
-            result = cursor.fetchone()
-            print(result)
-
-            if result:
-                stored_time_thai = result[0]
-                stored_time_arabic = self.convert_thai_to_arabic(stored_time_thai)
-                stored_qtime = QtCore.QTime.fromString(stored_time_arabic, "HH:mm")
-                self.timeEdit.setTime(stored_qtime)
-        except Exception as e:
-            QtWidgets.QMessageBox.critical(time_Edit, "Error", f"เกิดข้อผิดพลาดในการดึงข้อมูล: {str(e)}")
-
-        def save_time():
-            selected_time = self.timeEdit.time().toString("HH:mm")
-            print(selected_time)
-            meal_name = self.meal_label_text
-
-            try:
-                cursor = self.connection.cursor()
-                cursor.execute("UPDATE Meal SET time = ? WHERE meal_name = ?", (selected_time, meal_name))
-                self.connection.commit()
-                QtWidgets.QMessageBox.information(time_Edit, "Success", "เวลาถูกบันทึกเรียบร้อยแล้ว")
-
-                # Retrieve the updated time from the database
-                cursor.execute("SELECT time FROM Meal WHERE meal_name = ?", (meal_name,))
-                result = cursor.fetchone()
-
-                if result:
-                    stored_time_thai = result[0]
-                    stored_time_arabic = self.convert_thai_to_arabic(stored_time_thai)
-                    stored_qtime = QtCore.QTime.fromString(stored_time_arabic, "HH:mm")
-                    self.timeEdit.setTime(stored_qtime)
-                    print(f"Updated time in QTimeEdit: {stored_time_arabic}")
-
-            except Exception as e:
-                QtWidgets.QMessageBox.critical(time_Edit, "Error", f"เกิดข้อผิดพลาด: {str(e)}")
-
-
-
-        self.timeEdit_pushButton.clicked.connect(save_time)
-        
         # Set up button press and release styling
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
         self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
@@ -214,26 +143,21 @@ class Ui_time_Edit(object):
             "color: rgb(255, 255, 255);\n"
             "background-color: rgb(85, 170, 127);"
         )
-        
+
 
     def retranslateUi(self, time_Edit):
         _translate = QtCore.QCoreApplication.translate
         time_Edit.setWindowTitle(_translate("time_Edit", "ตั้งเวลา"))
+        self.label.setText(_translate("time_Edit", "ตั้งเวลามื้อยา"))
         self.add_back_pushButton.setText(_translate("time_Edit", "ย้อนกลับ"))
-        self.label.setText(_translate("time_Edit", "มื้อเช้า ก่อนอาหาร"))
         self.timeEdit_label.setText(_translate("time_Edit", "เลือกเวลาที่ต้องการ"))
         self.timeEdit_pushButton.setText(_translate("time_Edit", "ยืนยัน"))
-
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     time_Edit = QtWidgets.QMainWindow()
-
-    locale = QtCore.QLocale(QtCore.QLocale.English)
-    QtCore.QLocale.setDefault(locale)
-    
     ui = Ui_time_Edit()
     ui.setupUi(time_Edit)
     time_Edit.show()

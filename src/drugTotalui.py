@@ -1,7 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 
-
 class Ui_drugTotal(object):
     def setupUi(self, drugTotal):
         drugTotal.setObjectName("drugTotal")
@@ -63,53 +62,14 @@ class Ui_drugTotal(object):
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         drugTotal.setCentralWidget(self.centralwidget)
 
-
         self.retranslateUi(drugTotal)
         QtCore.QMetaObject.connectSlotsByName(drugTotal)
-
-        def close_window():
-            drugTotal.close()
-            
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        # สร้างและกำหนด QTableWidget
-        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(155, 120, 217, 241))
-        self.tableWidget.setObjectName("tableWidget")
-
-        # กำหนดหัวข้อคอลัมน์ในตาราง
-        self.tableWidget.setColumnCount(2)
-        self.tableWidget.setHorizontalHeaderLabels(["มื้ออาหาร", "คงเหลือ"])
-        
-        # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
-        self.tableWidget.setRowCount(7)
-
-         # Set up button press and release styling
-        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
-        self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
-
-    def set_button_pressed_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(200, 200, 200);"  # Change color when pressed
-        )
-
-    def set_button_released_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(255, 255, 255);\n"
-            "background-color: rgb(85, 170, 127);"
-        )
-
-
-        
 
     def retranslateUi(self, drugTotal):
         _translate = QtCore.QCoreApplication.translate
         drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
-        self.add_back_pushButton.setText(_translate("drugTotal", "ย้อนกลับ"))
         self.label.setText(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
+        self.add_back_pushButton.setText(_translate("drugTotal", "ย้อนกลับ"))
 
 
 if __name__ == "__main__":

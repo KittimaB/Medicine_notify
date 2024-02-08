@@ -186,12 +186,22 @@ class Ui_day_start(object):
         )
 
 
+    def convert_to_arabic_numerals(self, thai_numerals):
+        arabic_numerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        for thai, arabic in zip(thai_numerals, arabic_numerals):
+            self.label_date.setText(self.label_date.text().replace(thai, arabic))
+
     def update_selected_date(self):
         selected_date = self.calendarWidget.selectedDate()
-        
+
         # Check if the selected date is not in the past
         if selected_date >= QtCore.QDate.currentDate():
             self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
+
+            # Convert Thai numerals to Arabic numerals
+            thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+            self.convert_to_arabic_numerals(thai_numerals)
+
             # Enable further date changes
             self.calendarWidget.setEnabled(True)
             # Update the variable to indicate that the date has been selected
@@ -204,7 +214,13 @@ class Ui_day_start(object):
         if not self.date_selected:
             current_date = QtCore.QDate.currentDate()
             self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
+
+            # Convert Thai numerals to Arabic numerals
+            thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+            self.convert_to_arabic_numerals(thai_numerals)
+
             self.calendarWidget.setEnabled(True)
+
            
         
 

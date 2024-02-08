@@ -1,6 +1,7 @@
 
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from PyQt5 import QtCore, QtGui, QtWidgets
+#ไม่ใช้แล้ว
 
 
 class Ui_select_time(object):
