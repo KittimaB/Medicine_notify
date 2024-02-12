@@ -46,6 +46,13 @@ class Ui_drugTotal(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(238, 80, 33, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/drugleft_icon.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -109,7 +116,9 @@ class Ui_drugTotal(object):
         _translate = QtCore.QCoreApplication.translate
         drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
         self.add_back_pushButton.setText(_translate("drugTotal", "ย้อนกลับ"))
-        self.label.setText(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
+        self.label.setText(_translate("drugTotal", "           จำนวนมื้อยาคงเหลือ   "))
+
+import resources_rc
 
 
 if __name__ == "__main__":

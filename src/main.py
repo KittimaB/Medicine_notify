@@ -2,7 +2,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from drug_List import Ui_drug_List
 from select_time import Ui_select_time
-from pack_med import Ui_med_pack
+# from pack_med import Ui_med_pack
+from pack import Ui_med_pack
 from sortDrug import Ui_sortDrug
 from drugTotal import Ui_drugTotal
 
@@ -55,6 +56,13 @@ class Ui_Medicine_App(object):
         self.home_label.setAlignment(QtCore.Qt.AlignCenter)
         self.home_label.setWordWrap(True)
         self.home_label.setObjectName("home_label")
+        self.img_home_label = QtWidgets.QLabel(self.frame)
+        self.img_home_label.setGeometry(QtCore.QRect(277, 80, 33, 31))
+        self.img_home_label.setText("")
+        self.img_home_label.setPixmap(QtGui.QPixmap(":/icons/home2_icon.png"))
+        self.img_home_label.setScaledContents(True)
+        self.img_home_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_home_label.setObjectName("img_home_label")
         self.label_3 = QtWidgets.QLabel(self.frame)
         self.label_3.setGeometry(QtCore.QRect(50, 80, 100, 31))
         font = QtGui.QFont()
@@ -100,13 +108,22 @@ class Ui_Medicine_App(object):
         shadow.setOffset(0,2)
         self.addDrug_pushButton.setGraphicsEffect(shadow)
 
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/icons/drug_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.addDrug_pushButton.setIcon(icon)
-        self.addDrug_pushButton.setIconSize(QtCore.QSize(20, 40))
-        self.addDrug_pushButton.setAutoDefault(False)
-        self.addDrug_pushButton.setDefault(False)
-        self.addDrug_pushButton.setFlat(False)
+        # icon = QtGui.QIcon()                                                                      ไม่ได้ลบไอคอนแบบเก่าแค่คอมเม้นไว้
+        # icon.addPixmap(QtGui.QPixmap(":/icons/drug_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+        self.img_druglist_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_druglist_label.setGeometry(QtCore.QRect(292, 119, 25, 24))
+        self.img_druglist_label.setText("")
+        self.img_druglist_label.setPixmap(QtGui.QPixmap(":/icons/druglist_tab.png"))
+        self.img_druglist_label.setScaledContents(True)
+        self.img_druglist_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_druglist_label.setObjectName("img_druglist_label")
+
+        # self.addDrug_pushButton.setIcon(icon)
+        # self.addDrug_pushButton.setIconSize(QtCore.QSize(20, 40))
+        # self.addDrug_pushButton.setAutoDefault(False)
+        # self.addDrug_pushButton.setDefault(False)
+        # self.addDrug_pushButton.setFlat(False)
         self.addDrug_pushButton.setObjectName("addDrug_pushButton")
         self.setting_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.setting_pushButton.setGeometry(QtCore.QRect(225, 160, 231, 41))
@@ -124,13 +141,22 @@ class Ui_Medicine_App(object):
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
         shadow.setOffset(0,2)
         self.setting_pushButton.setGraphicsEffect(shadow)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/icons/setting_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.setting_pushButton.setIcon(icon1)
-        self.setting_pushButton.setIconSize(QtCore.QSize(20, 40))
-        self.setting_pushButton.setAutoDefault(False)
-        self.setting_pushButton.setDefault(False)
-        self.setting_pushButton.setFlat(False)
+        # icon1 = QtGui.QIcon()
+        # icon1.addPixmap(QtGui.QPixmap(":/icons/setting_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+        self.img_selecttime_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_selecttime_label.setGeometry(QtCore.QRect(275, 169, 26, 24))
+        self.img_selecttime_label.setText("")
+        self.img_selecttime_label.setPixmap(QtGui.QPixmap(":/icons/selecttime_tab.png"))
+        self.img_selecttime_label.setScaledContents(True)
+        self.img_selecttime_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_selecttime_label.setObjectName("img_selecttime_label")
+
+        # self.setting_pushButton.setIcon(icon1)
+        # self.setting_pushButton.setIconSize(QtCore.QSize(20, 40))
+        # self.setting_pushButton.setAutoDefault(False)
+        # self.setting_pushButton.setDefault(False)
+        # self.setting_pushButton.setFlat(False)
         self.setting_pushButton.setObjectName("setting_pushButton")
         self.putDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.putDrug_pushButton.setGeometry(QtCore.QRect(225, 210, 231, 41))
@@ -148,13 +174,22 @@ class Ui_Medicine_App(object):
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
         shadow.setOffset(0,2)
         self.putDrug_pushButton.setGraphicsEffect(shadow)
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/icons/istockphoto-1263011147-170667a.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.putDrug_pushButton.setIcon(icon2)
-        self.putDrug_pushButton.setIconSize(QtCore.QSize(20, 50))
-        self.putDrug_pushButton.setAutoDefault(False)
-        self.putDrug_pushButton.setDefault(False)
-        self.putDrug_pushButton.setFlat(False)
+        # icon2 = QtGui.QIcon()
+        # icon2.addPixmap(QtGui.QPixmap(":/icons/istockphoto-1263011147-170667a.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+        self.img_pack_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_pack_label.setGeometry(QtCore.QRect(260, 219, 25, 24))
+        self.img_pack_label.setText("")
+        self.img_pack_label.setPixmap(QtGui.QPixmap(":/icons/pack_tab.png"))
+        self.img_pack_label.setScaledContents(True)
+        self.img_pack_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_pack_label.setObjectName("img_pack_label")
+
+        # self.putDrug_pushButton.setIcon(icon2)
+        # self.putDrug_pushButton.setIconSize(QtCore.QSize(20, 50))
+        # self.putDrug_pushButton.setAutoDefault(False)
+        # self.putDrug_pushButton.setDefault(False)
+        # self.putDrug_pushButton.setFlat(False)
         self.putDrug_pushButton.setObjectName("putDrug_pushButton")
         self.alignment_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.alignment_pushButton.setGeometry(QtCore.QRect(225, 260, 231, 41))
@@ -172,13 +207,22 @@ class Ui_Medicine_App(object):
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
         shadow.setOffset(0,2)
         self.alignment_pushButton.setGraphicsEffect(shadow)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/icons/Industry-Rack-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.alignment_pushButton.setIcon(icon3)
-        self.alignment_pushButton.setIconSize(QtCore.QSize(20, 50))
-        self.alignment_pushButton.setAutoDefault(False)
-        self.alignment_pushButton.setDefault(False)
-        self.alignment_pushButton.setFlat(False)
+        # icon3 = QtGui.QIcon()
+        # icon3.addPixmap(QtGui.QPixmap(":/icons/Industry-Rack-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+        self.img_sort_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_sort_label.setGeometry(QtCore.QRect(252, 269, 27, 24))
+        self.img_sort_label.setText("")
+        self.img_sort_label.setPixmap(QtGui.QPixmap(":/icons/sort_tab.png"))
+        self.img_sort_label.setScaledContents(True)
+        self.img_sort_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_sort_label.setObjectName("img_sort_label")
+
+        # self.alignment_pushButton.setIcon(icon3)
+        # self.alignment_pushButton.setIconSize(QtCore.QSize(20, 50))
+        # self.alignment_pushButton.setAutoDefault(False)
+        # self.alignment_pushButton.setDefault(False)
+        # self.alignment_pushButton.setFlat(False)
         self.alignment_pushButton.setObjectName("alignment_pushButton")
         self.drugLeft_pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.drugLeft_pushButton.setGeometry(QtCore.QRect(225, 310, 231, 41))
@@ -196,13 +240,22 @@ class Ui_Medicine_App(object):
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
         shadow.setOffset(0,2)
         self.drugLeft_pushButton.setGraphicsEffect(shadow)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/icons/table_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.drugLeft_pushButton.setIcon(icon4)
-        self.drugLeft_pushButton.setIconSize(QtCore.QSize(20, 50))
-        self.drugLeft_pushButton.setAutoDefault(False)
-        self.drugLeft_pushButton.setDefault(False)
-        self.drugLeft_pushButton.setFlat(False)
+        # icon4 = QtGui.QIcon()
+        # icon4.addPixmap(QtGui.QPixmap(":/icons/table_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+        self.img_drugleft_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_drugleft_label.setGeometry(QtCore.QRect(255, 318, 27, 24))
+        self.img_drugleft_label.setText("")
+        self.img_drugleft_label.setPixmap(QtGui.QPixmap(":/icons/drugleft_tab.png"))
+        self.img_drugleft_label.setScaledContents(True)
+        self.img_drugleft_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_drugleft_label.setObjectName("img_drugleft_label")
+
+        # self.drugLeft_pushButton.setIcon(icon4)
+        # self.drugLeft_pushButton.setIconSize(QtCore.QSize(20, 50))
+        # self.drugLeft_pushButton.setAutoDefault(False)
+        # self.drugLeft_pushButton.setDefault(False)
+        # self.drugLeft_pushButton.setFlat(False)
         self.drugLeft_pushButton.setObjectName("drugLeft_pushButton")
         Medicine_App.setCentralWidget(self.centralwidget)
 
@@ -355,7 +408,19 @@ class Ui_Medicine_App(object):
         
         self.ui_select_time.add_back_pushButton.clicked.connect(close_select_time_window)
         
-    ###################### หน้าวิธีบรรจุยา ############################# 
+    # ###################### หน้าวิธีบรรจุยา #############################                                            อันเก่า
+    # def open_pack_page(self):
+    #     self.pack_window = QtWidgets.QMainWindow()
+    #     self.ui_pack = Ui_med_pack()
+    #     self.ui_pack.setupUi(self.pack_window)
+    #     self.pack_window.show()
+        
+    #     def close_pack_window():
+    #         self.pack_window.close()
+            
+    #     self.ui_pack.pack_back_pushButton.clicked.connect(close_pack_window)
+        
+        ##################### หน้าคำแนะนำการใส่ยา ############################# 
     def open_pack_page(self):
         self.pack_window = QtWidgets.QMainWindow()
         self.ui_pack = Ui_med_pack()
@@ -365,7 +430,7 @@ class Ui_Medicine_App(object):
         def close_pack_window():
             self.pack_window.close()
             
-        self.ui_pack.pack_back_pushButton.clicked.connect(close_pack_window)
+        self.ui_pack.add_back_pushButton.clicked.connect(close_pack_window)
 
     ###################### หน้าวิธีจัดเรียงยาตามผัง ############################# 
     def open_sortdrug_page(self):
@@ -395,7 +460,7 @@ class Ui_Medicine_App(object):
         _translate = QtCore.QCoreApplication.translate
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))
         self.addDrug_pushButton.setText(_translate("Medicine_App", "  คลังยา"))
-        self.home_label.setText(_translate("Medicine_App", "   หน้าหลัก"))
+        self.home_label.setText(_translate("Medicine_App", "     หน้าหลัก"))
         self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
         self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))

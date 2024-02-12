@@ -139,12 +139,45 @@ class Ui_time_Edit(object):
 "background-color: rgb(255, 255, 255);")
         self.timeEdit.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.timeEdit.setObjectName("timeEdit")
+
+        self.img_b_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_b_label.setGeometry(QtCore.QRect(232, 20, 42, 31))
+        self.img_b_label.setText("")
+        self.img_b_label.setPixmap(QtGui.QPixmap(":/icons/b_label.png"))
+        self.img_b_label.setScaledContents(True)
+        self.img_b_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_b_label.setObjectName("img_b_label")
+
+        self.img_l_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_l_label.setGeometry(QtCore.QRect(232, 20, 35, 31))
+        self.img_l_label.setText("")
+        self.img_l_label.setPixmap(QtGui.QPixmap(":/icons/l_label.png"))
+        self.img_l_label.setScaledContents(True)
+        self.img_l_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_l_label.setObjectName("img_l_label")
+
+        self.img_d_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_d_label.setGeometry(QtCore.QRect(240, 20, 33, 31))
+        self.img_d_label.setText("")
+        self.img_d_label.setPixmap(QtGui.QPixmap(":/icons/d_label.png"))
+        self.img_d_label.setScaledContents(True)
+        self.img_d_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_d_label.setObjectName("img_d_label")
+
+        self.img_bed_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_bed_label.setGeometry(QtCore.QRect(253, 20, 42, 31))
+        self.img_bed_label.setText("")
+        self.img_bed_label.setPixmap(QtGui.QPixmap(":/icons/bed_label.png"))
+        self.img_bed_label.setScaledContents(True)
+        self.img_bed_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_bed_label.setObjectName("img_bed_label")
+
         time_Edit.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(time_Edit)
         QtCore.QMetaObject.connectSlotsByName(time_Edit)
 
-        self.label.setText(self.meal_label_text)
+        self.label.setText(f"      {self.meal_label_text}")
 
         def close_window():
             time_Edit.close()
@@ -162,6 +195,29 @@ class Ui_time_Edit(object):
                 stored_time_arabic = self.convert_thai_to_arabic(stored_time_thai)
                 stored_qtime = QtCore.QTime.fromString(stored_time_arabic, "HH:mm")
                 self.timeEdit.setTime(stored_qtime)
+
+                # Hide all meal images
+                self.img_b_label.hide()
+                self.img_l_label.hide()
+                self.img_d_label.hide()
+                self.img_bed_label.hide()
+
+                # Show the image for the current meal
+                if self.meal_label_text == "มื้อเช้า ก่อนอาหาร":
+                    self.img_b_label.show()
+                elif self.meal_label_text == "มื้อเช้า หลังอาหาร":
+                    self.img_b_label.show()
+                elif self.meal_label_text == "มื้อเที่ยง ก่อนอาหาร":
+                    self.img_l_label.show()
+                elif self.meal_label_text == "มื้อเที่ยง หลังอาหาร":
+                    self.img_l_label.show()
+                elif self.meal_label_text == "มื้อเย็น ก่อนอาหาร":
+                    self.img_d_label.show()
+                elif self.meal_label_text == "มื้อเย็น หลังอาหาร":
+                    self.img_d_label.show()
+                elif self.meal_label_text == "มื้อก่อนนอน":
+                    self.img_bed_label.show()
+
         except Exception as e:
             QtWidgets.QMessageBox.critical(time_Edit, "Error", f"เกิดข้อผิดพลาดในการดึงข้อมูล: {str(e)}")
 

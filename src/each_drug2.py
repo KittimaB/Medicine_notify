@@ -52,6 +52,13 @@ class Ui_each_drug2(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(238, 80, 31, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/each_icon.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -305,8 +312,8 @@ class Ui_each_drug2(object):
             # Convert the tuple to a list for modification
             drug_info_list = list(drug_info)
 
-            # Modify the values as needed
-            drug_info_list[12] = 0
+            # # Modify the values as needed                                                 อันนี้มันฟิกเกินไป
+            # drug_info_list[12] = 0
 
             # Check for None values before performing the division
             drug_remaining, drug_eat = drug_info_list[3], drug_info_list[8]
@@ -334,6 +341,7 @@ class Ui_each_drug2(object):
 
             self.drug_id = drug_info[0]
             self.label.setText(drug_info[1])
+            self.size_label.setText(f"{drug_info[13]}")
             self.label_6.setText(f"{drug_info[12]}")
             self.label_7.setText(f"{drug_info[4]}")
             self.label_8.setText(f"{drug_info[9]}")

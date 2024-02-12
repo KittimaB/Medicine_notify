@@ -53,6 +53,13 @@ class Ui_each_drug(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(238, 80, 31, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/each_icon.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -280,7 +287,7 @@ class Ui_each_drug(object):
 
         def save_changes():
             # ตรวจสอบข้อมูลที่ถูกแก้ไขและบันทึกลงฐานข้อมูลหรือตัวแปรที่เหมาะสม
-            updated_data = {}  # นี่คือตัวอย่าง เปลี่ยนตามความต้องการ
+            updated_data = {} 
             updated_data['drug_name'] = self.label_2.toPlainText()
             updated_data['drug_description'] = self.label_3.toPlainText()
             updated_data['drug_remaining'] = self.label_4.toPlainText()

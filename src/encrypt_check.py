@@ -61,6 +61,13 @@ class Ui_encrypt_check(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(255, 80, 31, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/encrypt.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -279,11 +286,13 @@ class Ui_encrypt_check(object):
         encrypt_check.setWindowTitle(_translate("encrypt_check", "ยืนยันการแก้ไข"))
         self.label_2.setText(_translate("encrypt_check", "รหัสที่กำหนด"))
         self.add_back_pushButton.setText(_translate("encrypt_check", "ย้อนกลับ"))
-        self.label.setText(_translate("encrypt_check", "ยืนยันการแก้ไข"))
+        self.label.setText(_translate("encrypt_check", "       ยืนยันการแก้ไข"))
         self.set_code_label.setText(_translate("encrypt_check", "รหัสตรวจสอบ"))
         self.label_3.setText(_translate("encrypt_check", ""))
         self.drugName_label_2.setText(_translate("encrypt_check", "กรุณากรอกรหัส"))
         self.next_pushButton.setText(_translate("encrypt_check", "ยืนยัน"))
+
+import resources_rc
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

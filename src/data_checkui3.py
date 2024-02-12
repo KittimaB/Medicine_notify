@@ -58,6 +58,13 @@ class Ui_data_check3(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(225, 80, 33, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/check.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -268,7 +275,7 @@ class Ui_data_check3(object):
     def retranslateUi(self, data_check3):
         _translate = QtCore.QCoreApplication.translate
         data_check3.setWindowTitle(_translate("data_check3", "ตรวจสอบความถูกต้อง"))
-        self.label.setText(_translate("data_check3", "ตรวจสอบความถูกต้อง"))
+        self.label.setText(_translate("data_check3", "        ตรวจสอบความถูกต้อง  "))
         self.add_back_pushButton.setText(_translate("data_check3", "ย้อนกลับ"))
         self.drugName_label.setText(_translate("data_check3", "ชื่อยา:"))
         self.next_pushButton.setText(_translate("data_check3", "ถัดไป"))
@@ -276,6 +283,7 @@ class Ui_data_check3(object):
         self.day_start.setText(_translate("data_check3", "วันแรกที่เริ่มรับประทานยา"))
         self.label_9.setText(_translate("data_check3", "วันที่"))
 
+import resources_rc
 
 if __name__ == "__main__":
     import sys

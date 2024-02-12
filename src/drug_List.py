@@ -53,6 +53,13 @@ class Ui_drug_List(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(285, 80, 33, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/druglist_icon.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
         self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
         font = QtGui.QFont()
@@ -177,7 +184,7 @@ class Ui_drug_List(object):
     def retranslateUi(self, drug_List):
         _translate = QtCore.QCoreApplication.translate
         drug_List.setWindowTitle(_translate("drug_List", "คลังยา"))
-        self.label.setText(_translate("drug_List", "คลังยา"))
+        self.label.setText(_translate("drug_List", "     คลังยา"))
         self.add_back_pushButton.setText(_translate("drug_List", "ย้อนกลับ"))
         self.add_pushButton.setText(_translate("drug_List", "เพิ่มยา"))
               
