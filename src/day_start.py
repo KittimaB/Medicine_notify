@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from select_meal import Ui_select_meal
 from PyQt5.QtCore import QLocale
+from PyQt5.QtCore import QDateTime
 import sqlite3
 
 class Ui_day_start(object):
@@ -123,9 +124,9 @@ class Ui_day_start(object):
         
         self.calendarWidget.selectionChanged.connect(self.update_selected_date)
 
-        # Set the minimum date to the current date
-        current_date = QtCore.QDate.currentDate()
-        self.calendarWidget.setMinimumDate(current_date)
+        # # Set the minimum date to the current date
+        # current_date = QtCore.QDate.currentDate()
+        # self.calendarWidget.setMinimumDate(current_date)
 
         self.retranslateUi(day_start)
         QtCore.QMetaObject.connectSlotsByName(day_start)
@@ -142,9 +143,15 @@ class Ui_day_start(object):
             if not self.date_selected:
                 current_date = QtCore.QDate.currentDate()
                 self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
+                # Convert Thai numerals to Arabic numerals
+                thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+                self.convert_to_arabic_numerals(thai_numerals)
                 updated_data2['day_start'] = self.label_date.text()
-            # else:
-            #     updated_data2['day_start'] = self.label_date.text()
+            else:
+                updated_data2['day_start'] = self.label_date.text()
+                # Convert Thai numerals to Arabic numerals
+                thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+                self.convert_to_arabic_numerals(thai_numerals)
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
             self.open_select_meal(self.updated_data2)
@@ -170,7 +177,6 @@ class Ui_day_start(object):
         self.next_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.next_pushButton))
         self.next_pushButton.released.connect(lambda: self.set_button_released_style(self.next_pushButton))
 
-
     def set_button_pressed_style(self, button):
         button.setStyleSheet(
             "border-radius: 9px;\n"
@@ -193,25 +199,40 @@ class Ui_day_start(object):
 
     def update_selected_date(self):
         selected_date = self.calendarWidget.selectedDate()
+        # Update the label with the selected date
+        self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
 
-        # Check if the selected date is not in the past
-        if selected_date >= QtCore.QDate.currentDate():
-            self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
+        # Convert Thai numerals to Arabic numerals
+        thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+        self.convert_to_arabic_numerals(thai_numerals)
 
-            # Convert Thai numerals to Arabic numerals
-            thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
-            self.convert_to_arabic_numerals(thai_numerals)
+        # Enable further date changes
+        self.calendarWidget.setEnabled(True)
 
-            # Enable further date changes
-            self.calendarWidget.setEnabled(True)
-            # Update the variable to indicate that the date has been selected
-            self.date_selected = True
-        else:
-            # Show a warning message and reset the selected date
-            QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
-            self.calendarWidget.setSelectedDate(QtCore.QDate.currentDate())
+        # Update the variable to indicate that the date has been selected
+        self.date_selected = True
 
-        if not self.date_selected:
+
+        # # Check if the selected date is not in the past                                     แบบเดิมคือไม่สามารถเลือกวันที่ผ่านมาแล้วได้
+        # if  selected_date >= QtCore.QDate.currentDate():
+        #     self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
+
+        #     # Convert Thai numerals to Arabic numerals
+        #     thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+        #     self.convert_to_arabic_numerals(thai_numerals)
+
+        #     # Enable further date changes
+        #     self.calendarWidget.setEnabled(True)
+        #     # Update the variable to indicate that the date has been selected
+        #     self.date_selected = True
+        # else:
+        #     # Show a warning message and reset the selected date
+        #     QMessageBox.warning(self.centralwidget, "เลือกวัน", "ไม่สามารถเลือกวันที่ผ่านมาได้")
+        #     self.calendarWidget.setSelectedDate(QtCore.QDate.currentDate())
+
+
+
+        if not self.date_selected:                                                           #กรณีถ้าไม่ได้เลือก
             current_date = QtCore.QDate.currentDate()
             self.label_date.setText(current_date.toString("dddd d MMMM yyyy"))
 
@@ -231,10 +252,36 @@ class Ui_day_start(object):
         print(f"day_start {self.updated_data2}")
         self.label.setText(f"{self.updated_data2['drug_name']}")
 
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
+
+        # Query to retrieve data from the database based on drug_id
+        query = "SELECT day_start FROM Drug WHERE drug_id = ?"
+        cursor.execute(query, (drug_id,))
+        result = cursor.fetchone()
+
+        if result:
+            # Set the calendarWidget and label_date based on the retrieved data
+            selected_date = QtCore.QDate.fromString(result[0], "dddd d MMMM yyyy")
+            self.calendarWidget.setSelectedDate(selected_date)
+            self.label_date.setText(selected_date.toString("dddd d MMMM yyyy"))
+
+            # Convert Thai numerals to Arabic numerals
+            thai_numerals = ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"]
+            self.convert_to_arabic_numerals(thai_numerals)
+
+            # Enable further date changes
+            self.calendarWidget.setEnabled(True)
+
+            # Update the variable to indicate that the date has been selected
+            self.date_selected = True
+
+        connection.close()
+
     def open_select_meal(self, updated_data2):
         if self.date_selected:
             # Save the selected date to the database
-            selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
+            selected_date = self.calendarWidget.selectedDate().toString("dddd d MMMM yyyy")
             # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window
@@ -248,7 +295,7 @@ class Ui_day_start(object):
             self.calendarWidget.setEnabled(True)
         else:
             # Save the selected date to the database
-            selected_date = self.calendarWidget.selectedDate().toString("dd-MM-yyyy")
+            selected_date = self.calendarWidget.selectedDate().toString("dddd d MMMM yyyy")
             # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window

@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>ball.png</file>
+    <file>newpack3_img.png</file>
+    <file>newpack2_img.png</file>
     <file>next_icon.png</file>
     <file>Flat_tick_icon.svg.png</file>
     <file>home_icon.png</file>
@@ -10,6 +13,9 @@
     <file>drug_icon.png</file>
   </qresource>
   <qresource prefix="image">
+    <file>pack1_img.png</file>
+    <file>pack2_img.png</file>
+    <file>pack3_img.png</file>
     <file>med_pack2_img.png</file>
     <file>med_pack1_img.png</file>
   </qresource>
