@@ -464,7 +464,7 @@ class Ui_Medicine_App(object):
         self.setting_pushButton.setText(_translate("Medicine_App", "  ตั้งเวลามื้อยา"))
         self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
-        self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนมื้อยาคงเหลือ"))
+        self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนยาคงเหลือ"))
         
 import resources_rc
 

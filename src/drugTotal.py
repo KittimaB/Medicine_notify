@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-
+import sqlite3
 
 class Ui_drugTotal(object):
     def setupUi(self, drugTotal):
@@ -68,6 +68,19 @@ class Ui_drugTotal(object):
         shadow.setOffset(0,2)
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(90, 90, 512, 261))
+        self.frame_2.setStyleSheet("border-radius: 9px;\n"
+"background-color: rgb(236, 236, 236);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.frame_2)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.frame_2.setGraphicsEffect(shadow)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
         drugTotal.setCentralWidget(self.centralwidget)
 
 
@@ -81,12 +94,20 @@ class Ui_drugTotal(object):
 
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(155, 120, 217, 241))
+        self.tableWidget.setGeometry(QtCore.QRect(107, 105, 480, 230))
         self.tableWidget.setObjectName("tableWidget")
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
-        self.tableWidget.setColumnCount(2)
-        self.tableWidget.setHorizontalHeaderLabels(["มื้ออาหาร", "คงเหลือ"])
+        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setHorizontalHeaderLabels(["ชื่อยา", "จำนวนยาคงเหลือในเครื่อง", "จำนวนยาคงเหลือนอกเครื่อง"])
+
+        # Set the width of the columns
+        self.tableWidget.setColumnWidth(0, 150)  # Adjust the width as needed
+        self.tableWidget.setColumnWidth(1, 150)  # Adjust the width as needed
+        self.tableWidget.setColumnWidth(2, 150)  # Adjust the width as needed
+
+         # Set the background color of the table to white and text color to black
+        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
         
         # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
         self.tableWidget.setRowCount(7)
@@ -94,6 +115,27 @@ class Ui_drugTotal(object):
          # Set up button press and release styling
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
         self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
+
+        self.load_drug_data()
+
+    def load_drug_data(self):
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
+        cursor.execute('''
+            SELECT drug_name, external_drug, internal_drug FROM Drug 
+        ''')
+
+        # Fetch all rows from the result set
+        drug_data = cursor.fetchall()
+
+        # Set the number of rows in the table equal to the number of records
+        self.tableWidget.setRowCount(len(drug_data))
+
+        # Populate the table with the retrieved data
+        for row_num, row_data in enumerate(drug_data):
+            for col_num, col_data in enumerate(row_data):
+                item = QtWidgets.QTableWidgetItem(str(col_data))
+                self.tableWidget.setItem(row_num, col_num, item)
 
     def set_button_pressed_style(self, button):
         button.setStyleSheet(
@@ -114,7 +156,7 @@ class Ui_drugTotal(object):
 
     def retranslateUi(self, drugTotal):
         _translate = QtCore.QCoreApplication.translate
-        drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนมื้อยาคงเหลือ"))
+        drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนยาคงเหลือ"))
         self.add_back_pushButton.setText(_translate("drugTotal", "ย้อนกลับ"))
         self.label.setText(_translate("drugTotal", "           จำนวนมื้อยาคงเหลือ   "))
 

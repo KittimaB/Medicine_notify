@@ -1,9 +1,24 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QStyle
+
 from each_drug2 import Ui_each_drug2
 
 import sqlite3
 
+class CustomMessageBox(QMessageBox):
+    def __init__(self, parent=None):
+        super(CustomMessageBox, self).__init__(parent)
+        self.setStyleSheet("""
+            QMessageBox {
+                background-color: white;
+                border: 2px solid black;
+            }
+            QLabel {
+                color: black;
+            }
+        """)
 
 class Ui_each_drug(object):   
     def setupUi(self, each_drug, drug_List):
@@ -273,8 +288,13 @@ class Ui_each_drug(object):
 
         def delete_drug():
             drug_name = self.label_2.toPlainText()  # รับชื่อยาจาก Label
-            reply = QtWidgets.QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
-                                                   QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No, QtWidgets.QMessageBox.No)
+
+            # Use the custom message box
+            QMessageBox = CustomMessageBox()
+        
+            reply = QMessageBox.question(each_drug, 'ลบยา', f'คุณต้องการลบยา "{drug_name}" ใช่หรือไม่?',
+                                    QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
             if reply == QtWidgets.QMessageBox.Yes:
                 connection = sqlite3.connect("medicine.db")
                 cursor = connection.cursor()
