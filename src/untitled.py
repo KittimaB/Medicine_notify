@@ -1,3 +1,5 @@
+# ไม่ใช้แล้ว
+
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 
 

@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+# ไม่ใช้แล้ว
 
 class Ui_day_start(object):
     def setupUi(self, day_start):

@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+# ไม่ใช้แล้ว
 
 class Ui_Edit_drug(object):
     def setupUi(self, Edit_drug):

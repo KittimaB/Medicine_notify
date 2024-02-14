@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+# ไม่ใช้แล้ว
 
 class Ui_drugTotal(object):
     def setupUi(self, drugTotal):

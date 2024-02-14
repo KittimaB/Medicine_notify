@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from prepare import Ui_prepare
 import sqlite3
 
@@ -30,27 +31,40 @@ class CircularColorItem(QtWidgets.QWidget):
 class Ui_sortDrug(object):
     def setupUi(self, sortDrug):
         sortDrug.setObjectName("sortDrug")
-        sortDrug.setEnabled(True)
-        sortDrug.resize(531, 401)
-        sortDrug.setStyleSheet("background-color: rgb(217, 244, 255)")
+        sortDrug.resize(683, 400)
+        sortDrug.setStyleSheet("\n"
+"background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(sortDrug)
         self.centralwidget.setObjectName("centralwidget")
-        self.add_back_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(30, 31, 71, 31))
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
+        self.frame.setStyleSheet("border-radius: 40px;\n"
+"background-color: rgb(255, 255, 255);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.frame)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.frame.setGraphicsEffect(shadow)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.sort_label = QtWidgets.QLabel(self.frame)
+        self.sort_label.setGeometry(QtCore.QRect(200, 70, 281, 51))
         font = QtGui.QFont()
-        font.setPointSize(12)
-        self.add_back_pushButton.setFont(font)
-        self.add_back_pushButton.setStyleSheet("color: rgb(255, 255, 255);\n"
-"background-color: rgb(166, 0, 0)")
-        self.add_back_pushButton.setObjectName("add_back_pushButton")
-        self.sort_label = QtWidgets.QLabel(self.centralwidget)
-        self.sort_label.setGeometry(QtCore.QRect(130, 11, 291, 51))
-        font = QtGui.QFont()
-        font.setPointSize(22)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.sort_label.setFont(font)
-        self.sort_label.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.sort_label.setStyleSheet("border-radius: 16px;\n"
+"color: rgb(255, 255, 255);\n"
+"background-color: rgb(23, 73, 110);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.sort_label)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.sort_label.setGraphicsEffect(shadow)
         self.sort_label.setFrameShape(QtWidgets.QFrame.Box)
         self.sort_label.setLineWidth(1)
         self.sort_label.setTextFormat(QtCore.Qt.AutoText)
@@ -58,19 +72,50 @@ class Ui_sortDrug(object):
         self.sort_label.setAlignment(QtCore.Qt.AlignCenter)
         self.sort_label.setWordWrap(True)
         self.sort_label.setObjectName("sort_label")
-        self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(-10, 62, 551, 20))
-        self.line.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.line.setLineWidth(3)
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setObjectName("line")
-        self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.next_pushButton.setGeometry(QtCore.QRect(440, 31, 71, 31))
+        self.img_label = QtWidgets.QLabel(self.frame)
+        self.img_label.setGeometry(QtCore.QRect(230, 80, 37, 31))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/sort_icon.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
+        self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
+        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.add_back_pushButton.setFont(font)
+        self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(244, 212, 99);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.add_back_pushButton.setGraphicsEffect(shadow)
+        self.add_back_pushButton.setObjectName("add_back_pushButton")
+        self.next_pushButton = QtWidgets.QPushButton(self.frame)
+        self.next_pushButton.setGeometry(QtCore.QRect(540, 80, 71, 31))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.next_pushButton.setFont(font)
-        self.next_pushButton.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.next_pushButton.setStyleSheet("border-radius: 9px;\n"
+"color: rgb(0, 0, 0);\n"
+"background-color: rgb(227, 151, 61);")
+        # Add drop shadow effect to the button
+        shadow = QGraphicsDropShadowEffect(self.next_pushButton)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
+#         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+#         self.frame_2.setGeometry(QtCore.QRect(80, 90, 521, 291))
+#         self.frame_2.setStyleSheet("border-radius: 16px;\n"
+# "background-color: rgb(236, 236, 236);")
+#         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+#         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+#         self.frame_2.setObjectName("frame_2")
         sortDrug.setCentralWidget(self.centralwidget)
 
         # Set up the table widget
@@ -88,6 +133,28 @@ class Ui_sortDrug(object):
         
         self.sort_handle()
 
+        # Set up button press and release styling
+        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
+        self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
+
+        self.next_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.next_pushButton))
+        self.next_pushButton.released.connect(lambda: self.set_button_released_style(self.next_pushButton))
+
+
+    def set_button_pressed_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(200, 200, 200);"  # Change color when pressed
+        )
+
+    def set_button_released_style(self, button):
+        button.setStyleSheet(
+            "border-radius: 9px;\n"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(227, 151, 61);"
+        )
+
     def open_prepare(self):
         self.prepare_window = QtWidgets.QMainWindow()
         self.prepare_ui = Ui_prepare()
@@ -99,8 +166,16 @@ class Ui_sortDrug(object):
     def setup_table_widget(self):
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(25, 76, 483, 316))                         
+        self.tableWidget.setGeometry(QtCore.QRect(99, 76, 483, 316))                         
         self.tableWidget.setObjectName("tableWidget")
+
+        # Set the background color of the table to white and text color to black
+        self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
+        shadow = QGraphicsDropShadowEffect(self.tableWidget)
+        shadow.setBlurRadius(8)
+        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
+        shadow.setOffset(0,2)
+        self.tableWidget.setGraphicsEffect(shadow)
 
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
@@ -180,7 +255,7 @@ class Ui_sortDrug(object):
             # Fetch updated drug information after the update
             cursor.execute(f"SELECT * FROM Drug WHERE drug_id = {drug_id}")
             updated_drug_info = cursor.fetchone()
-            drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new = updated_drug_info
+            drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, drug_size = updated_drug_info
 
             # Display updated drug and meal information
             # print(f"Drug: {drug_id}, {drug_name}, {drug_description}, {drug_remaining}, {drug_remaining_meal}, {fraction}, {external_drug}, {internal_drug}, {drug_eat}, {all_drug_recieve}, {day_start}, {drug_log}")
@@ -200,7 +275,7 @@ class Ui_sortDrug(object):
             connection = sqlite3.connect("medicine.db")
             cursor = connection.cursor()
             query = '''
-                SELECT  h.drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, 
+                SELECT  h.drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, drug_size,
                         h.meal_id, meal_name, time
                     FROM Drug_handle AS h
                     LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
@@ -238,7 +313,7 @@ class Ui_sortDrug(object):
                     (0, 180, 255): {"text": "ก่อนนอน", "enabled": True}    # สีน้ำเงิน
                 }
 
-                color_index = drug_info_list[0][13] - 1
+                color_index = drug_info_list[0][14] - 1
 
                 if color_index < len(color_text_mapping):
                     color = list(color_text_mapping.keys())[color_index]
@@ -248,7 +323,7 @@ class Ui_sortDrug(object):
                 
                 # print(drug_info_list)
                 for drug_info in drug_info_list:
-                    drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, meal_id, meal_name, time = drug_info
+                    drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, drug_size, meal_id, meal_name, time = drug_info
                     
                     if external_drug != 0:
                         # print(f"- {drug_name}")
@@ -273,7 +348,7 @@ class Ui_sortDrug(object):
                         pass
                         
                 query = '''
-                SELECT  h.drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, 
+                SELECT  h.drug_id, drug_name, drug_description, drug_remaining, drug_remaining_meal, fraction, external_drug, internal_drug, drug_eat, all_drug_recieve, day_start, drug_log, drug_new, drug_size,
                         h.meal_id, meal_name, time
                     FROM Drug_handle AS h
                     LEFT JOIN Drug AS d ON h.drug_id = d.drug_id
@@ -327,8 +402,10 @@ class Ui_sortDrug(object):
         _translate = QtCore.QCoreApplication.translate
         sortDrug.setWindowTitle(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
         self.add_back_pushButton.setText(_translate("sortDrug", "ย้อนกลับ"))
-        self.sort_label.setText(_translate("sortDrug", "วิธีเรียงกล่องบรรจุยา"))
+        self.sort_label.setText(_translate("sortDrug", "       วิธีเรียงกล่องบรรจุยา"))
         self.next_pushButton.setText(_translate("prepare", "ถัดไป"))
+
+import resources_rc
 
 
 if __name__ == "__main__":

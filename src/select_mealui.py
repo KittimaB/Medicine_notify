@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+# ไม่ใช้แล้ว
 
 class Ui_select_meal(object):
     def setupUi(self, select_meal):

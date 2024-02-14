@@ -3,7 +3,7 @@ from day_start import Ui_day_start
 
 import sqlite3
 
-#เดะลบ
+#ไม่ใช้แล้ว
 
 class Ui_each_drug(object):
     def setupUi(self, each_drug):

@@ -136,6 +136,7 @@ class Ui_drugTotal(object):
             for col_num, col_data in enumerate(row_data):
                 item = QtWidgets.QTableWidgetItem(str(col_data))
                 self.tableWidget.setItem(row_num, col_num, item)
+                # print(f"{row_num}\n {row_data}\n {col_num}\n {col_data}\n {item}\n\n")
 
     def set_button_pressed_style(self, button):
         button.setStyleSheet(

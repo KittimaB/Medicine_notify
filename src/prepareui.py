@@ -1,7 +1,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+# ไม่ใช้แล้ว
 
 class Ui_prepare(object):
     def setupUi(self, prepare):
@@ -15,12 +15,6 @@ class Ui_prepare(object):
         self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -34,12 +28,6 @@ class Ui_prepare(object):
         self.prepare_label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.prepare_label)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.prepare_label.setGraphicsEffect(shadow)
         self.prepare_label.setFrameShape(QtWidgets.QFrame.Box)
         self.prepare_label.setLineWidth(1)
         self.prepare_label.setTextFormat(QtCore.Qt.AutoText)
@@ -55,12 +43,6 @@ class Ui_prepare(object):
         self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(244, 212, 99);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.next_pushButton = QtWidgets.QPushButton(self.frame)
         self.next_pushButton.setGeometry(QtCore.QRect(540, 80, 71, 31))
@@ -70,23 +52,11 @@ class Ui_prepare(object):
         self.next_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(227, 151, 61);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.next_pushButton)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(30, 80, 201, 301))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
@@ -117,12 +87,6 @@ class Ui_prepare(object):
         self.frame_4.setGeometry(QtCore.QRect(250, 80, 401, 301))
         self.frame_4.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
-         # Add drop shadow effect to the button
-        shadow = QGraphicsDropShadowEffect(self.frame_4)
-        shadow.setBlurRadius(8)
-        shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
-        self.frame_4.setGraphicsEffect(shadow)
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_4.setObjectName("frame_4")
@@ -145,42 +109,14 @@ class Ui_prepare(object):
         self.retranslateUi(prepare)
         QtCore.QMetaObject.connectSlotsByName(prepare)
 
-        def close_window():
-            prepare.close()
-            
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        # Set up button press and release styling
-        self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
-        self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
-
-        self.next_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.next_pushButton))
-        self.next_pushButton.released.connect(lambda: self.set_button_released_style(self.next_pushButton))
-
-
-    def set_button_pressed_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(200, 200, 200);"  # Change color when pressed
-        )
-
-    def set_button_released_style(self, button):
-        button.setStyleSheet(
-            "border-radius: 9px;\n"
-            "color: rgb(0, 0, 0);\n"
-            "background-color: rgb(227, 151, 61);"
-        )
-
-
     def retranslateUi(self, prepare):
         _translate = QtCore.QCoreApplication.translate
         prepare.setWindowTitle(_translate("prepare", "เตรียมบอล"))
-        self.prepare_label.setText(_translate("prepare", "เตรียมบอล"))
+        self.prepare_label.setText(_translate("prepare", "กล่องบรรจุยา"))
         self.add_back_pushButton.setText(_translate("prepare", "ย้อนกลับ"))
+        self.next_pushButton.setText(_translate("prepare", "ถัดไป"))
         self.label.setText(_translate("prepare", "รายชื่อยาที่ต้องเตรียม"))
         self.label_2.setText(_translate("prepare", "วางตามช่องที่แสดง"))
-        self.next_pushButton.setText(_translate("prepare", "ถัดไป"))
 
 
 if __name__ == "__main__":
