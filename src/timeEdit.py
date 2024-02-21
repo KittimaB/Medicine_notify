@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect , QMessageBox
 import sqlite3
 
 class Ui_time_Edit(object):
@@ -179,6 +179,8 @@ class Ui_time_Edit(object):
 
         self.label.setText(f"      {self.meal_label_text}")
 
+
+
         def close_window():
             time_Edit.close()
 
@@ -230,7 +232,21 @@ class Ui_time_Edit(object):
                 cursor = self.connection.cursor()
                 cursor.execute("UPDATE Meal SET time = ? WHERE meal_name = ?", (selected_time, meal_name))
                 self.connection.commit()
-                QtWidgets.QMessageBox.information(time_Edit, "Success", "เวลาถูกบันทึกเรียบร้อยแล้ว")
+               # Create a QMessageBox
+                msg = QMessageBox()
+
+                # Set the palette to control the background color
+                palette = QtGui.QPalette()
+                palette.setColor(QtGui.QPalette.Window, QtGui.QColor(255, 255, 255))  # Set your desired background color
+                msg.setPalette(palette)
+
+                # Set the text color
+                msg.setStyleSheet("color: rgb(0, 0, 0);")
+
+                # Show the QMessageBox
+                msg.information(time_Edit, "Success", "เวลาถูกบันทึกเรียบร้อยแล้ว")
+
+                
 
                 # Retrieve the updated time from the database
                 cursor.execute("SELECT time FROM Meal WHERE meal_name = ?", (meal_name,))

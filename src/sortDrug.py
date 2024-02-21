@@ -156,6 +156,8 @@ class Ui_sortDrug(object):
         )
 
     def open_prepare(self):
+        connection = sqlite3.connect("medicine.db")
+        cursor = connection.cursor()
         self.prepare_window = QtWidgets.QMainWindow()
         self.prepare_ui = Ui_prepare()
         self.prepare_ui.setupUi(self.prepare_window)

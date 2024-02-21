@@ -122,7 +122,7 @@ class Ui_drugTotal(object):
         connection = sqlite3.connect("medicine.db")
         cursor = connection.cursor()
         cursor.execute('''
-            SELECT drug_name, external_drug, internal_drug FROM Drug 
+            SELECT drug_name, external_drug, internal_drug, drug_eat FROM Drug 
         ''')
 
         # Fetch all rows from the result set
@@ -134,9 +134,23 @@ class Ui_drugTotal(object):
         # Populate the table with the retrieved data
         for row_num, row_data in enumerate(drug_data):
             for col_num, col_data in enumerate(row_data):
-                item = QtWidgets.QTableWidgetItem(str(col_data))
+                item = QtWidgets.QTableWidgetItem()
+
+                # If calculating for external_drug or internal_drug columns, apply the formula
+                if col_num == 1 or col_num == 2:
+                    drug_eat = row_data[3]  #  ตรงกับตำแหน่งที่สี่ คือ drug_eat
+
+                    # Check for None values before performing multiplication
+                    if col_data is not None and drug_eat is not None:
+                        # Set the text with the desired format
+                        item.setText(f"{col_data} มื้อ ({col_data * drug_eat} เม็ด)")
+                    else:
+                        item.setText("N/A")  # Or any default value you prefer
+                else:
+                    # For other columns, directly set the text
+                    item.setText(str(col_data))
+
                 self.tableWidget.setItem(row_num, col_num, item)
-                # print(f"{row_num}\n {row_data}\n {col_num}\n {col_data}\n {item}\n\n")
 
     def set_button_pressed_style(self, button):
         button.setStyleSheet(

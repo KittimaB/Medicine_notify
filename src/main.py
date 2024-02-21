@@ -6,6 +6,7 @@ from select_time import Ui_select_time
 from pack import Ui_med_pack
 from sortDrug import Ui_sortDrug
 from drugTotal import Ui_drugTotal
+from wifi import Ui_wifi
 
 import sqlite3
 
@@ -63,8 +64,28 @@ class Ui_Medicine_App(object):
         self.img_home_label.setScaledContents(True)
         self.img_home_label.setAlignment(QtCore.Qt.AlignCenter)
         self.img_home_label.setObjectName("img_home_label")
+        
+        self.wifi_pushButton = QtWidgets.QPushButton(self.frame)
+        self.wifi_pushButton.setGeometry(QtCore.QRect(590, 76, 41, 41))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.wifi_pushButton.setFont(font)
+        self.wifi_pushButton.setStyleSheet("border-radius: 9px;\n"
+                                 "color: rgb(0, 0, 0);\n"
+                                 "background-color: rgb(255, 255, 255);")
+        
+        self.img_wifi_label = QtWidgets.QLabel(self.wifi_pushButton)
+        self.img_wifi_label.setGeometry(QtCore.QRect(5, 8, 31, 23))
+        self.img_wifi_label.setText("")
+        self.img_wifi_label.setPixmap(QtGui.QPixmap(":/icons/wifi_icon.png"))
+        self.img_wifi_label.setScaledContents(True)
+        self.img_wifi_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_wifi_label.setObjectName("img_wifi_label")
+
         self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(50, 80, 100, 31))
+        self.label_3.setGeometry(QtCore.QRect(50, 97, 100, 16))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label_3.setFont(font)
@@ -72,7 +93,7 @@ class Ui_Medicine_App(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(530, 70, 71, 51))
+        self.label.setGeometry(QtCore.QRect(43, 77, 71, 16))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.label.setFont(font)
@@ -343,6 +364,7 @@ class Ui_Medicine_App(object):
         self.putDrug_pushButton.clicked.connect(self.open_pack_page)
         self.alignment_pushButton.clicked.connect(self.open_sortdrug_page)
         self.drugLeft_pushButton.clicked.connect(self.open_drugTotal_page)
+        self.wifi_pushButton.clicked.connect(self.open_wifi_page)
 
         # Set up button press and release styling
         self.addDrug_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.addDrug_pushButton))
@@ -456,6 +478,20 @@ class Ui_Medicine_App(object):
             
         self.ui_drugTotal.add_back_pushButton.clicked.connect(close_drugTotal_window)
 
+
+    ##################### หน้าwifi ############################# 
+    def open_wifi_page(self):
+        self.wifi_window = QtWidgets.QMainWindow()
+        self.ui_wifi = Ui_wifi()
+        self.ui_wifi.setupUi(self.wifi_window)
+        self.wifi_window.show()
+        
+        def close_wifi_window():
+            self.wifi_window.close()
+            
+        self.ui_wifi.add_back_pushButton.clicked.connect(close_wifi_window)
+
+
     def retranslateUi(self, Medicine_App):
         _translate = QtCore.QCoreApplication.translate
         Medicine_App.setWindowTitle(_translate("Medicine_App", "หน้าหลัก"))
@@ -465,6 +501,10 @@ class Ui_Medicine_App(object):
         self.putDrug_pushButton.setText(_translate("Medicine_App", "  คำแนะนำการใส่ยา"))
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนยาคงเหลือ"))
+        self.wifi_pushButton.setText(_translate("Medicine_App", ""))
+
+    
+        self.img_wifi_label.raise_()
         
 import resources_rc
 

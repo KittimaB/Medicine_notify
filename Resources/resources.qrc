@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="icons">
+    <file>wifi_tab.png</file>
+    <file>wifi_white.png</file>
+    <file>wifi_icon.png</file>
     <file>drugleft_tab.png</file>
     <file>druglist_tab.png</file>
     <file>selecttime_tab.png</file>
