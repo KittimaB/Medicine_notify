@@ -1,3 +1,4 @@
+from Utils import Scale_Width_Height, show_widget_fullscreen
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect

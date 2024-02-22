@@ -14,7 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_select_time(object):
     def setupUi(self, select_time):
         select_time.setObjectName("select_time")
-        select_time.resize(1024, 600)
+        select_time.setFixedSize(1024, 600)
+        # select_time.resize(1024, 600)
         select_time.setStyleSheet("background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(select_time)
         self.centralwidget.setObjectName("centralwidget")

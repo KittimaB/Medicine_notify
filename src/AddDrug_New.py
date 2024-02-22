@@ -1,8 +1,9 @@
+from Utils import Scale_Width_Height, show_widget_fullscreen
+
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 
 import sqlite3
-
 
 class NumericOnlyTextEdit(QtWidgets.QTextEdit):
     def keyPressEvent(self, event):
@@ -13,19 +14,21 @@ class NumericOnlyTextEdit(QtWidgets.QTextEdit):
             event.ignore()
             
 class Ui_Add_drug(object):
-
     def setupUi(self, Add_drug, drug_List):
+        width, height = Scale_Width_Height()
+        show_widget_fullscreen(Add_drug)
+
         self.Add_drug = Add_drug
         self.drug_List = drug_List
         
         Add_drug.setObjectName("Add_drug")
-        Add_drug.resize(683, 400)
+        Add_drug.resize(int(683 * width), int(400 * height))
         Add_drug.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(Add_drug)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -38,9 +41,9 @@ class Ui_Add_drug(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
+        self.label.setGeometry(QtCore.QRect(int(200 * width), int(70 * height), int(281 * width), int(51 * height)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(int(14 * height))
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
@@ -61,16 +64,16 @@ class Ui_Add_drug(object):
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.img_label = QtWidgets.QLabel(self.frame)
-        self.img_label.setGeometry(QtCore.QRect(283, 80, 31, 31))
+        self.img_label.setGeometry(QtCore.QRect(int(283 * width), int(80 * height), int(31 * width), int(31 * height)))
         self.img_label.setText("")
         self.img_label.setPixmap(QtGui.QPixmap(":/icons/adddrug.png"))
         self.img_label.setScaledContents(True)
         self.img_label.setAlignment(QtCore.Qt.AlignCenter)
         self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 71, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(int(50 * width), int(80 * height), int(71 * width), int(31 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.add_back_pushButton.setFont(font)
         self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -83,7 +86,7 @@ class Ui_Add_drug(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(100, 100, 231, 220))
+        self.frame_2.setGeometry(QtCore.QRect(int(100 * width), int(100 * height), int(231 * width), int(230 * height)))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -96,15 +99,15 @@ class Ui_Add_drug(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.drugName_label = QtWidgets.QLabel(self.frame_2)
-        self.drugName_label.setGeometry(QtCore.QRect(10, 20, 101, 21))
+        self.drugName_label.setGeometry(QtCore.QRect(int(10 * width), int(20 * height), int(101 * width), int(21 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.drugName_label.setFont(font)
         self.drugName_label.setObjectName("drugName_label")
         self.textEdit = QtWidgets.QTextEdit(self.frame_2)
-        self.textEdit.setGeometry(QtCore.QRect(10, 50, 211, 41))
+        self.textEdit.setGeometry(QtCore.QRect(int(10 * width), int(50 * height), int(211 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         self.textEdit.setFont(font)
         self.textEdit.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -119,15 +122,15 @@ class Ui_Add_drug(object):
         self.textEdit.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit.setObjectName("textEdit")
         self.drugDescribe_label = QtWidgets.QLabel(self.frame_2)
-        self.drugDescribe_label.setGeometry(QtCore.QRect(10, 110, 131, 21))
+        self.drugDescribe_label.setGeometry(QtCore.QRect(int(10 * width), int(110 * height), int(131 * width), int(21 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.drugDescribe_label.setFont(font)
         self.drugDescribe_label.setObjectName("drugDescribe_label")
         self.textEdit_2 = QtWidgets.QTextEdit(self.frame_2)
-        self.textEdit_2.setGeometry(QtCore.QRect(10, 140, 211, 41))
+        self.textEdit_2.setGeometry(QtCore.QRect(int(10 * width), int(140 * height), int(211 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         self.textEdit_2.setFont(font)
         self.textEdit_2.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -142,7 +145,7 @@ class Ui_Add_drug(object):
         self.textEdit_2.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_2.setObjectName("textEdit_2")
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_3.setGeometry(QtCore.QRect(350, 100, 241, 220))
+        self.frame_3.setGeometry(QtCore.QRect(int(350 * width), int(100 * height), int(241 * width), int(220 * height)))
         self.frame_3.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -155,16 +158,16 @@ class Ui_Add_drug(object):
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.drugAll_label = QtWidgets.QLabel(self.frame_3)
-        self.drugAll_label.setGeometry(QtCore.QRect(-25, 20, 251, 21))
+        self.drugAll_label.setGeometry(QtCore.QRect(int(-25 * width), int(20 * height), int(251 * width), int(21 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.drugAll_label.setFont(font)
         self.drugAll_label.setAlignment(QtCore.Qt.AlignCenter)
         self.drugAll_label.setObjectName("drugAll_label")
         self.textEdit_3 = QtWidgets.QTextEdit(self.frame_3)
-        self.textEdit_3.setGeometry(QtCore.QRect(12, 50, 211, 41))
+        self.textEdit_3.setGeometry(QtCore.QRect(int(12 * width), int(50 * height), int(211 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         self.textEdit_3.setFont(font)
         self.textEdit_3.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -179,16 +182,16 @@ class Ui_Add_drug(object):
         self.textEdit_3.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_3.setObjectName("textEdit_3")
         self.drugOne_label = QtWidgets.QLabel(self.frame_3)
-        self.drugOne_label.setGeometry(QtCore.QRect(-20, 110, 261, 21))
+        self.drugOne_label.setGeometry(QtCore.QRect(int(-20 * width), int(110 * height), int(261 * width), int(21 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.drugOne_label.setFont(font)
         self.drugOne_label.setAlignment(QtCore.Qt.AlignCenter)
         self.drugOne_label.setObjectName("drugOne_label")
         self.textEdit_4 = QtWidgets.QTextEdit(self.frame_3)
-        self.textEdit_4.setGeometry(QtCore.QRect(12, 140, 211, 41))
+        self.textEdit_4.setGeometry(QtCore.QRect(int(12 * width), int(140 * height), int(211 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         self.textEdit_4.setFont(font)
         self.textEdit_4.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -203,9 +206,9 @@ class Ui_Add_drug(object):
         self.textEdit_4.setFrameShadow(QtWidgets.QFrame.Plain)
         self.textEdit_4.setObjectName("textEdit_4")
         self.saveDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.saveDrug_pushButton.setGeometry(QtCore.QRect(300, 330, 81, 31))
+        self.saveDrug_pushButton.setGeometry(QtCore.QRect(int(300 * width), int(330 * height), int(81 * width), int(31 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.saveDrug_pushButton.setFont(font)
         self.saveDrug_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -267,6 +270,7 @@ class Ui_Add_drug(object):
 
 
     def save_drug(self):
+        width, height = Scale_Width_Height()
         drug_name = self.textEdit.toPlainText()
         drug_description = self.textEdit_2.toPlainText()
         drug_amount = self.textEdit_3.toPlainText()
@@ -282,14 +286,14 @@ class Ui_Add_drug(object):
             # Create and configure QLabel for the error message
             error_label = QtWidgets.QLabel("กรุณาระบุชื่อยา", error_dialog)
             font = QtGui.QFont()
-            font.setPointSize(12)
+            font.setPointSize(int(12 * height))
             error_label.setFont(font)
             error_label.setAlignment(QtCore.Qt.AlignCenter)
 
             # Create and configure OK button
             ok_button = QtWidgets.QPushButton("ตกลง", error_dialog)
             ok_button_font = QtGui.QFont()
-            ok_button_font.setPointSize(12)
+            ok_button_font.setPointSize(int(12 * height))
             ok_button.setFont(ok_button_font)
 
             # Set background color for the dialog
@@ -331,7 +335,7 @@ class Ui_Add_drug(object):
         message_label = QtWidgets.QLabel(message_dialog)
         message_label.setText("บันทึกข้อมูลยาเรียบร้อยแล้ว")
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         message_label.setFont(font)
         message_label.setAlignment(QtCore.Qt.AlignCenter)
 
@@ -339,7 +343,7 @@ class Ui_Add_drug(object):
         ok_button = QtWidgets.QPushButton(message_dialog)
         ok_button.setText("ตกลง")
         ok_button_font = QtGui.QFont()
-        ok_button_font.setPointSize(12)
+        ok_button_font.setPointSize(int(12 * height))
         ok_button.setFont(ok_button_font)
 
         # Set background color for the dialog

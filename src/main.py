@@ -1,4 +1,7 @@
+from Utils import Scale_Width_Height, show_widget_fullscreen
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from drug_List import Ui_drug_List
 from select_time import Ui_select_time
@@ -9,20 +12,24 @@ from drugTotal import Ui_drugTotal
 from wifi import Ui_wifi
 
 import sqlite3
+import pyautogui
 
 import datetime
 from PyQt5.QtCore import QTimer, QLocale
 
 class Ui_Medicine_App(object):
     def setupUi(self, Medicine_App):
+        width, height = Scale_Width_Height()
+        show_widget_fullscreen(Medicine_App)
+
         Medicine_App.setObjectName("Medicine_App")
-        Medicine_App.resize(683, 400)
+        Medicine_App.resize(int(683 * width), int(400 * height))
         Medicine_App.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(Medicine_App)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);\n" )
         # Add drop shadow effect to the button
@@ -35,9 +42,9 @@ class Ui_Medicine_App(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.home_label = QtWidgets.QLabel(self.frame)
-        self.home_label.setGeometry(QtCore.QRect(200, 70, 281, 51))
+        self.home_label.setGeometry(QtCore.QRect(int(200 * width), int(70 * height), int(281 * width), int(51 * height)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(int(14 * height))
         font.setBold(True)
         font.setWeight(75)
         self.home_label.setFont(font)
@@ -58,7 +65,7 @@ class Ui_Medicine_App(object):
         self.home_label.setWordWrap(True)
         self.home_label.setObjectName("home_label")
         self.img_home_label = QtWidgets.QLabel(self.frame)
-        self.img_home_label.setGeometry(QtCore.QRect(277, 80, 33, 31))
+        self.img_home_label.setGeometry(QtCore.QRect(int(277 * width), int(80 * height), int(33 * width), int(31 * height)))
         self.img_home_label.setText("")
         self.img_home_label.setPixmap(QtGui.QPixmap(":/icons/home2_icon.png"))
         self.img_home_label.setScaledContents(True)
@@ -66,9 +73,9 @@ class Ui_Medicine_App(object):
         self.img_home_label.setObjectName("img_home_label")
         
         self.wifi_pushButton = QtWidgets.QPushButton(self.frame)
-        self.wifi_pushButton.setGeometry(QtCore.QRect(590, 76, 41, 41))
+        self.wifi_pushButton.setGeometry(QtCore.QRect(int(590 * width), int(76 * height), int(41 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.wifi_pushButton.setFont(font)
@@ -77,7 +84,7 @@ class Ui_Medicine_App(object):
                                  "background-color: rgb(255, 255, 255);")
         
         self.img_wifi_label = QtWidgets.QLabel(self.wifi_pushButton)
-        self.img_wifi_label.setGeometry(QtCore.QRect(5, 8, 31, 23))
+        self.img_wifi_label.setGeometry(QtCore.QRect(int(5 * width), int(8 * height), int(31 * width), int(23 * height)))
         self.img_wifi_label.setText("")
         self.img_wifi_label.setPixmap(QtGui.QPixmap(":/icons/wifi_icon.png"))
         self.img_wifi_label.setScaledContents(True)
@@ -85,22 +92,22 @@ class Ui_Medicine_App(object):
         self.img_wifi_label.setObjectName("img_wifi_label")
 
         self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(50, 97, 100, 16))
+        self.label_3.setGeometry(QtCore.QRect(int(50 * width), int(97 * height), int(100 * width), int(16 * height)))
         font = QtGui.QFont()
-        font.setPointSize(8)
+        font.setPointSize(int(8 * height))
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("")
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(43, 77, 71, 16))
+        self.label.setGeometry(QtCore.QRect(int(43 * width), int(77 * height), int(71 * width), int(16 * height)))
         font = QtGui.QFont()
-        font.setPointSize(8)
+        font.setPointSize(int(8 * height))
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(205, 90, 271, 281))
+        self.frame_2.setGeometry(QtCore.QRect(int(205 * width), int(90 * height), int(271 * width), int(281 * height)))
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);\n")
         # Add drop shadow effect to the button
@@ -113,9 +120,9 @@ class Ui_Medicine_App(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.addDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.addDrug_pushButton.setGeometry(QtCore.QRect(225, 110, 231, 41))
+        self.addDrug_pushButton.setGeometry(QtCore.QRect(int(225 * width), int(110 * height), int(231 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.addDrug_pushButton.setFont(font)
@@ -133,7 +140,7 @@ class Ui_Medicine_App(object):
         # icon.addPixmap(QtGui.QPixmap(":/icons/drug_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.img_druglist_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_druglist_label.setGeometry(QtCore.QRect(292, 119, 25, 24))
+        self.img_druglist_label.setGeometry(QtCore.QRect(int(292 * width), int(119 * height), int(25 * width), int(24 * height)))
         self.img_druglist_label.setText("")
         self.img_druglist_label.setPixmap(QtGui.QPixmap(":/icons/druglist_tab.png"))
         self.img_druglist_label.setScaledContents(True)
@@ -147,9 +154,9 @@ class Ui_Medicine_App(object):
         # self.addDrug_pushButton.setFlat(False)
         self.addDrug_pushButton.setObjectName("addDrug_pushButton")
         self.setting_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.setting_pushButton.setGeometry(QtCore.QRect(225, 160, 231, 41))
+        self.setting_pushButton.setGeometry(QtCore.QRect(int(225 * width), int(160 * height), int(231 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.setting_pushButton.setFont(font)
@@ -166,7 +173,7 @@ class Ui_Medicine_App(object):
         # icon1.addPixmap(QtGui.QPixmap(":/icons/setting_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.img_selecttime_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_selecttime_label.setGeometry(QtCore.QRect(275, 169, 26, 24))
+        self.img_selecttime_label.setGeometry(QtCore.QRect(int(275 * width), int(169 * height), int(26 * width), int(24 * height)))
         self.img_selecttime_label.setText("")
         self.img_selecttime_label.setPixmap(QtGui.QPixmap(":/icons/selecttime_tab.png"))
         self.img_selecttime_label.setScaledContents(True)
@@ -180,9 +187,9 @@ class Ui_Medicine_App(object):
         # self.setting_pushButton.setFlat(False)
         self.setting_pushButton.setObjectName("setting_pushButton")
         self.putDrug_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.putDrug_pushButton.setGeometry(QtCore.QRect(225, 210, 231, 41))
+        self.putDrug_pushButton.setGeometry(QtCore.QRect(int(225 * width), int(210 * height), int(231 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.putDrug_pushButton.setFont(font)
@@ -199,7 +206,7 @@ class Ui_Medicine_App(object):
         # icon2.addPixmap(QtGui.QPixmap(":/icons/istockphoto-1263011147-170667a.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.img_pack_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_pack_label.setGeometry(QtCore.QRect(260, 219, 25, 24))
+        self.img_pack_label.setGeometry(QtCore.QRect(int(260 * width), int(219 * height), int(25 * width), int(24 * height)))
         self.img_pack_label.setText("")
         self.img_pack_label.setPixmap(QtGui.QPixmap(":/icons/pack_tab.png"))
         self.img_pack_label.setScaledContents(True)
@@ -213,9 +220,9 @@ class Ui_Medicine_App(object):
         # self.putDrug_pushButton.setFlat(False)
         self.putDrug_pushButton.setObjectName("putDrug_pushButton")
         self.alignment_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.alignment_pushButton.setGeometry(QtCore.QRect(225, 260, 231, 41))
+        self.alignment_pushButton.setGeometry(QtCore.QRect(int(225 * width), int(260 * height), int(231 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.alignment_pushButton.setFont(font)
@@ -232,7 +239,7 @@ class Ui_Medicine_App(object):
         # icon3.addPixmap(QtGui.QPixmap(":/icons/Industry-Rack-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.img_sort_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_sort_label.setGeometry(QtCore.QRect(252, 269, 27, 24))
+        self.img_sort_label.setGeometry(QtCore.QRect(int(252 * width), int(269 * height), int(27 * width), int(24 * height)))
         self.img_sort_label.setText("")
         self.img_sort_label.setPixmap(QtGui.QPixmap(":/icons/sort_tab.png"))
         self.img_sort_label.setScaledContents(True)
@@ -246,9 +253,9 @@ class Ui_Medicine_App(object):
         # self.alignment_pushButton.setFlat(False)
         self.alignment_pushButton.setObjectName("alignment_pushButton")
         self.drugLeft_pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.drugLeft_pushButton.setGeometry(QtCore.QRect(225, 310, 231, 41))
+        self.drugLeft_pushButton.setGeometry(QtCore.QRect(int(225 * width), int(310 * height), int(231 * width), int(41 * height)))
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         font.setBold(True)
         font.setWeight(75)
         self.drugLeft_pushButton.setFont(font)
@@ -265,7 +272,7 @@ class Ui_Medicine_App(object):
         # icon4.addPixmap(QtGui.QPixmap(":/icons/table_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.img_drugleft_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_drugleft_label.setGeometry(QtCore.QRect(255, 318, 27, 24))
+        self.img_drugleft_label.setGeometry(QtCore.QRect(int(255 * width), int(318 * height), int(27 * width), int(24 * height)))
         self.img_drugleft_label.setText("")
         self.img_drugleft_label.setPixmap(QtGui.QPixmap(":/icons/drugleft_tab.png"))
         self.img_drugleft_label.setScaledContents(True)
@@ -381,7 +388,6 @@ class Ui_Medicine_App(object):
 
         self.drugLeft_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.drugLeft_pushButton))
         self.drugLeft_pushButton.released.connect(lambda: self.set_button_released_style(self.drugLeft_pushButton))
-
         
     def set_button_pressed_style(self, button):
         button.setStyleSheet(

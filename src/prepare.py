@@ -1,4 +1,4 @@
-
+from Utils import Scale_Width_Height, show_widget_fullscreen
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
@@ -290,49 +290,52 @@ class Ui_prepare(object):
         if drug_info_list:
             sorted_drug_info_list = sorted(drug_info_list, key=lambda x: x[14])  # Sort by meal_id
 
-            for row in range(row_max):
-                for col in range(col_max):
-                    ball_index = col + row * col_max
-                    color_enabled = ball_index == self.next_button_press_count - 1
+            # Keep track of displayed meal_ids and the last row and column
+            displayed_meal_ids = set()
+            last_row, last_col = 0, 0
 
-                    if ball_index < len(sorted_drug_info_list):
-                        current_drug_info = sorted_drug_info_list[ball_index]
-                        meal_time = f"{current_drug_info[15]}"
+            for ball_index, current_drug_info in enumerate(sorted_drug_info_list):
+                meal_id = current_drug_info[14]
 
-                        meal_id_color_mapping = {
-                            1: (255, 102, 102),
-                            2: (255, 178, 102),
-                            3: (255, 255, 102),
-                            4: (178, 255, 102),
-                            5: (102, 255, 102),
-                            6: (102, 255, 255),
-                            7: (0, 180, 255)
-                        }
+                if meal_id not in displayed_meal_ids:
+                    displayed_meal_ids.add(meal_id)
+                    meal_time = f"{current_drug_info[15]} {current_drug_info[16]}"
 
-                        meal_id = current_drug_info[14]
-                        color = meal_id_color_mapping.get(meal_id, (200, 200, 200))
-                        color_text_mapping = {"text": f"{meal_time}", "enabled": color_enabled}
-                        circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping)
-                        self.tableWidget.setCellWidget(row, col, circular_item)
+                    meal_id_color_mapping = {
+                        1: (255, 102, 102),
+                        2: (255, 178, 102),
+                        3: (255, 255, 102),
+                        4: (178, 255, 102),
+                        5: (102, 255, 102),
+                        6: (102, 255, 255),
+                        7: (0, 180, 255)
+                    }
 
-            # Update listWidget with medicine names for the selected meal
+                    color = meal_id_color_mapping.get(meal_id, (200, 200, 200))
+                    color_text_mapping = {"text": f"{meal_time}", "enabled": ball_index == self.next_button_press_count - 1}
+                    circular_item = CircularColorItem(QtGui.QColor(*color), color_text_mapping)
+                    self.tableWidget.setCellWidget(last_row, last_col, circular_item)
+
+                    last_col += 1
+                    if last_col >= col_max:
+                        last_col = 0
+                        last_row += 1
+
+            # Update listWidget with unique medicine names for the selected meal
             if self.next_button_press_count <= len(sorted_drug_info_list):
                 current_drug_info = sorted_drug_info_list[self.next_button_press_count - 1]
                 selected_meal_id = current_drug_info[14]
 
-                drug_names_for_meal = [f"{info[1]} - {info[15]}" for info in sorted_drug_info_list if
-                                       info[14] == selected_meal_id]
+                unique_drug_names_for_meal = set()  # Use a set to store unique drug names
+                for info in sorted_drug_info_list:
+                    if info[14] == selected_meal_id:
+                        unique_drug_names_for_meal.add(f"{info[1]} - {info[15]}")
+
                 self.listWidget.clear()
-                self.listWidget.addItems(drug_names_for_meal)
+                self.listWidget.addItems(list(unique_drug_names_for_meal))  # Add unique drug names to listWidget
 
-            # ส่วนที่เพิ่มเข้ามา
-            if self.next_button_press_count == 40:
-                # แสดงข้อความเตือนเมื่อถึงลูกที่ 40
-                QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "คุณได้กดปุ่มถัดไปเกินจำนวนที่กำหนด")
-                self.next_button_press_count = 0  # รีเซ็ตค่าเมื่อถึงลูกที่ 40
 
-        else:
-            QtWidgets.QMessageBox.warning(self.centralwidget, "คำเตือน", "ไม่พบข้อมูลยา")
+
 
 
 

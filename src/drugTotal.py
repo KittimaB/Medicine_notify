@@ -1,17 +1,22 @@
+from Utils import Scale_Width_Height, show_widget_fullscreen
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 import sqlite3
 
 class Ui_drugTotal(object):
     def setupUi(self, drugTotal):
+        width, height = Scale_Width_Height()
+        show_widget_fullscreen(drugTotal)
+
         drugTotal.setObjectName("drugTotal")
-        drugTotal.resize(683, 400)
+        drugTotal.resize(int(683 * width), int(400 * height))
         drugTotal.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(drugTotal)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
@@ -24,9 +29,9 @@ class Ui_drugTotal(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
+        self.label.setGeometry(QtCore.QRect(int(200 * width), int(70 * height), int(281 * width), int(51 * height)))
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(int(14 * height))
         font.setBold(True)
         font.setWeight(75)
         self.label.setFont(font)
@@ -47,16 +52,16 @@ class Ui_drugTotal(object):
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.img_label = QtWidgets.QLabel(self.frame)
-        self.img_label.setGeometry(QtCore.QRect(238, 80, 33, 31))
+        self.img_label.setGeometry(QtCore.QRect(int(238 * width), int(80 * height), int(33 * width), int(31 * height)))
         self.img_label.setText("")
         self.img_label.setPixmap(QtGui.QPixmap(":/icons/drugleft_icon.png"))
         self.img_label.setScaledContents(True)
         self.img_label.setAlignment(QtCore.Qt.AlignCenter)
         self.img_label.setObjectName("img_label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(int(50 * width), int(80 * height), int(81 * width), int(31 * height)))
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.add_back_pushButton.setFont(font)
         self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
@@ -69,7 +74,7 @@ class Ui_drugTotal(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(90, 90, 512, 261))
+        self.frame_2.setGeometry(QtCore.QRect(int(90 * width), int(90 * height), int(512 * width), int(261 * height)))
         self.frame_2.setStyleSheet("border-radius: 9px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
@@ -94,17 +99,23 @@ class Ui_drugTotal(object):
 
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(107, 105, 480, 230))
+        self.tableWidget.setGeometry(QtCore.QRect(int(107 * width), int(105 * height), (int(450 * width) + 30), int(230 * height)))
+        # font = QtGui.QFont()
+        # font.setPointSize(int(14 * height))
+        # font.setBold(True)
+        # font.setWeight(75)
+        # self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
+
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
         self.tableWidget.setColumnCount(3)
         self.tableWidget.setHorizontalHeaderLabels(["ชื่อยา", "จำนวนยาคงเหลือในเครื่อง", "จำนวนยาคงเหลือนอกเครื่อง"])
 
         # Set the width of the columns
-        self.tableWidget.setColumnWidth(0, 150)  # Adjust the width as needed
-        self.tableWidget.setColumnWidth(1, 150)  # Adjust the width as needed
-        self.tableWidget.setColumnWidth(2, 150)  # Adjust the width as needed
+        self.tableWidget.setColumnWidth(0, int(150 * width))  # Adjust the width as needed
+        self.tableWidget.setColumnWidth(1, int(150 * width))  # Adjust the width as needed
+        self.tableWidget.setColumnWidth(2, int(150 * width))  # Adjust the width as needed
 
          # Set the background color of the table to white and text color to black
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
