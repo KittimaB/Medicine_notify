@@ -388,6 +388,10 @@ class Ui_Medicine_App(object):
 
         self.drugLeft_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.drugLeft_pushButton))
         self.drugLeft_pushButton.released.connect(lambda: self.set_button_released_style(self.drugLeft_pushButton))
+
+        self.wifi_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.wifi_pushButton))
+        self.wifi_pushButton.released.connect(lambda: self.set_button_released_style(self.wifi_pushButton))
+        
         
     def set_button_pressed_style(self, button):
         button.setStyleSheet(
