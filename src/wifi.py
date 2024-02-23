@@ -47,6 +47,24 @@ class Ui_wifi(object):
         font.setPointSize(12)
         self.name_wifi.setFont(font)
         self.name_wifi.setObjectName("name_wifi")
+
+        self.reload_pushButton = QtWidgets.QPushButton(self.frame_2)
+        self.reload_pushButton.setGeometry(QtCore.QRect(230, 12, 40, 37))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.reload_pushButton.setFont(font)
+        self.reload_pushButton.setStyleSheet("border-radius: 9px;\n"
+                                 "color: rgb(0, 0, 0);\n"
+                                 "background-color: rgb(236, 236, 236);")
+        self.img_label = QtWidgets.QLabel(self.reload_pushButton)
+        self.img_label.setGeometry(QtCore.QRect(5, 5, 30, 26))
+        self.img_label.setText("")
+        self.img_label.setPixmap(QtGui.QPixmap(":/icons/reload.png"))
+        self.img_label.setScaledContents(True)
+        self.img_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_label.setObjectName("img_label")
         self.frame = QtWidgets.QFrame(self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
         self.frame.setStyleSheet("border-radius: 40px;\n"
@@ -119,6 +137,9 @@ class Ui_wifi(object):
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
         self.add_back_pushButton.released.connect(lambda: self.set_button_released_style(self.add_back_pushButton))
 
+        self.reload_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.reload_pushButton))
+        self.reload_pushButton.released.connect(lambda: self.set_button_released_style(self.reload_pushButton))
+
     def set_button_pressed_style(self, button):
         button.setStyleSheet(
             "border-radius: 9px;\n"
@@ -129,8 +150,8 @@ class Ui_wifi(object):
     def set_button_released_style(self, button):
         button.setStyleSheet(
             "border-radius: 9px;\n"
-            "color: rgb(255, 255, 255);\n"
-            "background-color: rgb(244, 212, 99);"
+            "color: rgb(0, 0, 0);\n"
+            "background-color: rgb(236, 236, 236);"
         )
 
     def retranslateUi(self, wifi):
@@ -139,6 +160,9 @@ class Ui_wifi(object):
         self.name_wifi.setText(_translate("wifi", "ชื่อ Wi-Fi"))
         self.label.setText(_translate("wifi", "  Wi-Fi"))
         self.add_back_pushButton.setText(_translate("wifi", "ย้อนกลับ"))
+        self.reload_pushButton.setText(_translate("wifi", ""))
+
+        self.img_label.raise_()
 
 import resources_rc
 
