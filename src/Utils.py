@@ -8,5 +8,5 @@ def Scale_Width_Height():
     return width, height
 
 def show_widget_fullscreen(widget):
-    #widget.showFullScreen()
+    # widget.showFullScreen()
     widget.showNormal()

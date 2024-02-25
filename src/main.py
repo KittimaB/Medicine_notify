@@ -73,7 +73,7 @@ class Ui_Medicine_App(object):
         self.img_home_label.setObjectName("img_home_label")
         
         self.wifi_pushButton = QtWidgets.QPushButton(self.frame)
-        self.wifi_pushButton.setGeometry(QtCore.QRect(int(590 * width), int(76 * height), int(41 * width), int(41 * height)))
+        self.wifi_pushButton.setGeometry(QtCore.QRect(int(545 * width), int(74 * height), int(41 * width), int(50 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(10 * height))
         font.setBold(True)
@@ -84,12 +84,20 @@ class Ui_Medicine_App(object):
                                  "background-color: rgb(255, 255, 255);")
         
         self.img_wifi_label = QtWidgets.QLabel(self.wifi_pushButton)
-        self.img_wifi_label.setGeometry(QtCore.QRect(int(5 * width), int(8 * height), int(31 * width), int(23 * height)))
+        self.img_wifi_label.setGeometry(QtCore.QRect(int(5 * width), int(5 * height), int(31 * width), int(23 * height)))
         self.img_wifi_label.setText("")
         self.img_wifi_label.setPixmap(QtGui.QPixmap(":/icons/wifi_icon.png"))
         self.img_wifi_label.setScaledContents(True)
         self.img_wifi_label.setAlignment(QtCore.Qt.AlignCenter)
         self.img_wifi_label.setObjectName("img_wifi_label")
+        self.wifi_label = QtWidgets.QLabel(self.wifi_pushButton)
+        self.wifi_label.setGeometry(QtCore.QRect(int(-30 * width), int(30 * height), int(100 * width), int(16 * height)))
+        font = QtGui.QFont()
+        font.setPointSize(int(8 * height))
+        self.wifi_label.setFont(font)
+        self.wifi_label.setStyleSheet("")
+        self.wifi_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.wifi_label.setObjectName("wifi_label")
 
         self.label_3 = QtWidgets.QLabel(self.frame)
         self.label_3.setGeometry(QtCore.QRect(int(50 * width), int(97 * height), int(100 * width), int(16 * height)))
@@ -100,7 +108,7 @@ class Ui_Medicine_App(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(int(43 * width), int(77 * height), int(71 * width), int(16 * height)))
+        self.label.setGeometry(QtCore.QRect(int(50 * width), int(77 * height), int(65 * width), int(16 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(8 * height))
         self.label.setFont(font)
@@ -139,8 +147,8 @@ class Ui_Medicine_App(object):
         # icon = QtGui.QIcon()                                                                      ไม่ได้ลบไอคอนแบบเก่าแค่คอมเม้นไว้
         # icon.addPixmap(QtGui.QPixmap(":/icons/drug_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.img_druglist_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_druglist_label.setGeometry(QtCore.QRect(int(292 * width), int(119 * height), int(25 * width), int(24 * height)))
+        self.img_druglist_label = QtWidgets.QLabel(self.addDrug_pushButton)
+        self.img_druglist_label.setGeometry(QtCore.QRect(int(67 * width), int(10 * height), int(25 * width), int(24 * height)))
         self.img_druglist_label.setText("")
         self.img_druglist_label.setPixmap(QtGui.QPixmap(":/icons/druglist_tab.png"))
         self.img_druglist_label.setScaledContents(True)
@@ -172,8 +180,8 @@ class Ui_Medicine_App(object):
         # icon1 = QtGui.QIcon()
         # icon1.addPixmap(QtGui.QPixmap(":/icons/setting_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.img_selecttime_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_selecttime_label.setGeometry(QtCore.QRect(int(275 * width), int(169 * height), int(26 * width), int(24 * height)))
+        self.img_selecttime_label = QtWidgets.QLabel(self.setting_pushButton)
+        self.img_selecttime_label.setGeometry(QtCore.QRect(int(52 * width), int(10 * height), int(25 * width), int(24 * height)))
         self.img_selecttime_label.setText("")
         self.img_selecttime_label.setPixmap(QtGui.QPixmap(":/icons/selecttime_tab.png"))
         self.img_selecttime_label.setScaledContents(True)
@@ -205,8 +213,8 @@ class Ui_Medicine_App(object):
         # icon2 = QtGui.QIcon()
         # icon2.addPixmap(QtGui.QPixmap(":/icons/istockphoto-1263011147-170667a.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.img_pack_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_pack_label.setGeometry(QtCore.QRect(int(260 * width), int(219 * height), int(25 * width), int(24 * height)))
+        self.img_pack_label = QtWidgets.QLabel(self.putDrug_pushButton)
+        self.img_pack_label.setGeometry(QtCore.QRect(int(39 * width), int(10 * height), int(24 * width), int(24 * height)))
         self.img_pack_label.setText("")
         self.img_pack_label.setPixmap(QtGui.QPixmap(":/icons/pack_tab.png"))
         self.img_pack_label.setScaledContents(True)
@@ -238,8 +246,8 @@ class Ui_Medicine_App(object):
         # icon3 = QtGui.QIcon()
         # icon3.addPixmap(QtGui.QPixmap(":/icons/Industry-Rack-icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.img_sort_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_sort_label.setGeometry(QtCore.QRect(int(252 * width), int(269 * height), int(27 * width), int(24 * height)))
+        self.img_sort_label = QtWidgets.QLabel(self.alignment_pushButton)
+        self.img_sort_label.setGeometry(QtCore.QRect(int(29 * width), int(10 * height), int(27 * width), int(24 * height)))
         self.img_sort_label.setText("")
         self.img_sort_label.setPixmap(QtGui.QPixmap(":/icons/sort_tab.png"))
         self.img_sort_label.setScaledContents(True)
@@ -271,8 +279,8 @@ class Ui_Medicine_App(object):
         # icon4 = QtGui.QIcon()
         # icon4.addPixmap(QtGui.QPixmap(":/icons/table_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        self.img_drugleft_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_drugleft_label.setGeometry(QtCore.QRect(int(255 * width), int(318 * height), int(27 * width), int(24 * height)))
+        self.img_drugleft_label = QtWidgets.QLabel(self.drugLeft_pushButton)
+        self.img_drugleft_label.setGeometry(QtCore.QRect(int(40 * width), int(9 * height), int(27 * width), int(24 * height)))
         self.img_drugleft_label.setText("")
         self.img_drugleft_label.setPixmap(QtGui.QPixmap(":/icons/drugleft_tab.png"))
         self.img_drugleft_label.setScaledContents(True)
@@ -512,6 +520,7 @@ class Ui_Medicine_App(object):
         self.alignment_pushButton.setText(_translate("Medicine_App", "  วิธีเรียงกล่องบรรจุยา"))
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนยาคงเหลือ"))
         self.wifi_pushButton.setText(_translate("Medicine_App", ""))
+        self.wifi_label.setText(_translate("Medicine_App", "Wi-Fi"))
 
     
         self.img_wifi_label.raise_()

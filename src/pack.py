@@ -66,7 +66,7 @@ class Ui_med_pack(object):
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.img_label_4 = QtWidgets.QLabel(self.frame)
-        self.img_label_4.setGeometry(QtCore.QRect(int(246 * width), int(80 * height), int(33 * width), int(31 * height)))
+        self.img_label_4.setGeometry(QtCore.QRect(int(246 * width), int(80 * height), int(31 * width), int(31 * height)))
         self.img_label_4.setText("")
         self.img_label_4.setPixmap(QtGui.QPixmap(":/icons/ball.png"))
         self.img_label_4.setScaledContents(True)
@@ -226,7 +226,7 @@ class Ui_med_pack(object):
     def retranslateUi(self, med_pack):
         _translate = QtCore.QCoreApplication.translate
         med_pack.setWindowTitle(_translate("med_pack", "วิธีการใส่ยา"))
-        self.label.setText(_translate("med_pack", "        คำแนะนำการใส่ยา"))
+        self.label.setText(_translate("med_pack", "      คำแนะนำการใส่ยา"))
         self.add_back_pushButton.setText(_translate("med_pack", "ย้อนกลับ"))
         self.label_1.setText(_translate("med_pack", "1.นำยาใส่ในซองสีชา"))
         self.label_2.setText(_translate("med_pack", "2.นำซองสีชาใส่ในลูกบอล"))
