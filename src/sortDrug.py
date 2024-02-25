@@ -194,7 +194,7 @@ class Ui_sortDrug(object):
         # กำหนดจำนวนแถวในตารางตามจำนวนรายการยาที่ดึงมาจากฐานข้อมูล
         self.tableWidget.setRowCount(row_max)
 
-        cell_size = 58  # You can adjust this value as needed
+        cell_size = 80  # You can adjust this value as needed
         for col_idx in range(col_max):
             self.tableWidget.setColumnWidth(col_idx, cell_size)
         for row_idx in range(row_max):
