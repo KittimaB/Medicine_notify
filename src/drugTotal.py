@@ -100,11 +100,11 @@ class Ui_drugTotal(object):
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(int(107 * width), int(105 * height), (int(450 * width) + 30), int(230 * height)))
-        # font = QtGui.QFont()
-        # font.setPointSize(int(14 * height))
-        # font.setBold(True)
-        # font.setWeight(75)
-        # self.tableWidget.setFont(font)
+        font = QtGui.QFont()
+        font.setPointSize(int(11 * height))
+        font.setBold(True)
+        font.setWeight(50)
+        self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
 
 

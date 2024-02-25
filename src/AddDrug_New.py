@@ -378,13 +378,13 @@ class Ui_Add_drug(object):
         _translate = QtCore.QCoreApplication.translate
         Add_drug.setWindowTitle(_translate("Add_drug", "เพิ่มยา"))
         self.label.setText(_translate("Add_drug", "   เพิ่มยา"))
-        self.drugName_label.setText(_translate("Add_drug", "ชื่อยา"))
+        self.drugName_label.setText(_translate("Add_drug", "ชื่อยา *"))
         self.drugDescribe_label.setText(_translate("Add_drug", "คำอธิบายยา"))
-        self.drugAll_label.setText(_translate("Add_drug", "จำนวนยาทั้งหมดที่มี (เม็ด)"))
+        self.drugAll_label.setText(_translate("Add_drug", "จำนวนยาทั้งหมดที่มี (เม็ด) *"))
         self.saveDrug_pushButton.setText(_translate("Add_drug", "บันทึกยา"))
         #self.listHave_pushButton.setText(_translate("Add_drug", "รายการยาที่มี"))
         self.add_back_pushButton.setText(_translate("Add_drug", "หน้าหลัก"))
-        self.drugOne_label.setText(_translate("Add_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด)"))
+        self.drugOne_label.setText(_translate("Add_drug", "จำนวนยาที่กินต่อ 1 มื้อ (เม็ด) *"))
         
 import resources_rc
 

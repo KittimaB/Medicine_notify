@@ -345,7 +345,8 @@ class Ui_each_drug2(object):
             drug_info = tuple(drug_info_list)
 
             self.drug_id = drug_info[0]
-            self.label.setText(drug_info[1])
+            self.label.setText(f"{self.updated_data['drug_name']}")
+            # self.label.setText(drug_info[1])
             self.size_label.setText(f"{drug_info[13]}")
             self.label_6.setText(f"{drug_info[12]}")
             self.label_7.setText(f"{drug_info[4]}")
