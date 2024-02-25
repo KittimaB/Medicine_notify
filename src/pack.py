@@ -1,11 +1,14 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
-from resources_rc import *
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
+from resources_rc import *
 
 class Ui_med_pack(object):
     def setupUi(self, med_pack):
-        width, height = Scale_Width_Height()
+        UI_instance.Set(med_pack)
         show_widget_fullscreen(med_pack)
         
         med_pack.setObjectName("med_pack")
@@ -20,9 +23,9 @@ class Ui_med_pack(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -32,19 +35,19 @@ class Ui_med_pack(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -60,9 +63,9 @@ class Ui_med_pack(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.img_label_4 = QtWidgets.QLabel(self.frame)
@@ -92,9 +95,9 @@ class Ui_med_pack(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_13)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_13.setGraphicsEffect(shadow)
         self.frame_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_13.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -106,7 +109,7 @@ class Ui_med_pack(object):
         self.frame_12.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_12.setObjectName("frame_12")
         self.img_label = QtWidgets.QLabel(self.frame_12)
-        self.img_label.setGeometry(QtCore.QRect(int(15 * width), 0, int(151 * width), int(131 * height)))
+        self.img_label.setGeometry(QtCore.QRect(int(15 * width), int(0 * height), int(151 * width), int(131 * height)))
         self.img_label.setText("")
         self.img_label.setPixmap(QtGui.QPixmap(":/image/pack1_img.png"))
         self.img_label.setScaledContents(True)
@@ -118,9 +121,9 @@ class Ui_med_pack(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_14)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_14.setGraphicsEffect(shadow)
         self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -132,7 +135,7 @@ class Ui_med_pack(object):
         self.frame_15.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_15.setObjectName("frame_15")
         self.img_label_2 = QtWidgets.QLabel(self.frame_15)
-        self.img_label_2.setGeometry(QtCore.QRect(int(5 * width), 0, int(171 * width), int(121 * height)))
+        self.img_label_2.setGeometry(QtCore.QRect(int(5 * width), int(0 * height), int(171 * width), int(121 * height)))
         self.img_label_2.setText("")
         self.img_label_2.setPixmap(QtGui.QPixmap(":/image/newpack2_img.png"))
         self.img_label_2.setScaledContents(True)
@@ -146,7 +149,7 @@ class Ui_med_pack(object):
         self.frame_16.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_16.setObjectName("frame_16")
         self.label_2 = QtWidgets.QLabel(self.frame_16)
-        self.label_2.setGeometry(QtCore.QRect(0, 0, int(181 * width), int(41 * height)))
+        self.label_2.setGeometry(QtCore.QRect(int(0 * width), int(0 * height), int(181 * width), int(41 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         self.label_2.setFont(font)
@@ -158,9 +161,9 @@ class Ui_med_pack(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_17)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_17.setGraphicsEffect(shadow)
         self.frame_17.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_17.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -172,7 +175,7 @@ class Ui_med_pack(object):
         self.frame_18.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_18.setObjectName("frame_18")
         self.img_label_3 = QtWidgets.QLabel(self.frame_18)
-        self.img_label_3.setGeometry(QtCore.QRect(int(5 * width), 0, int(161 * width), int(131 * height)))
+        self.img_label_3.setGeometry(QtCore.QRect(int(5 * width), int(0 * height), int(161 * width), int(131 * height)))
         self.img_label_3.setText("")
         self.img_label_3.setPixmap(QtGui.QPixmap(":/image/newpack3_img.png"))
         self.img_label_3.setScaledContents(True)
@@ -186,7 +189,7 @@ class Ui_med_pack(object):
         self.frame_19.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_19.setObjectName("frame_19")
         self.label_3 = QtWidgets.QLabel(self.frame_19)
-        self.label_3.setGeometry(QtCore.QRect(0, 0, int(181 * width), int(41 * height)))
+        self.label_3.setGeometry(QtCore.QRect(int(0 * width), int(0 * height), int(181 * width), int(41 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         self.label_3.setFont(font)
@@ -207,10 +210,7 @@ class Ui_med_pack(object):
         self.retranslateUi(med_pack)
         QtCore.QMetaObject.connectSlotsByName(med_pack)
 
-        def close_window():
-            med_pack.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.backpage)
 
       
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
@@ -222,11 +222,15 @@ class Ui_med_pack(object):
             "color: rgb(0, 0, 0);\n"
             "background-color: rgb(200, 200, 200);"  # Change color when pressed
         )
+    def backpage(self):
+        from main import Ui_Medicine_App
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
 
     def retranslateUi(self, med_pack):
         _translate = QtCore.QCoreApplication.translate
         med_pack.setWindowTitle(_translate("med_pack", "วิธีการใส่ยา"))
-        self.label.setText(_translate("med_pack", "      คำแนะนำการใส่ยา"))
+        self.label.setText(_translate("med_pack", "       คำแนะนำการใส่ยา"))
         self.add_back_pushButton.setText(_translate("med_pack", "ย้อนกลับ"))
         self.label_1.setText(_translate("med_pack", "1.นำยาใส่ในซองสีชา"))
         self.label_2.setText(_translate("med_pack", "2.นำซองสีชาใส่ในลูกบอล"))

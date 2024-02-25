@@ -1,12 +1,14 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import *
 import sqlite3
 
 class Ui_drugTotal(object):
     def setupUi(self, drugTotal):
-        width, height = Scale_Width_Height()
+        UI_instance.Set(drugTotal)
         show_widget_fullscreen(drugTotal)
 
         drugTotal.setObjectName("drugTotal")
@@ -21,9 +23,9 @@ class Ui_drugTotal(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -33,19 +35,19 @@ class Ui_drugTotal(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -68,9 +70,9 @@ class Ui_drugTotal(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -79,23 +81,19 @@ class Ui_drugTotal(object):
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         drugTotal.setCentralWidget(self.centralwidget)
 
-
         self.retranslateUi(drugTotal)
         QtCore.QMetaObject.connectSlotsByName(drugTotal)
-
-        def close_window():
-            drugTotal.close()
             
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.homepage)
 
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
@@ -177,8 +175,10 @@ class Ui_drugTotal(object):
             "background-color: rgb(85, 170, 127);"
         )
 
-
-        
+    def homepage(self):
+        from main import Ui_Medicine_App
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
 
     def retranslateUi(self, drugTotal):
         _translate = QtCore.QCoreApplication.translate

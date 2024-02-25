@@ -1,18 +1,21 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets, QtSql
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+import sqlite3
+import sys
+
 from AddDrug_New import Ui_Add_drug
 from each_drug import Ui_each_drug
 from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
 # from select_meal import Ui_select_meal
-import sqlite3
-from PyQt5.QtCore import QLocale
-import sys
 
 class Ui_drug_List(object):       
     def setupUi(self, drug_List):
-        width, height = Scale_Width_Height()
+        UI_instance.Set(drug_List)
         show_widget_fullscreen(drug_List)
 
         self.drug_List = drug_List
@@ -28,9 +31,9 @@ class Ui_drug_List(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -40,19 +43,19 @@ class Ui_drug_List(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -75,9 +78,9 @@ class Ui_drug_List(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.add_pushButton = QtWidgets.QPushButton(self.frame)
@@ -90,9 +93,9 @@ class Ui_drug_List(object):
 "background-color: rgb(85, 170, 127);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_pushButton.setGraphicsEffect(shadow)
         self.add_pushButton.setObjectName("add_pushButton")
         drug_List.setCentralWidget(self.centralwidget)
@@ -110,20 +113,17 @@ class Ui_drug_List(object):
 "background-color: rgb(226, 226, 226);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.drug_list_widget)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.drug_list_widget.setGraphicsEffect(shadow)
         self.update_drug_list()  # เรียกใช้ฟังก์ชันเพื่อแสดงรายการยาในคลังยา
 
         # Connect the itemClicked signal to handle_drug_item_click method
         self.drug_list_widget.itemClicked.connect(self.handle_drug_item_click) #คลิกชื่อยาแล้วเปิดหน้าeach_drug
-
-        def close_window():
-            drug_List.close()
             
         # self.add_back_pushButton.clicked.connect(self.open_drug_list_again)
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.backpage)
             
         self.add_pushButton.clicked.connect(self.open_add_drug)
 
@@ -149,31 +149,39 @@ class Ui_drug_List(object):
         )
 
 
+    # def handle_drug_item_click(self, item):
+    #     drug_item_form = UI_Genarate()
+    #     drug_item_form.widgetSet(UI.Get(), Ui_each_drug)
+
+    #     drug_List_Data().Set(self)
+
+    #     # Get the text of the clicked item (drug name)
+    #     drug_name = item.text()
+    #     self.each_drug_ui = Ui_each_drug() 
+        
+    #     # Set drug info for the each_drug window
+    #     self.each_drug_ui.set_drug_info(drug_name)
+
+    #     # Pass the drug name to the each_drug window
+    #     self.each_drug_ui.label.setText(drug_name)
+
     def handle_drug_item_click(self, item):
+        
         # Get the text of the clicked item (drug name)
-        drug_name = item.text()
+        drug_list_instance.Set(self)
+        drug_name_instance.Set(item.text())
 
-        # Open the each_drug window with the selected drug
-        self.each_drug_window = QtWidgets.QMainWindow()           
-        self.each_drug_ui = Ui_each_drug()                          
-        
-        self.each_drug_ui.setupUi(self.each_drug_window, self)     
-        
-        # Set drug info for the each_drug window
-        self.each_drug_ui.set_drug_info(drug_name)
+        drug_item_form = UI_Genarate()
+        drug_item_form.widgetSet(UI_instance.Get(), Ui_each_drug)       
 
-        # Pass the drug name to the each_drug window
-        self.each_drug_ui.label.setText(drug_name)   
-        self.each_drug_window.show()                    
-        
-    def closeAll(self):
-        self.drug_List.close()
+    def backpage(self):
+        from main import Ui_Medicine_App
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
 
     def open_add_drug(self):
-        self.add_drug_window = QtWidgets.QMainWindow()
-        self.add_drug_ui = Ui_Add_drug()
-        self.add_drug_ui.setupUi(self.add_drug_window, self)
-        self.add_drug_window.show()
+        add_drug_form = UI_Genarate()
+        add_drug_form.widgetSet(UI_instance.Get(), Ui_Add_drug)
 
     def update_drug_list(self):
         connection = sqlite3.connect("medicine.db")

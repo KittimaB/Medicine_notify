@@ -1,9 +1,12 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from timeEdit import Ui_time_Edit
+from PyQt5.QtWidgets import *
 import sqlite3
+
+from timeEdit import Ui_time_Edit
 
 class Ui_select_time(object):
     def convert_thai_to_arabic(self, input_string):
@@ -14,14 +17,13 @@ class Ui_select_time(object):
         return input_string
 
     def open_time_edit(self, meal_label_text):
-        time_edit_window = QtWidgets.QMainWindow()
-        time_edit_ui = Ui_time_Edit()
-        time_edit_ui.meal_label_text = meal_label_text  # Set meal label text
-        time_edit_ui.setupUi(time_edit_window)
-        time_edit_window.show()
+        meal_label_instance.Set(meal_label_text)
+
+        time_edit_form = UI_Genarate()
+        time_edit_form.widgetSet(UI_instance.Get(), Ui_time_Edit)
 
     def setupUi(self, select_time):
-        width, height = Scale_Width_Height()
+        UI_instance.Set(select_time)
         show_widget_fullscreen(select_time)
 
         select_time.setObjectName("select_time")
@@ -31,14 +33,14 @@ class Ui_select_time(object):
         self.centralwidget = QtWidgets.QWidget(select_time)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, int(683 * width), int(131 * height)))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -48,19 +50,19 @@ class Ui_select_time(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -83,9 +85,9 @@ class Ui_select_time(object):
 "background-color: rgb(244, 212, 99);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_9 = QtWidgets.QFrame(self.centralwidget)
@@ -147,9 +149,9 @@ class Ui_select_time(object):
 "background-color: rgb(255, 255, 255);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_8)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_8.setGraphicsEffect(shadow)
         self.frame_8.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_8.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -169,7 +171,7 @@ class Ui_select_time(object):
         self.d_label.setAlignment(QtCore.Qt.AlignCenter)
         self.d_label.setObjectName("d_label")
         self.img_dt_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_dt_label.setGeometry(QtCore.QRect(int(375 * width), int(118 * height), int(25 * width), int(24 * height)))
+        self.img_dt_label.setGeometry(QtCore.QRect(int(375 * width), int(118 * height), int(24 * width), int(24 * height)))
         self.img_dt_label.setText("")
         self.img_dt_label.setPixmap(QtGui.QPixmap(":/icons/d_tab.png"))
         self.img_dt_label.setScaledContents(True)
@@ -203,9 +205,9 @@ class Ui_select_time(object):
 "background-color: rgb(255, 255, 255);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_13)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_13.setGraphicsEffect(shadow)
         self.frame_13.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_13.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -236,9 +238,9 @@ class Ui_select_time(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_7)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_7.setGraphicsEffect(shadow)
         self.frame_7.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -249,9 +251,9 @@ class Ui_select_time(object):
 "background-color: rgb(255, 255, 255);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_4)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_4.setGraphicsEffect(shadow)
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -308,9 +310,9 @@ class Ui_select_time(object):
 "background-color: rgb(235, 109, 109);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.bb_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.bb_pushButton.setGraphicsEffect(shadow)
         self.bb_pushButton.setObjectName("bb_pushButton")
         self.ab_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -323,9 +325,9 @@ class Ui_select_time(object):
 "background-color: rgb(244, 212, 99);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.ab_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.ab_pushButton.setGraphicsEffect(shadow)
         self.ab_pushButton.setObjectName("ab_pushButton")
         self.bl_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -339,9 +341,9 @@ class Ui_select_time(object):
 "")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.bl_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.bl_pushButton.setGraphicsEffect(shadow)
         self.bl_pushButton.setObjectName("bl_pushButton")
         self.al_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -354,9 +356,9 @@ class Ui_select_time(object):
 "background-color: rgb(169, 212, 98);")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.al_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.al_pushButton.setGraphicsEffect(shadow)
         self.al_pushButton.setObjectName("al_pushButton")
         self.bd_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -370,9 +372,9 @@ class Ui_select_time(object):
 "")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.bd_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.bd_pushButton.setGraphicsEffect(shadow)
         self.bd_pushButton.setObjectName("bd_pushButton")
         self.ad_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -386,9 +388,9 @@ class Ui_select_time(object):
 "")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.ad_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.ad_pushButton.setGraphicsEffect(shadow)
         self.ad_pushButton.setObjectName("ad_pushButton")
         self.bbed_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -402,9 +404,9 @@ class Ui_select_time(object):
 "")
          # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.bbed_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.bbed_pushButton.setGraphicsEffect(shadow)
         self.bbed_pushButton.setObjectName("bbed_pushButton")
         self.frame_3.raise_()
@@ -440,10 +442,7 @@ class Ui_select_time(object):
         self.ad_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อเย็น หลังอาหาร"))
         self.bbed_pushButton.clicked.connect(lambda: self.open_time_edit("มื้อก่อนนอน"))
 
-        def close_window():
-            select_time.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.homepage)
 
         # Set up button press and release styling
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
@@ -562,6 +561,11 @@ class Ui_select_time(object):
             "background-color: rgb(176, 107, 193);"
         )
 
+    def homepage(self):
+        from main import Ui_Medicine_App
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
+
     def retranslateUi(self, select_time):
         _translate = QtCore.QCoreApplication.translate
         select_time.setWindowTitle(_translate("select_time", "ตั้งเวลามื้อยา"))
@@ -569,7 +573,7 @@ class Ui_select_time(object):
         self.add_back_pushButton.setText(_translate("select_time", "ย้อนกลับ"))
         self.d_label.setText(_translate("select_time", "  มื้อเย็น"))
         self.l_label.setText(_translate("select_time", "    มื้อเที่ยง"))
-        self.label.setText(_translate("select_time", "    ตั้งเวลามื้อยา"))
+        self.label.setText(_translate("select_time", "     ตั้งเวลามื้อยา"))
         self.bed_label.setText(_translate("select_time", "      มื้อก่อนนอน"))
         self.bb_pushButton.setText(_translate("select_time", "ก่อน อาหาร"))
         self.ab_pushButton.setText(_translate("select_time", "หลัง อาหาร"))

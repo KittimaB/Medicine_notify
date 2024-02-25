@@ -1,10 +1,12 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QTableWidgetItem, QTableWidget
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from prepare import Ui_prepare
+from PyQt5.QtWidgets import *
 import sqlite3
+
+from prepare import Ui_prepare
 
 row_max = 5     # แถวของกล่องยา                                  # กำหนดจำนวน row ของยา
 col_max = 8     # จำนวนลูกบอลที่ใส่ได้ในแต่ละแถว                      # กำหนดจำนวน col ของยา
@@ -33,7 +35,7 @@ class CircularColorItem(QtWidgets.QWidget):
 
 class Ui_sortDrug(object):
     def setupUi(self, sortDrug):
-        width, height = Scale_Width_Height()
+        UI_instance.Set(sortDrug)
         show_widget_fullscreen(sortDrug)
 
         sortDrug.setObjectName("sortDrug")
@@ -43,14 +45,14 @@ class Ui_sortDrug(object):
         self.centralwidget = QtWidgets.QWidget(sortDrug)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60 * height, int(683 * width), int(131 * height)))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(int(8 * height))
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -60,19 +62,19 @@ class Ui_sortDrug(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.sort_label.setFont(font)
         self.sort_label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.sort_label)
-        shadow.setBlurRadius(int(8 * height))
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.sort_label.setGraphicsEffect(shadow)
         self.sort_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.sort_label.setLineWidth(1)
+        self.sort_label.setLineWidth(int(1 * width))
         self.sort_label.setTextFormat(QtCore.Qt.AutoText)
         self.sort_label.setScaledContents(False)
         self.sort_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -95,9 +97,9 @@ class Ui_sortDrug(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(int(8 * height))
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.next_pushButton = QtWidgets.QPushButton(self.frame)
@@ -110,9 +112,9 @@ class Ui_sortDrug(object):
 "background-color: rgb(227, 151, 61);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.next_pushButton)
-        shadow.setBlurRadius(int(8 * height))
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
 #         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -129,11 +131,8 @@ class Ui_sortDrug(object):
 
         self.retranslateUi(sortDrug)
         QtCore.QMetaObject.connectSlotsByName(sortDrug)
-
-        def close_window():
-            sortDrug.close()
             
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.homepage)
 
         self.next_pushButton.clicked.connect(self.open_prepare)
         
@@ -160,16 +159,14 @@ class Ui_sortDrug(object):
             "color: rgb(0, 0, 0);\n"
             "background-color: rgb(227, 151, 61);"
         )
+    def homepage(self):
+        from main import Ui_Medicine_App
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
 
     def open_prepare(self):
-        connection = sqlite3.connect("medicine.db")
-        cursor = connection.cursor()
-        self.prepare_window = QtWidgets.QMainWindow()
-        self.prepare_ui = Ui_prepare()
-        self.prepare_ui.setupUi(self.prepare_window)
-        self.prepare_window.show()
-            
-    
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_prepare)
 
     def setup_table_widget(self):
         width, height = Scale_Width_Height()
@@ -181,9 +178,9 @@ class Ui_sortDrug(object):
         # Set the background color of the table to white and text color to black
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);")
         shadow = QGraphicsDropShadowEffect(self.tableWidget)
-        shadow.setBlurRadius(int(8 * height))
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.tableWidget.setGraphicsEffect(shadow)
 
 

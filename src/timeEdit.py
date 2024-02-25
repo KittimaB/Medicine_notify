@@ -1,12 +1,14 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect , QMessageBox
+from PyQt5.QtWidgets import *
 import sqlite3
 
 class Ui_time_Edit(object):
     def __init__(self):
-        self.meal_label_text = ""
+        self.meal_label_text = meal_label_instance.Get()
         self.connection = sqlite3.connect("medicine.db")
 
     def convert_thai_to_arabic(self, thai_numeral):
@@ -29,99 +31,102 @@ class Ui_time_Edit(object):
 
         
     def setupUi(self, time_Edit):
+        UI_instance.Set(time_Edit)
+        show_widget_fullscreen(time_Edit)
+
         time_Edit.setObjectName("time_Edit")
-        time_Edit.resize(683, 400)
+        time_Edit.resize(int(683 * width), int(400 * height))
         time_Edit.setStyleSheet("\n"
 "background-color: rgb(23, 73, 110);")
         self.centralwidget = QtWidgets.QWidget(time_Edit)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, 683, 131))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))  
         self.frame.setStyleSheet("border-radius: 40px;\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(200, 70, 281, 51))
+        self.label.setGeometry(QtCore.QRect(int(200 * width), int(70 * height), int(281 * width), int(51 * height)))  
         font = QtGui.QFont()
-        font.setPointSize(14)
+        font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.add_back_pushButton = QtWidgets.QPushButton(self.frame)
-        self.add_back_pushButton.setGeometry(QtCore.QRect(50, 80, 81, 31))
+        self.add_back_pushButton.setGeometry(QtCore.QRect(int(50 * width), int(80 * height), int(81 * width), int(31 * height)))  
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.add_back_pushButton.setFont(font)
         self.add_back_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(220, 100, 241, 231))
+        self.frame_2.setGeometry(QtCore.QRect(int(220 * width), int(100 * height), int(241 * width), int(231 * height)))  
         self.frame_2.setStyleSheet("border-radius: 16px;\n"
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.frame_3 = QtWidgets.QFrame(self.frame_2)
-        self.frame_3.setGeometry(QtCore.QRect(20, 10, 201, 141))
+        self.frame_3.setGeometry(QtCore.QRect(int(20 * width), int(10 * height), int(201 * width), int(141 * height)))  
         self.frame_3.setStyleSheet("border-radius: 9px;\n"
 "background-color: rgb(170, 203, 223);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_3)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_3.setGraphicsEffect(shadow)
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_3.setObjectName("frame_3")
         self.timeEdit_label = QtWidgets.QLabel(self.frame_3)
-        self.timeEdit_label.setGeometry(QtCore.QRect(10, 20, 181, 21))
+        self.timeEdit_label.setGeometry(QtCore.QRect(int(10 * width), int(20 * height), int(181 * width), int(21 * height)))  
         font = QtGui.QFont()
-        font.setPointSize(12)
+        font.setPointSize(int(12 * height))
         self.timeEdit_label.setFont(font)
         self.timeEdit_label.setObjectName("timeEdit_label")
         self.timeEdit_pushButton = QtWidgets.QPushButton(self.frame_2)
-        self.timeEdit_pushButton.setGeometry(QtCore.QRect(80, 180, 91, 31))
+        self.timeEdit_pushButton.setGeometry(QtCore.QRect(int(80 * width), int(180 * height), int(91 * width), int(31 * height)))  
         font = QtGui.QFont()
-        font.setPointSize(10)
+        font.setPointSize(int(10 * height))
         self.timeEdit_pushButton.setFont(font)
         self.timeEdit_pushButton.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(255, 255, 255);\n"
@@ -129,13 +134,13 @@ class Ui_time_Edit(object):
 "")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.timeEdit_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.timeEdit_pushButton.setGraphicsEffect(shadow)
         self.timeEdit_pushButton.setObjectName("timeEdit_pushButton")
         self.timeEdit = QtWidgets.QTimeEdit(self.centralwidget)
-        self.timeEdit.setGeometry(QtCore.QRect(250, 160, 181, 51))
+        self.timeEdit.setGeometry(QtCore.QRect(int(250 * width), int(160 * height), int(181 * width), int(51 * height)))  
         self.timeEdit.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
@@ -143,7 +148,7 @@ class Ui_time_Edit(object):
         self.timeEdit.setObjectName("timeEdit")
 
         self.img_b_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_b_label.setGeometry(QtCore.QRect(232, 20, 42, 31))
+        self.img_b_label.setGeometry(QtCore.QRect(int(235 * width), int(20 * height), int(42 * width), int(31 * height)))  
         self.img_b_label.setText("")
         self.img_b_label.setPixmap(QtGui.QPixmap(":/icons/b_label.png"))
         self.img_b_label.setScaledContents(True)
@@ -151,7 +156,7 @@ class Ui_time_Edit(object):
         self.img_b_label.setObjectName("img_b_label")
 
         self.img_l_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_l_label.setGeometry(QtCore.QRect(232, 20, 35, 31))
+        self.img_l_label.setGeometry(QtCore.QRect(int(240 * width), int(20 * height), int(33 * width), int(31 * height)))  
         self.img_l_label.setText("")
         self.img_l_label.setPixmap(QtGui.QPixmap(":/icons/l_label.png"))
         self.img_l_label.setScaledContents(True)
@@ -159,7 +164,7 @@ class Ui_time_Edit(object):
         self.img_l_label.setObjectName("img_l_label")
 
         self.img_d_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_d_label.setGeometry(QtCore.QRect(240, 20, 33, 31))
+        self.img_d_label.setGeometry(QtCore.QRect(int(247 * width), int(20 * height), int(31 * width), int(31 * height)))  
         self.img_d_label.setText("")
         self.img_d_label.setPixmap(QtGui.QPixmap(":/icons/d_label.png"))
         self.img_d_label.setScaledContents(True)
@@ -167,7 +172,7 @@ class Ui_time_Edit(object):
         self.img_d_label.setObjectName("img_d_label")
 
         self.img_bed_label = QtWidgets.QLabel(self.centralwidget)
-        self.img_bed_label.setGeometry(QtCore.QRect(253, 20, 42, 31))
+        self.img_bed_label.setGeometry(QtCore.QRect(int(253 * width), int(20 * height), int(42 * width), int(31 * height)))  
         self.img_bed_label.setText("")
         self.img_bed_label.setPixmap(QtGui.QPixmap(":/icons/bed_label.png"))
         self.img_bed_label.setScaledContents(True)
@@ -182,11 +187,7 @@ class Ui_time_Edit(object):
         self.label.setText(f"      {self.meal_label_text}")
 
 
-
-        def close_window():
-            time_Edit.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.backpage)
 
         try:
             cursor = self.connection.cursor()
@@ -260,6 +261,7 @@ class Ui_time_Edit(object):
                     stored_qtime = QtCore.QTime.fromString(stored_time_arabic, "HH:mm")
                     self.timeEdit.setTime(stored_qtime)
                     print(f"Updated time in QTimeEdit: {stored_time_arabic}")
+                self.backpage()
 
             except Exception as e:
                 QtWidgets.QMessageBox.critical(time_Edit, "Error", f"เกิดข้อผิดพลาด: {str(e)}")
@@ -288,6 +290,11 @@ class Ui_time_Edit(object):
             "color: rgb(255, 255, 255);\n"
             "background-color: rgb(85, 170, 127);"
         )
+
+    def backpage(self):
+        from select_time import Ui_select_time
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_select_time)
         
 
     def retranslateUi(self, time_Edit):

@@ -1,28 +1,29 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import *
 import random
 import sqlite3
 import string
+import sys
 
 class Ui_encrypt_check(object):
-    def setupUi(self, encrypt_check, drug_List, each_drug, each_drug2, day_start, select_meal, data_check1, data_check2, data_check3, updated_data2):
-        width, height = Scale_Width_Height()
+    def setupUi(self, encrypt_check):
+        UI_instance.Set(encrypt_check)
         show_widget_fullscreen(encrypt_check)
         
         self.encrypt_check = encrypt_check
-        self.drug_List = drug_List
-        self.each_drug = each_drug
-        self.each_drug2 = each_drug2
-        self.day_start = day_start
-        self.select_meal = select_meal
-        self.data_check1 = data_check1
-        self.data_check2 =data_check2
-        self.data_check3 = data_check3
-        self.updated_data2 = updated_data2
+        self.drug_List = drug_list_instance.Get()
+        self.each_drug = each_drug_instance.Get()
+        self.each_drug2 = each_drug_2_instance.Get()
+        self.day_start = day_start_instance.Get()
+        self.select_meal = select_meal_instance.Get()
+        self.data_check1 = data_checkui1_instance.Get()
+        self.data_check2 = data_checkui2_instance.Get()
+        self.data_check3 = data_checkui3_instance.Get()
+        self.updated_data2 = drug_Update_2_instance.Get()
 
         encrypt_check.setObjectName("encrypt_check")
         encrypt_check.resize(int(683 * width), int(400 * height))
@@ -36,9 +37,9 @@ class Ui_encrypt_check(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -48,19 +49,19 @@ class Ui_encrypt_check(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -83,9 +84,9 @@ class Ui_encrypt_check(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -94,9 +95,9 @@ class Ui_encrypt_check(object):
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -119,19 +120,19 @@ class Ui_encrypt_check(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_2.setGraphicsEffect(shadow)
         self.label_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_2.setLineWidth(1)
+        self.label_2.setLineWidth(int(1 * width))
         self.label_2.setTextFormat(QtCore.Qt.AutoText)
         self.label_2.setScaledContents(False)
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -142,19 +143,19 @@ class Ui_encrypt_check(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_3)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_3.setGraphicsEffect(shadow)
         self.label_3.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_3.setLineWidth(1)
+        self.label_3.setLineWidth(int(1 * width))
         self.label_3.setCurrentCharFormat(QtGui.QTextCharFormat())
         
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
@@ -177,9 +178,9 @@ class Ui_encrypt_check(object):
 "")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.next_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
         encrypt_check.setCentralWidget(self.centralwidget)
@@ -188,12 +189,9 @@ class Ui_encrypt_check(object):
         self.retranslateUi(encrypt_check)
         QtCore.QMetaObject.connectSlotsByName(encrypt_check)
 
-        def close_window():
-            encrypt_check.close()
+        self.add_back_pushButton.clicked.connect(self.backpage)
 
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        self.updated_data2 = updated_data2
+        self.updated_data2 = drug_Update_2_instance.Get()
 
         # Generate a random code with both numbers and letters
         characters = string.ascii_letters + string.digits
@@ -245,7 +243,7 @@ class Ui_encrypt_check(object):
                 QMessageBox.warning(self.centralwidget, "รหัสไม่ถูกต้อง", "กรุณากรอกรหัสให้ถูกต้อง")
 
         self.next_pushButton.clicked.connect(check_code)
-        self.next_pushButton.clicked.connect(self.closeAll)
+        self.next_pushButton.clicked.connect(self.homepage)
 
          # Set up button press and release styling
         self.add_back_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.add_back_pushButton))
@@ -277,14 +275,15 @@ class Ui_encrypt_check(object):
     #     self.data_check.closeAll()
     #     self.encrypt_check.close()
 
-    def closeAll(self):
-        self.each_drug.closeAll()
-        self.each_drug2.closeAll()
-        self.select_meal.closeAll()
-        self.data_check1.closeAll()
-        self.data_check2.closeAll()
-        self.data_check3.closeAll()
-        self.encrypt_check.close()
+    def backpage(self):
+        from data_checkui3 import Ui_data_check3
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_data_check3)
+
+    def homepage(self):
+        from main import Ui_Medicine_App
+        homepage_form = UI_Genarate()
+        homepage_form.widgetSet(UI_instance.Get(), Ui_Medicine_App)
 
     def retranslateUi(self, encrypt_check):
         _translate = QtCore.QCoreApplication.translate

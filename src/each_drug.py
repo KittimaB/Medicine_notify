@@ -1,13 +1,12 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtWidgets import QStyle
+from PyQt5.QtWidgets import *
+import sqlite3
 
 from each_drug2 import Ui_each_drug2
-
-import sqlite3
 
 class CustomMessageBox(QMessageBox):
     def __init__(self, parent=None):
@@ -23,12 +22,12 @@ class CustomMessageBox(QMessageBox):
         """)
 
 class Ui_each_drug(object):   
-    def setupUi(self, each_drug, drug_List):
-        width, height = Scale_Width_Height()
+    def setupUi(self, each_drug):
+        UI_instance.Set(each_drug)
         show_widget_fullscreen(each_drug)
         
         self.each_drug = each_drug
-        self.drug_List = drug_List
+        self.drug_List = drug_list_instance.Get()
         
         each_drug.setObjectName("each_drug")
         each_drug.resize(int(683 * width), int(400 * height))
@@ -42,9 +41,9 @@ class Ui_each_drug(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -55,19 +54,19 @@ class Ui_each_drug(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -90,9 +89,9 @@ class Ui_each_drug(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.delete_pushButton = QtWidgets.QPushButton(self.frame)
@@ -106,9 +105,9 @@ class Ui_each_drug(object):
 "")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.delete_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.delete_pushButton.setGraphicsEffect(shadow)
         self.delete_pushButton.setObjectName("delete_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -117,9 +116,9 @@ class Ui_each_drug(object):
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -142,19 +141,19 @@ class Ui_each_drug(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_2.setFont(font)
         self.label_2.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_2.setGraphicsEffect(shadow)
         self.label_2.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_2.setLineWidth(1)
+        self.label_2.setLineWidth(int(1 * width))
         self.label_2.setCurrentCharFormat(QtGui.QTextCharFormat())
         
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)
@@ -166,19 +165,19 @@ class Ui_each_drug(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_3.setFont(font)
         self.label_3.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_3)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_3.setGraphicsEffect(shadow)
         self.label_3.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_3.setLineWidth(1)
+        self.label_3.setLineWidth(int(1 * width))
         self.label_3.setCurrentCharFormat(QtGui.QTextCharFormat())
         
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
@@ -191,9 +190,9 @@ class Ui_each_drug(object):
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_3)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_3.setGraphicsEffect(shadow)
         self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -218,19 +217,19 @@ class Ui_each_drug(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_4)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_4.setGraphicsEffect(shadow)
         self.label_4.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_4.setLineWidth(1)
+        self.label_4.setLineWidth(int(1 * width))
         self.label_4.setCurrentCharFormat(QtGui.QTextCharFormat())
         
         self.label_4.setAlignment(QtCore.Qt.AlignCenter)
@@ -242,19 +241,19 @@ class Ui_each_drug(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.label_5.setFont(font)
         self.label_5.setStyleSheet("border-radius: 9px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label_5)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label_5.setGraphicsEffect(shadow)
         self.label_5.setFrameShape(QtWidgets.QFrame.Box)
-        self.label_5.setLineWidth(1)
+        self.label_5.setLineWidth(int(1 * width))
         self.label_5.setCurrentCharFormat(QtGui.QTextCharFormat())
         
         self.label_5.setAlignment(QtCore.Qt.AlignCenter)
@@ -271,27 +270,24 @@ class Ui_each_drug(object):
 "background-color: rgb(227, 151, 61);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.next_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
         each_drug.setCentralWidget(self.centralwidget)
 
-        
 
         self.retranslateUi(each_drug)
+        self.set_drug_info(drug_name_instance.Get())
         QtCore.QMetaObject.connectSlotsByName(each_drug)
 
-        def close_window():
-            each_drug.close()
+        self.add_back_pushButton.clicked.connect(self.backpage)
 
-        self.add_back_pushButton.clicked.connect(close_window)
-
-        
         # self.next_pushButton.clicked.connect(self.open_each_drug2)
 
         def delete_drug():
+            drug_name = drug_name_instance.Get()
             drug_name = self.label_2.toPlainText()  # รับชื่อยาจาก Label
 
             # Use the custom message box
@@ -306,7 +302,7 @@ class Ui_each_drug(object):
                 cursor.execute("DELETE FROM Drug WHERE drug_name = ?", (drug_name,))
                 connection.commit()
                 connection.close()
-                each_drug.close()  # ปิดหน้าต่างหลังจากลบเสร็จ
+                self.backpage()  # ปิดหน้าต่างหลังจากลบเสร็จ
         
         self.delete_pushButton.clicked.connect(delete_drug)
 
@@ -319,7 +315,8 @@ class Ui_each_drug(object):
             updated_data['drug_eat'] = self.label_5.toPlainText()
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้า each_drug2
-            self.open_each_drug2(updated_data)
+            drug_Update_instance.Set(updated_data)
+            self.open_each_drug2()
         
         self.next_pushButton.clicked.connect(save_changes)
 
@@ -348,16 +345,22 @@ class Ui_each_drug(object):
             "background-color: rgb(227, 151, 61);"
         )
         
+    def backpage(self):
+        from drug_List import Ui_drug_List
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_drug_List)
+
     def closeAll(self):
         self.each_drug.close()  # ปิดหน้าต่างที่เป็นส่วนสมาชิกของ Ui_med_pack2
 
-    def open_each_drug2(self,updated_data):
-        self.each_drug2_window = QtWidgets.QMainWindow()
-        self.each_drug2_ui = Ui_each_drug2()
-        self.each_drug2_ui.setupUi(self.each_drug2_window, self.drug_List, self,updated_data)
-        print(f"each_drug {updated_data}")
-        self.each_drug2_ui.set_drug2_info(self.drug_id)
-        self.each_drug2_window.show()
+    def open_each_drug2(self):
+        print(f"each_drug {drug_Update_instance.Get()}")
+
+        each_drug_instance.Set(self)
+        drug_list_instance.Set(self.drug_List)
+        drug_ID_instance.Set(self.drug_id)
+        each_drug2_form = UI_Genarate()
+        each_drug2_form.widgetSet(UI_instance.Get(), Ui_each_drug2)
 
     def set_drug_info(self, drug_name):
         connection = sqlite3.connect("medicine.db")
@@ -367,6 +370,8 @@ class Ui_each_drug(object):
         connection.close()
 
         if drug_info:
+            self.label.setText(drug_info[1])
+
             self.drug_id = drug_info[0]
             # drug_info[1] is drug_name
             self.label_2.setPlainText(drug_info[1])

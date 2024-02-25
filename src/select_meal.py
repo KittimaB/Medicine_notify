@@ -1,22 +1,25 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-# from data_check import Ui_data_check
-from data_checkui1 import Ui_data_check1
+from PyQt5.QtWidgets import *
 import sqlite3
 
+# from data_check import Ui_data_check
+from data_checkui1 import Ui_data_check1
+
 class Ui_select_meal(object):
-    def setupUi(self, select_meal, drug_List, each_drug, each_drug2, day_start, updated_data2):
-        width, height = Scale_Width_Height()
+    def setupUi(self, select_meal):
+        UI_instance.Set(select_meal)
         show_widget_fullscreen(select_meal)
 
         self.select_meal = select_meal
-        self.drug_List = drug_List
-        self.each_drug = each_drug
-        self.each_drug2 = each_drug2
-        self.day_start = day_start
-        self.updated_data2 = updated_data2
+        self.drug_List = drug_list_instance.Get()
+        self.each_drug = each_drug_instance.Get()
+        self.each_drug2 = each_drug_2_instance.Get()
+        self.day_start = day_start_instance.Get()
+        self.updated_data2 = drug_Update_2_instance.Get()
         
         select_meal.setObjectName("select_meal")
         select_meal.resize(int(683 * width), int(400 * height))
@@ -25,14 +28,14 @@ class Ui_select_meal(object):
         self.centralwidget = QtWidgets.QWidget(select_meal)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(0, -60, int(683 * width), int(131 * height)))
+        self.frame.setGeometry(QtCore.QRect(int(0 * width), int(-60 * height), int(683 * width), int(131 * height)))
         self.frame.setStyleSheet("border-radius: " + str(int(40 * width)) + "px;\n"
     "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
         shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -42,7 +45,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.meal_label.setFont(font)
         self.meal_label.setStyleSheet("border-radius: " + str(int(16 * width)) + "px;\n"
         "color: rgb(255, 255, 255);\n"
@@ -51,10 +54,10 @@ class Ui_select_meal(object):
         shadow = QGraphicsDropShadowEffect(self.meal_label)
         shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.meal_label.setGraphicsEffect(shadow)
         self.meal_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.meal_label.setLineWidth(1)
+        self.meal_label.setLineWidth(int(1 * width))
         self.meal_label.setTextFormat(QtCore.Qt.AutoText)
         self.meal_label.setScaledContents(False)
         self.meal_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -79,7 +82,7 @@ class Ui_select_meal(object):
         shadow = QGraphicsDropShadowEffect(self.back_pushButton)
         shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.back_pushButton.setGraphicsEffect(shadow)
         self.back_pushButton.setObjectName("back_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -90,7 +93,7 @@ class Ui_select_meal(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.b_label = QtWidgets.QLabel(self.frame_2)
-        self.b_label.setGeometry(QtCore.QRect(int(10 * width), 0, int(121 * width), int(41 * height)))
+        self.b_label.setGeometry(QtCore.QRect(int(10 * width), int(0 * height), int(121 * width), int(41 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         self.b_label.setFont(font)
@@ -104,7 +107,7 @@ class Ui_select_meal(object):
         shadow = QGraphicsDropShadowEffect(self.frame_4)
         shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0, int(2 * height))
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_4.setGraphicsEffect(shadow)
         self.frame_4.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -120,7 +123,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.bb_label.setFont(font)
         self.bb_label.setStyleSheet("border-radius: " + str(int(9 * width)) + "px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -132,7 +135,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.bb_label.setGraphicsEffect(shadow)
         self.bb_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.bb_label.setLineWidth(1)
+        self.bb_label.setLineWidth(int(1 * width))
         self.bb_label.setTextFormat(QtCore.Qt.AutoText)
         self.bb_label.setScaledContents(False)
         self.bb_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -171,7 +174,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.ab_label.setFont(font)
         self.ab_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -183,7 +186,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.ab_label.setGraphicsEffect(shadow)
         self.ab_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.ab_label.setLineWidth(1)
+        self.ab_label.setLineWidth(int(1 * width))
         self.ab_label.setTextFormat(QtCore.Qt.AutoText)
         self.ab_label.setScaledContents(False)
         self.ab_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -227,7 +230,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.bl_label.setFont(font)
         self.bl_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -240,7 +243,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.bl_label.setGraphicsEffect(shadow)
         self.bl_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.bl_label.setLineWidth(1)
+        self.bl_label.setLineWidth(int(1 * width))
         self.bl_label.setTextFormat(QtCore.Qt.AutoText)
         self.bl_label.setScaledContents(False)
         self.bl_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -281,7 +284,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.al_label.setFont(font)
         self.al_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -293,7 +296,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.al_label.setGraphicsEffect(shadow)
         self.al_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.al_label.setLineWidth(1)
+        self.al_label.setLineWidth(int(1 * width))
         self.al_label.setTextFormat(QtCore.Qt.AutoText)
         self.al_label.setScaledContents(False)
         self.al_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -323,7 +326,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.ad_label.setFont(font)
         self.ad_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -336,7 +339,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.ad_label.setGraphicsEffect(shadow)
         self.ad_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.ad_label.setLineWidth(1)
+        self.ad_label.setLineWidth(int(1 * width))
         self.ad_label.setTextFormat(QtCore.Qt.AutoText)
         self.ad_label.setScaledContents(False)
         self.ad_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -361,7 +364,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.bd_label.setFont(font)
         self.bd_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -374,7 +377,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.bd_label.setGraphicsEffect(shadow)
         self.bd_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.bd_label.setLineWidth(1)
+        self.bd_label.setLineWidth(int(1 * width))
         self.bd_label.setTextFormat(QtCore.Qt.AutoText)
         self.bd_label.setScaledContents(False)
         self.bd_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -440,7 +443,7 @@ class Ui_select_meal(object):
         font = QtGui.QFont()
         font.setPointSize(int(12 * height))
         font.setBold(False)
-        font.setWeight(50)
+        font.setWeight(int(25 * width))
         self.bbed_label.setFont(font)
         self.bbed_label.setStyleSheet("border-radius: 9px;\n"
     "color: rgb(0, 0, 0);\n"
@@ -453,7 +456,7 @@ class Ui_select_meal(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.bbed_label.setGraphicsEffect(shadow)
         self.bbed_label.setFrameShape(QtWidgets.QFrame.Box)
-        self.bbed_label.setLineWidth(1)
+        self.bbed_label.setLineWidth(int(1 * width))
         self.bbed_label.setTextFormat(QtCore.Qt.AutoText)
         self.bbed_label.setScaledContents(False)
         self.bbed_label.setAlignment(QtCore.Qt.AlignCenter)
@@ -529,10 +532,9 @@ class Ui_select_meal(object):
 
         self.retranslateUi(select_meal)
         QtCore.QMetaObject.connectSlotsByName(select_meal)
-        def close_window():
-            select_meal.close()
+        
 
-        self.back_pushButton.clicked.connect(close_window)
+        self.back_pushButton.clicked.connect(self.backpage)
         # self.next_pushButton.clicked.connect(close_window)
 
         # ในส่วนนี้เราเพิ่มการเชื่อมต่อกับเมธอด save_checkbox_states ในปุ่มย้อนกลับ
@@ -541,14 +543,15 @@ class Ui_select_meal(object):
         self.conn = sqlite3.connect("medicine.db")
         self.cursor = self.conn.cursor()
 
-
+        self.set_meal_info(drug_ID_instance.Get())
         QtCore.QMetaObject.connectSlotsByName(select_meal)
 
         def save_changes():
             updated_data2 = self.updated_data2
             # updated_data2['meals'] = self.label_date.text()
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
-            self.open_data_check1(self.updated_data2)
+            drug_Update_2_instance.Set(self.updated_data2)
+            self.open_data_check1()
         
         self.next_pushButton.clicked.connect(save_changes)
         # self.next_pushButton.clicked.connect(self.closeAll)
@@ -581,13 +584,22 @@ class Ui_select_meal(object):
         self.each_drug2.closeAll()
         self.day_start.closeAll()  
         self.select_meal.close()
+    
+    def backpage(self):
+        from day_start import Ui_day_start
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_day_start)
         
-    def open_data_check1(self, updated_data2):
-        self.data_check1_window = QtWidgets.QMainWindow()
-        self.data_check1_ui = Ui_data_check1()
-        self.data_check1_ui.setupUi(self.data_check1_window, self.drug_List, self.each_drug, self.each_drug2, self.day_start, self, updated_data2)
-        self.data_check1_ui.set_data_info1(self.drug_id)
-        self.data_check1_window.show()
+    def open_data_check1(self):
+        drug_Update_2_instance.Set(self.updated_data2)
+        select_meal_instance.Set(self)
+        day_start_instance.Set(self.day_start)
+        each_drug_2_instance.Set(self.each_drug2)
+        each_drug_2_instance.Set(self.each_drug)
+        drug_list_instance.Set(self.drug_List)
+
+        data_check1_form = UI_Genarate()
+        data_check1_form.widgetSet(UI_instance.Get(), Ui_data_check1)
 
     def set_meal_info(self, drug_id):
         self.drug_id = drug_id

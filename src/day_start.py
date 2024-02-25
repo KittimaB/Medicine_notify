@@ -1,23 +1,24 @@
-from Utils import Scale_Width_Height, show_widget_fullscreen
+from Utils import *
+from UI_Generate import *
+width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QCalendarWidget, QMessageBox
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
-from select_meal import Ui_select_meal
-from PyQt5.QtCore import QLocale
-from PyQt5.QtCore import QDateTime
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 import sqlite3
 
+from select_meal import Ui_select_meal
+
 class Ui_day_start(object):
-    def setupUi(self, day_start, drug_List, each_drug, each_drug2, updated_data2):
-        width, height = Scale_Width_Height()
+    def setupUi(self, day_start):
+        UI_instance.Set(day_start)
         show_widget_fullscreen(day_start)
         
         self.day_start = day_start
-        self.drug_List = drug_List
-        self.each_drug = each_drug
-        self.each_drug2 = each_drug2
-        self.updated_data2 = updated_data2
+        self.drug_List = drug_list_instance.Get()
+        self.each_drug = each_drug_instance.Get()
+        self.each_drug2 = each_drug_2_instance.Get()
+        self.updated_data2 = drug_Update_2_instance.Get()
         
         day_start.setObjectName("day_start")
         day_start.resize(int(683 * width), int(400 * height))
@@ -31,9 +32,9 @@ class Ui_day_start(object):
 "background-color: rgb(255, 255, 255);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame.setGraphicsEffect(shadow)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -43,19 +44,19 @@ class Ui_day_start(object):
         font = QtGui.QFont()
         font.setPointSize(int(14 * height))
         font.setBold(True)
-        font.setWeight(75)
+        font.setWeight(int(75 * width))
         self.label.setFont(font)
         self.label.setStyleSheet("border-radius: 16px;\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(23, 73, 110);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.label)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.label.setGraphicsEffect(shadow)
         self.label.setFrameShape(QtWidgets.QFrame.Box)
-        self.label.setLineWidth(1)
+        self.label.setLineWidth(int(1 * width))
         self.label.setTextFormat(QtCore.Qt.AutoText)
         self.label.setScaledContents(False)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
@@ -78,9 +79,9 @@ class Ui_day_start(object):
 "background-color: rgb(244, 212, 99);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.add_back_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.add_back_pushButton.setGraphicsEffect(shadow)
         self.add_back_pushButton.setObjectName("add_back_pushButton")
         self.next_pushButton = QtWidgets.QPushButton(self.centralwidget)
@@ -93,9 +94,9 @@ class Ui_day_start(object):
 "background-color: rgb(227, 151, 61);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.next_pushButton)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.next_pushButton.setGraphicsEffect(shadow)
         self.next_pushButton.setObjectName("next_pushButton")
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
@@ -104,9 +105,9 @@ class Ui_day_start(object):
 "background-color: rgb(236, 236, 236);")
         # Add drop shadow effect to the button
         shadow = QGraphicsDropShadowEffect(self.frame_2)
-        shadow.setBlurRadius(8)
+        shadow.setBlurRadius(int(8 * width))
         shadow.setColor(QtGui.QColor(0, 0, 0, 100))
-        shadow.setOffset(0,2)
+        shadow.setOffset(int(0 * width), int(2 * height))
         self.frame_2.setGraphicsEffect(shadow)
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -141,12 +142,10 @@ class Ui_day_start(object):
         # self.calendarWidget.setMinimumDate(current_date)
 
         self.retranslateUi(day_start)
+        self.set_day_info(drug_ID_instance.Get())
         QtCore.QMetaObject.connectSlotsByName(day_start)
 
-        def close_window():
-            day_start.close()
-
-        self.add_back_pushButton.clicked.connect(close_window)
+        self.add_back_pushButton.clicked.connect(self.backpage)
 
         def save_changes():
             updated_data2 = self.updated_data2
@@ -166,7 +165,7 @@ class Ui_day_start(object):
                 self.convert_to_arabic_numerals(thai_numerals)
 
             # ส่งข้อมูลที่ถูกแก้ไขไปยังหน้าต่อไป
-            self.open_select_meal(self.updated_data2)
+            self.open_select_meal()
 
         # def save_changes():                                                                  แบบเดิม
         #     updated_data2 = self.updated_data2
@@ -256,7 +255,10 @@ class Ui_day_start(object):
 
            
         
-
+    def backpage(self):
+        from each_drug2 import Ui_each_drug2
+        backpage_form = UI_Genarate()
+        backpage_form.widgetSet(UI_instance.Get(), Ui_each_drug2)
 
 
     def set_day_info(self, drug_id):
@@ -290,20 +292,22 @@ class Ui_day_start(object):
 
         connection.close()
 
-    def open_select_meal(self, updated_data2):
+    def open_select_meal(self):
         if self.date_selected:
             # Save the selected date to the database
             selected_date = self.calendarWidget.selectedDate().toString("dddd d MMMM yyyy")
             # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window
-            self.select_meal_window = QtWidgets.QMainWindow()
-            self.select_meal_ui = Ui_select_meal()
-            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
-            self.select_meal_ui.set_meal_info(self.drug_id)
-            self.select_meal_window.show()
+            drug_Update_2_instance.Set(self.updated_data2)
+            day_start_instance.Set(self)
+            each_drug_2_instance.Set(self.each_drug2)
+            each_drug_instance.Set(self.each_drug)
+            drug_list_instance.Set(self.drug_List)
 
-            
+            select_meal_form = UI_Genarate()
+            select_meal_form.widgetSet(UI_instance.Get(), Ui_select_meal)
+
             self.calendarWidget.setEnabled(True)
         else:
             # Save the selected date to the database
@@ -311,13 +315,15 @@ class Ui_day_start(object):
             # self.save_date_to_database(selected_date, self.drug_id) คอมเมนต์เพื่อไม่ให้บันทึกวันลงในฐานข้อมูล
 
             # Open the select_meal window
-            self.select_meal_window = QtWidgets.QMainWindow()
-            self.select_meal_ui = Ui_select_meal()
-            self.select_meal_ui.setupUi(self.select_meal_window, self.drug_List, self.each_drug, self.each_drug2, self, updated_data2)
-            self.select_meal_ui.set_meal_info(self.drug_id)
-            self.select_meal_window.show()
+            drug_Update_2_instance.Set(self.updated_data2)
+            day_start_instance.Set(self)
+            each_drug_2_instance.Set(self.each_drug2)
+            each_drug_instance.Set(self.each_drug)
+            drug_list_instance.Set(self.drug_List)
 
-            
+            select_meal_form = UI_Genarate()
+            select_meal_form.widgetSet(UI_instance.Get(), Ui_select_meal)
+
             self.calendarWidget.setEnabled(True)
 
             # QMessageBox.warning(self.centralwidget, "เลือกวัน", "กรุณาเลือกวันก่อนดำเนินการถัดไป")
