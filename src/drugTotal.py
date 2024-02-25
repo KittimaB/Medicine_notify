@@ -98,11 +98,11 @@ class Ui_drugTotal(object):
         # สร้างและกำหนด QTableWidget
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(int(107 * width), int(105 * height), (int(450 * width) + 30), int(230 * height)))
-        font = QtGui.QFont()
-        font.setPointSize(int(11 * height))
-        font.setBold(True)
-        font.setWeight(50)
-        self.tableWidget.setFont(font)
+        # font = QtGui.QFont()
+        # font.setPointSize(int(11 * height))
+        # font.setBold(True)
+        # font.setWeight(50)
+        # self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
 
 
@@ -184,7 +184,7 @@ class Ui_drugTotal(object):
         _translate = QtCore.QCoreApplication.translate
         drugTotal.setWindowTitle(_translate("drugTotal", "จำนวนยาคงเหลือ"))
         self.add_back_pushButton.setText(_translate("drugTotal", "ย้อนกลับ"))
-        self.label.setText(_translate("drugTotal", "           จำนวนมื้อยาคงเหลือ   "))
+        self.label.setText(_translate("drugTotal", "           จำนวนยาคงเหลือ   "))
 
 import resources_rc
 

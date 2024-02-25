@@ -183,6 +183,40 @@ class Ui_sortDrug(object):
         shadow.setOffset(int(0 * width), int(2 * height))
         self.tableWidget.setGraphicsEffect(shadow)
 
+        self.img_in_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_in_label.setGeometry(QtCore.QRect(int(603 * width), int(225 * height), int(33 * width), int(31 * height)))
+        self.img_in_label.setText("")
+        self.img_in_label.setPixmap(QtGui.QPixmap(":/image/sort_in.png"))
+        self.img_in_label.setScaledContents(True)
+        self.img_in_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_in_label.setObjectName("img_in_label")
+
+        self.in_label = QtWidgets.QLabel(self.centralwidget)
+        self.in_label.setGeometry(QtCore.QRect(int(605 * width), int(195 * height), int(281 * width), int(30 * height)))
+        self.in_label.setStyleSheet("color: rgb(255, 255, 255);")
+        font = QtGui.QFont()
+        font.setPointSize(int(12 * height))
+        font.setBold(True)
+        font.setWeight(int(25 * width))
+        self.in_label.setFont(font)
+
+        self.img_out_label = QtWidgets.QLabel(self.centralwidget)
+        self.img_out_label.setGeometry(QtCore.QRect(int(40 * width), int(225 * height), int(33 * width), int(31 * height)))
+        self.img_out_label.setText("")
+        self.img_out_label.setPixmap(QtGui.QPixmap(":/image/sort_out.png"))
+        self.img_out_label.setScaledContents(True)
+        self.img_out_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.img_out_label.setObjectName("img_in_label")
+
+        self.out_label = QtWidgets.QLabel(self.centralwidget)
+        self.out_label.setGeometry(QtCore.QRect(int(47 * width), int(195 * height), int(50 * width), int(30 * height)))
+        self.out_label.setStyleSheet("color: rgb(255, 255, 255);")
+        font = QtGui.QFont()
+        font.setPointSize(int(12 * height))
+        font.setBold(True)
+        font.setWeight(int(25 * width))
+        self.out_label.setFont(font)
+
 
         # กำหนดหัวข้อคอลัมน์ในตาราง
         self.tableWidget.setColumnCount(col_max)
@@ -410,6 +444,8 @@ class Ui_sortDrug(object):
         self.add_back_pushButton.setText(_translate("sortDrug", "ย้อนกลับ"))
         self.sort_label.setText(_translate("sortDrug", "       วิธีเรียงกล่องบรรจุยา"))
         self.next_pushButton.setText(_translate("prepare", "ถัดไป"))
+        self.in_label.setText(_translate("sortDrug", "เข้า"))
+        self.out_label.setText(_translate("sortDrug", "ออก"))
 
 import resources_rc
 

@@ -39,6 +39,9 @@
     <file>reload.png</file>
   </qresource>
   <qresource prefix="image">
+    <file>sort_in.png</file>
+    <file>sort_out.png</file>
+    <file>step.png</file>
     <file>newpack3_img.png</file>
     <file>newpack2_img.png</file>
     <file>pack1_img.png</file>
