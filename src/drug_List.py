@@ -102,6 +102,9 @@ class Ui_drug_List(object):
 
         self.drug_list_widget = QtWidgets.QListWidget(self.centralwidget)
         self.drug_list_widget.setGeometry(QtCore.QRect(int(100 * width), int(90 * height), int(491 * width), int(261 * height)))
+        font = QtGui.QFont()
+        font.setPointSize(int(11 * height))
+        self.drug_list_widget.setFont(font)
         self.drug_list_widget.setStyleSheet("border-radius: 4px;\n"
 "color: rgb(0, 0, 0);\n"
 "background-color: rgb(226, 226, 226);")
