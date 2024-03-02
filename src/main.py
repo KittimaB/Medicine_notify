@@ -1,11 +1,26 @@
+from __future__ import division
+
 from Utils import *
 from UI_Generate import *
-width, height = Scale_Width_Height()
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-import sqlite3
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QLabel
+from PyQt5.QtCore import QThread, pyqtSignal, QObject, QTimer, QLocale
+from PyQt5.QtCore import Qt
+
+import sys
+import time
+# import RPi.GPIO as GPIO
+
+from datetime import datetime
+import os
+# import Adafruit_PCA9685
+import subprocess
+import threading
+# from playsound import playsound
+# import requests
+import pygame
+
 
 from drug_List import Ui_drug_List
 from select_time import Ui_select_time
@@ -14,12 +29,65 @@ from pack import Ui_med_pack
 from sortDrug import Ui_sortDrug
 from drugTotal import Ui_drugTotal
 from wifi import Ui_wifi
+# from module import SensorThread
 
-import datetime
+import sqlite3
 
-from Utils import *
-from UI_Generate import *
-width, height = Scale_Width_Height()
+# subprocess.run(["/home/pi/Documents/Medicine_notify/src/permission.sh"])
+
+######################### initial ######################\
+os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
+
+# Connect to SQLite database
+connection = sqlite3.connect("medicine.db")
+cursor = connection.cursor()
+
+# Create Drug table
+cursor.execute('''   
+    CREATE TABLE IF NOT EXISTS Drug (
+        "drug_id"	INTEGER,
+        "drug_name"	TEXT,
+        "drug_description"	TEXT,
+        "drug_remaining"	REAL,
+        "drug_remaining_meal"	INTEGER,
+        "fraction"	REAL,
+        "external_drug"	INTEGER,
+        "internal_drug"	INTEGER,
+        "drug_eat"	REAL,
+        "all_drug_recieve"	INTEGER,
+        "day_start"	INTEGER,
+        "drug_log"	TEXT,
+        "drug_new"  REAL,
+        "drug_size" REAL,
+        PRIMARY KEY("drug_id" AUTOINCREMENT))
+''')
+
+# Create Meal table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Meal (
+        "meal_id"	INTEGER,
+        "meal_name"	TEXT,
+        "time"	TEXT,
+        PRIMARY KEY("meal_id" AUTOINCREMENT)
+    )
+''')
+
+# Create Drug_handle table 
+##################### ใช้ระบุว่า ยาตัวนั้นกินมื้อไหนบ้าง ######################## 
+# ทำตารางนี้มาเพื่อแทนที่ meal_state ซึ่งเป็นการเก็บ state โดยรวม
+cursor.execute('''       
+    CREATE TABLE IF NOT EXISTS Drug_handle (
+        "handle_id"	INTEGER,
+        "drug_id"	INTEGER,
+        "meal_id"	INTEGER,
+        FOREIGN KEY("meal_id") REFERENCES "Meal"("meal_id"),
+        FOREIGN KEY("drug_id") REFERENCES "Drug"("drug_id"),
+        PRIMARY KEY("handle_id" AUTOINCREMENT)
+    )
+''')
+
+connection.commit()      
+################################################################
 
 class Ui_Medicine_App(object):
     def setupUi(self, Medicine_App):
@@ -36,10 +104,12 @@ class Ui_Medicine_App(object):
         data_checkui2_instance.Set(None)
         data_checkui3_instance.Set(None)
         meal_label_instance.Set(None)
+        # wifi_name_instance.Set(None)
 
+        
         UI_instance.Set(Medicine_App)
         show_widget_fullscreen(Medicine_App)
-
+        
         Medicine_App.setObjectName("Medicine_App")
         Medicine_App.resize(int(683 * width), int(400 * height))
         Medicine_App.setStyleSheet("\n"
@@ -91,7 +161,7 @@ class Ui_Medicine_App(object):
         self.img_home_label.setObjectName("img_home_label")
         
         self.wifi_pushButton = QtWidgets.QPushButton(self.frame)
-        self.wifi_pushButton.setGeometry(QtCore.QRect(int(545 * width), int(74 * height), int(41 * width), int(50 * height)))
+        self.wifi_pushButton.setGeometry(QtCore.QRect(int(590 * width), int(76 * height), int(41 * width), int(41 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(10 * height))
         font.setBold(True)
@@ -126,7 +196,7 @@ class Ui_Medicine_App(object):
         self.label_3.setAlignment(QtCore.Qt.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(int(50 * width), int(77 * height), int(65 * width), int(16 * height)))
+        self.label.setGeometry(QtCore.QRect(int(43 * width), int(77 * height), int(71 * width), int(16 * height)))
         font = QtGui.QFont()
         font.setPointSize(int(8 * height))
         self.label.setFont(font)
@@ -324,50 +394,6 @@ class Ui_Medicine_App(object):
         # Connect to SQLite database
         self.connection = sqlite3.connect("medicine.db")
         self.cursor = self.connection.cursor()
-
-        # Create Drug table
-        self.cursor.execute('''   
-            CREATE TABLE IF NOT EXISTS Drug (
-                "drug_id"	INTEGER,
-                "drug_name"	TEXT,
-                "drug_description"	TEXT,
-                "drug_remaining"	REAL,
-                "drug_remaining_meal"	INTEGER,
-                "fraction"	REAL,
-                "external_drug"	INTEGER,
-                "internal_drug"	INTEGER,
-                "drug_eat"	REAL,
-                "all_drug_recieve"	INTEGER,
-                "day_start"	INTEGER,
-                "drug_log"	TEXT,
-                "drug_new"  REAL,
-                "drug_size" REAL,
-                PRIMARY KEY("drug_id" AUTOINCREMENT))
-        ''')
-        
-        # Create Meal table
-        self.cursor.execute('''
-            CREATE TABLE IF NOT EXISTS Meal (
-                "meal_id"	INTEGER,
-                "meal_name"	TEXT,
-                "time"	TEXT,
-                PRIMARY KEY("meal_id" AUTOINCREMENT)
-            )
-        ''')
-
-        # Create Drug_handle table 
-        ##################### ใช้ระบุว่า ยาตัวนั้นกินมื้อไหนบ้าง ######################## 
-        # ทำตารางนี้มาเพื่อแทนที่ meal_state ซึ่งเป็นการเก็บ state โดยรวม
-        self.cursor.execute('''       
-            CREATE TABLE IF NOT EXISTS Drug_handle (
-                "handle_id"	INTEGER,
-                "drug_id"	INTEGER,
-                "meal_id"	INTEGER,
-                FOREIGN KEY("meal_id") REFERENCES "Meal"("meal_id"),
-                FOREIGN KEY("drug_id") REFERENCES "Drug"("drug_id"),
-                PRIMARY KEY("handle_id" AUTOINCREMENT)
-            )
-        ''')
         
         # Check if the Meal table is empty, and if so, insert default values
         self.cursor.execute("SELECT COUNT(*) FROM Meal")
@@ -417,8 +443,7 @@ class Ui_Medicine_App(object):
 
         self.wifi_pushButton.pressed.connect(lambda: self.set_button_pressed_style(self.wifi_pushButton))
         self.wifi_pushButton.released.connect(lambda: self.set_button_released_style(self.wifi_pushButton))
-        
-        
+
     def set_button_pressed_style(self, button):
         button.setStyleSheet(
             "border-radius: 9px;\n"
@@ -435,7 +460,7 @@ class Ui_Medicine_App(object):
         
     ###################### เวลา #############################
     def update_time(self):
-        current_datetime = datetime.datetime.now()
+        current_datetime = datetime.now()
         current_time = current_datetime.strftime("%H:%M:%S")
         current_date = current_datetime.strftime("%a, %d %b %Y")
         
@@ -503,7 +528,6 @@ class Ui_Medicine_App(object):
         self.drugLeft_pushButton.setText(_translate("Medicine_App", "  จำนวนยาคงเหลือ"))
         self.wifi_pushButton.setText(_translate("Medicine_App", ""))
         self.wifi_label.setText(_translate("Medicine_App", "Wi-Fi"))
-
     
         self.img_wifi_label.raise_()
         
@@ -519,4 +543,7 @@ if __name__ == "__main__":
     english_locale = QLocale(QLocale.English)
     QLocale.setDefault(english_locale)
     Medicine_App.show()
+    # sensor_thread = SensorThread()
+    # sensor_thread.run_thread()
+
     sys.exit(app.exec_())
